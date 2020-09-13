@@ -1,0 +1,72 @@
+\chapter*{Úvod} % SEM NESAHEJTE!
+\addcontentsline{toc}{chapter}{Úvod} % SEM NESAHEJTE!
+Návrh palivových vsázek je nutná a neoddělitelná podmínka k zajištění bezpečného a ekonomického provozu energetického reaktoru. 
+Význam optimalizace je o to větší, klade-li se důraz na minimalizaci opotřebení zařízení (což vede k projektování 
+nízkoúnikových vsázek), minimalizaci počtu nově zavážených palivových souborů mezi kampaněmi a maximalizaci 
+délky kampaně. To celé za respektování striktních bezpečnostních omezení. 
+
+Problém optimalizace palivových vsázek patří k diskrétním kombinatorickým úlohám, které se vyznačují 
+velkým prostorem možných řešení $(\geq\,\approx 10^{30})$. Pro přiřazení odezev \ac{az} k její konfiguraci 
+(tj. výpočet neutronickým kódem\footnote{Pojmem \ti{neutronický kód} je v této práci myšlena jakákoli metoda výpočtu 
+odezev aktivní zóny ze znalosti její konfigurace. V praxi se pro tuto úlohu používá určení hustoty toku neutronů 
+pomocí numerického řešení transportního či difuzního přiblížení ve více grupách. EDU užívá kód Moby-Dick, \ac{ete} kód ANDREA.}) 
+zatím nejsou známy vlastnosti vhodné pro efektivní 
+optimalizaci (např. spojitost, linearita, separabilita na menší podproblémy). 
+Hledat nejlepší řešení je proto velmi složité. 
+
+Uvedené vlastnosti vedly k použití heuristických algoritmů. Ty negarantují nalezení optimálního řešení, 
+ale jsou schopny najít přijatelné řešení v prakticky akceptovatelném čase. Příkladem jsou genetické algoritmy, 
+Simulated Annealing\footnotei{,}{Existuje český překlad \ti{Simulované žíhání}, není však příliš častý, proto je zde použit 
+původní název.} Swarm algoritmy nebo \ac{eda}. 
+
+Nevyřešeným problémem a hlavní motivací této práce je, že algoritmy založené na lokálním prohledávání 
+(značné množství současných implementací, které nejsou \ac{eda}) nediskutují lokalitu 
+použitého způsobu prohledávání. Lokalita je však pro efektivní fungování lokálního prohledávání 
+zásadní vlastnost. Při nedostatečné lokalitě je optimalizace pomalá a může vést až v nemožnost 
+najít přijatelné řešení. 
+
+Pokud by se našel způsob prohledávání splňující lokalitu, bylo by použití algoritmů na bázi lokálního 
+prohledávání velmi efektivní. Dokud takový způsob není nalezen, je k efektivnímu řešení nutno 
+použít algoritmus nevyžadující lokalitu, což je např. \ac{eda}, v současnosti implementovaná 
+v programu LPopt vyvíjeném v \ac{ujv} Řež,~ a.~ s. Hledání a podmínka pro splnění lokality zůstává předmětem dalšího výzkumu. 
+
+
+%
+% Optimalizace palivových vsázek je důležitou součástí správného provozu elektrárny -- předurčuje chování 
+% zóny pro celou kampaň. Vhodný výběr a 
+% uspořádání paliva má vliv na bezpečnostní (rezerva do krize varu, koeficienty reaktivity), výkonové 
+% (potřeba vyhořívajících absorbátorů, nevyrovnání výkonu) i ekonomické (maximální využití paliva, 
+% délka kampaně, menší opotřebení komponent) aspekty provozu reaktoru. 
+% 
+% V této práci bychom chtěli ověřit některé metody (lokální optimalizační algoritmy, strojové učení,\dots), které by 
+% mohly být použity jednak k urychlení návrhu, jednak k efektivnějšímu procesu návrhu. 
+% Zaměříme se na heuristickou část procesu, tj. části, kdy je potřeba provést velké 
+% množství méně přesných výpočtů a vytvořit tak podmožinu vsázek, které má smysl 
+% zkoumat důkladněji. Omezujeme se na reaktor VVER-1000 (dáno různými optimalizačními systémy 
+% používanými na českých jaderných elektrárnách) a jeho terminologii (případné odlišnosti 
+% případně zmíníme v příloze). 
+% 
+% Téma lokality je zajímavé, protože v dostupné literatuře není v souvislosti s optimalizací vsázek 
+% příliš zmiňováno a zkoumáno. V případě prokázání současné zkušenosti, že problém optimalizace 
+% vsázek lokální není, bychom ověřili, že současný přístup pomocí evolučních algoritmů je jediný 
+% rozumně použitelný. V případě prokázání opaku by však bylo možné použít mnohem širší třídu 
+% optimalizačních algoritmů, což dává prostor k zrychlení a zkvalitnění celého procesu.
+
+%% ISSUES
+% Tyto dristy patri do zaveru, tu ma byt proc to delam a ceho chci dosahnout
+% Nepis "my", ale v neosobni forme
+
+% -- strucne, co je to LPopt -- optimalizace rozmístění palivových do reaktoru
+% 
+% -- proč se tím chceme zabývat
+% 
+% -- -- bezpečnostní aspekty -- stabilní provoz, vyloučení havárií
+% -- -- ekonomické aspekty -- délka kampaně, úspora paliva
+% 
+% -- čeho chceme dosáhnout
+% 
+% -- -- zkvalitnit prohledávání prostoru vsázek -- snad najdem lepší řešení, prohledat větší část prostoru
+% 
+% -- -- lepší metoda -- lépe odhadovat, které za to stojí a které ne
+% 
+% -- -- zrychlit výpočetní čas, který je brutálně dlouhý

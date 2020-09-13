@@ -1,0 +1,114 @@
+\chapter*{Závěr} % SEM NESAHEJTE!
+\addcontentsline{toc}{chapter}{Závěr} % SEM NESAHEJTE!
+Práce se zabývala optimalizací palivových vsázek a speciálně 
+principem lokality a jeho vlivem na řešení problému optimalizace vsázek. 
+
+Cílem práce bylo numerické ověření na reálných datech, že nalezení 
+metriky vzdálenosti v prostoru konfigurací, která by zaručovala 
+významnou korelaci se vzdáleností odezev, je velmi složité nebo nemožné. 
+V zájmu o maximální obecnost modelu byly voleny metody machine-learning 
+(regression tree ensambles a neuronové sítě). Pro nalezení vhodného 
+modelu byla použita data z optimalizace vsázky pro Jadernou elektrárnu 
+Temelín, zahrnující $10^6$ konfigurací vsázek s vypočtenými odezvami, 
+což je v kontextu podobných prací velké množství, pokud ne zatím nejvíc, 
+co kdy bylo pro tuto úlohu použito. 
+
+V první kapitole byl stručně popsán reaktor \ac{vver1000} a jeho provoz 
+v Jaderné elektrárně Temelín. Na něm byla jednak popsána motivace 
+k optimalizovaání vsázek, jednak byl použit jako zdroj dat pro 
+praktickou část práce. 
+
+Ve druhé kapitole byly zmíněny důležité vlastnosti problému optimalizace 
+vsázek a byl diskutován jejich vliv na výběr metod k řešení problému. 
+
+Třetí kapitola zavedla pojem lokality a diskutovala význam lokality 
+v procesu optimalizace, a to včetně možného vlivu na předčasnou konvergenci, 
+v praxi pozorovanou u některých algoritmů používaných k optimalizaci vsázek, 
+které lokalitu nesplňují. Nesplnění principu lokality nemusí nutně znamenat 
+praktickou nepoužitelnost zmíněných algoritmů, ale může být zdrojem vážných problémů. 
+Doposud jedinou používanou třídou algoritmů používaných pro optimalizaci vsázek, 
+které nejsou založeny na lokálním prohledávání a tedy nevyžadují splnění 
+principu lokality, jsou algoritmy \ac{eda}. Používají se však spíše výjimečně. 
+Byla komentována náročnost hledání korelujících 
+metrik a v návaznosti na to byl zaveden koncept inherentně korelujících 
+metrik pomocí aproximátoru vzdáleností. Dále byl popsán proces hledání 
+zmíněného aproximátoru a vybráno několik metod které byly popsány. 
+
+Čtvrtá kapitola prezentuje výsledky z pokusů o tvorbu modelu na 
+základě dat z běhu optimalizačního programu LPopt. Byly provedeny 
+také pokusy o aproximaci samotného neutronického kódu. Na dostupných 
+datech je přesnost všech vytvořených modelů velmi špatná, pravděpodobné 
+příčiny byly podrobně diskutovány, a to včetně návrhů na odstranění 
+zmíněných problémů. Za největší problém je považována nevhodná distribuce 
+výstupních hodnot v použitých datech a velká dimenzionalita úlohy. 
+
+Závěrem je nutno konstatovat, že všechny vyzkoušené metody byly 
+nefunkční. Jejich funkčnost však není vyloučena -- minimálně je 
+nutné změnit postup a použitá data. Konkrétně je potřeba vyhnout se
+\cit{
+\item trénovacím datům příliš vychýleným k několika málo hodnotám,
+\item příliš kategorickým vstupním datům,
+\item vstupům vznikajících průměrováním, sumou či jinou \uv{agregací}, 
+	způsobující ztrátu informace,
+\item příliš velkým dimenzím vstupních hodnot.
+}
+
+Splnění lokality mezi $\Omega_c$ a $\Omega_r$, resp. $\Omega_P$ a $\Omega_r$, 
+zatím není možné, protože v prostoru $\Omega_c$, resp. $\Omega_P$, není 
+známa metrika vzdálenosti korelující s metrikou v prostoru $\Omega_r$. 
+Optimalizační algoritmy založené na lokálním prohledávání v $\Omega_c$, 
+resp. $\Omega_P$, nebudou fungovat efektivně. 
+
+Do budoucna je účelné zamyslet se, zda tvorba aproximátoru 
+vzdáleností má smysl, protože v podobném čase lze realizovat 
+predikci přímo konkrétních parametrů dané vsázky, které 
+poskytují užitečnější informaci, navíc je možno z nich vzdálenost 
+triviálně získat rozdílem. Taktéž by bylo vhodné blíže zkoumat 
+běh algoritmů založených na lokálním prohledáváním a zjistit, 
+zda je problém předčasné konvergence důsledkem uvíznutí 
+v lokálním extrému nebo se jedná o ztrátu lokality prohledávání. 
+
+Z nasbírané zkušenosti se jeví jako účelné konstruovat aproximátor 
+neutronického kódu tak, že
+\cit{
+\item trénovací data budou mít rovnoměrné rozdělení, maximálně nevýrazné 
+	peaky -- toho lze dosáhnout např. náhodným generováním 
+	vsázek,
+\item vstupní veličiny musí být dostatečně diverzní -- k zabránění 
+	kumulace jedné hodnoty lze použít aditivní šum, 
+	k větší diverzitě hodnot pak užít větší 
+	množství různých \ac{ps},
+\item jako vstupní data používat veličiny přímo popisující 
+	\ac{ps}, nikoli jejich kombinace,
+\item zmenšit dimenzi vstupních dat -- začít se 1--2 veličinami 
+	pro každý \ac{ps} v \ac{az}, další přidávat pouze tehdy, 
+	nebude-li ménědimenzionální model dostatečně přesný.
+}
+Ani splnění uvedených předpokladů nemusí garantovat funkčnost 
+vytvořeného aproximátoru. Určitě však má smysl se o to pokoušet, 
+protože
+\cit{
+\item aproximátor pomocí neuronových sítí byl už pro mnoho kódů 
+	úspěšně vytvořen,
+\item za předpokladu, že rychlost predikce ANN záleží jen na počtu 
+	neuronů a zvolených datových typech, je dosažitelný 
+	čas řádově jednotky ms na vsázku (za použití jednoho 
+	jádra na současném CPU) nebo méně, 
+	což je $>100$krát rychlejší, než současná implementace pomocí 
+	2D kódu (za předpokladu hromadné predikce), 
+\item aproximátor je možné vytvořit i pro 3D výpočetní kód a dosáhnout 
+	tak zlepšení přesnosti oproti současné implementaci využívající 
+	zjednodušený 2D výpočet.
+}
+
+% Z hlediska principu lokality se do budoucna jeví účelné hledat 
+% spíše lokální prohledávací operátory, protože jsou v praktické implementaci 
+% důležitější, resp. v případě nalezení metriky by se tvary lokálních 
+% prohledávacích operátorů pro správnou implementaci stejně musely najít. 
+% Kombinace několika takových operátorů může výrazně zrychlit celý 
+% optimalizační proces v důsledku generování menšího počtu nevhodných 
+% kandidátů na řešení. 
+
+%
+% Zde napište text úvodu (1-3 strany, nerozdělujte na podkapitoly) nebo jej vložte ze samostatného souboru: např. příkazem \texttt{\textbackslash input\{vnitrek\_zaver.tex\}}.
+%

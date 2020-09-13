@@ -1,0 +1,62 @@
+%% === nezbytné balíčky:
+\usepackage[T1]{fontenc}    % kódování písma
+%\usepackage[IL2]{fontenc}  % kódování písma
+\usepackage[nottoc]{tocbibind}      % citace
+\usepackage[utf8]{inputenc}     % vstupní znaková sada tohoto dokumentu: UTF-8
+\usepackage{makecell}
+\usepackage[czech]{babel} % česky psaná práce, typografická pravidla. Překládejte pomocí "latex.exe" nebo "pdflatex.exe"
+\usepackage[resetfonts]{cmap}
+\usepackage{lmodern}
+\usepackage{xargs}
+%\usepackage{ifthen}
+\usepackage[title]{appendix}
+\usepackage{import}
+\usepackage[a4paper, hmarginratio=3:2]{geometry} % využití A4 stránky a nastavení okrajů (u vazby bude širší)
+\usepackage{upgreek}
+\usepackage{pdfpages} % pokud nemáte formulář "Zadání bak./dipl. práce" naskenovaný jako PDF, tak ZAKOMENTUJTE
+\usepackage[hidelinks]{hyperref} % v PDF budou klikací odkazy ("hidelinks" je nebude rámovat)
+
+\usepackage{graphicx} % balíček pro vkládání rastrových grafických souborů (PNG apod.)
+%\usepackage{epsfig} % balíčky pro vkládání grafických souborů typu EPS
+\usepackage{float} % rozšířené možnosti umístění obrázků
+
+\usepackage[font=small,labelfont=bf]{caption}
+%\usepackage{caption} % pro popisky obrázků, tabulek atd.
+
+\usepackage{tabularx} % rozšířené možnosti tabulek
+
+\usepackage{listings}  % balíček vhodný pro ukázky zdrojového kódu v~textu práce/příloh. Nutno nastavit! http://ftp.cvut.cz/tex-archive/macros/latex/contrib/listings/listings.pdf
+\usepackage{amsmath} % balíček pro pokročilou matematickou sazbu
+\usepackage{amssymb}
+%\usepackage{color} % pro možnost barevného textu
+%\usepackage{fancybox} % umožňuje pokročilé rámečkování
+%\usepackage{minipage}
+%\usepackage{index} % nutno použít v případě tvorby rejstříku balíčkem makeindex
+%\newindex{default}{idx}{ind}{Rejstřík} % zavádí rejstřík v případě použití balíku index
+\usepackage{tocloft}
+\usepackage{paralist}
+\usepackage{csquotes}
+\usepackage[style=iso-numeric, backend=biber, language=czech]{biblatex}
+\addbibresource{ref.bib}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{define}{Definice}[section]
+
+%% nice header style
+\usepackage{fancyhdr}
+
+%% elements, isotopes,...
+\usepackage[version=3]{mhchem}
+
+\usepackage{gensymb}
+% \usepackage[nocfg,intoc]{nomencl}
+
+% \makenomenclature
+
+\usepackage[printonlyused,footnote]{acronym}
+
+%\usepackage[acronym]{glossaries}
+% \newacronym{api}{API}{Application Programming Interface}
+% \makeglossaries
+% \newacronym{gcd}{GCD}{Greatest Common Divisor}
+

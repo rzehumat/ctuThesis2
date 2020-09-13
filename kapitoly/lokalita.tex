@@ -1,0 +1,239 @@
+\chapter{Lokalita}
+\label{ch:lokalita}
+Lokalita znamená korelaci mezi vzdáleností mezi vzdáleností bodů 
+z definičního oboru a vzdáleností funkčních hodnot. Matematicky řečeno
+\begin{equation}
+	\forall x,y,z \in dom(f): d_{dom} (x,y) \leq d_{dom}(x,z) \Rightarrow d_{ran}(f(x),f(y)) \leq d_{ran}(f(x),f(z))\,,
+\end{equation}
+kde $f$ je nějaká funkce a $d_{dom}$, resp. $d_{ran}$ jsou metriky na definičním oboru, resp. oboru hodnot. Tato implikace 
+obecně nefunguje, proto se lokalita hodnotí korelací vzdáleností -- např. koeficientem fitness-distance definovaným jako
+\begin{equation}
+	\rho_{FDC} := \frac{1}{m}\sum_{i=1}^{m}\frac{(f_i - \langle f \rangle)(d_{i,opt} - \langle d_{opt} \rangle)}{m \sigma(f) \sigma(d_{opt})}\,,
+\end{equation}
+kde $f_i := f(x_i)$ je hodnota fitness funkce pro daný vstup, $d_{i, opt} = d_{dom} (x_i, x_{opt})$ vzdálenost od optima, $\langle f \rangle$ resp. $\langle d_{opt}\rangle$ je průměrná hodnota užitkové funkce resp. průměrná vzdálenost od optimálního řešení. 
+
+\section{Motivace}
+Vysoká úroveň lokality je nutnou podmínkou pro dobré fungování \ti{guided-search algoritmů}, což jsou algoritmy, kde je v každé iteraci 
+vygenerovaná množina kandidátů vybraná z okolí nejlepších kandidátů předchozí iterace. Výhodou je, že cíleně prohledávají \uv{lepší} oblasti a tedy by měly 
+hledat dobrá řešení poměrně rychle, nevýhodou 
+pak náchylnost k uváznutí v oblasti lokálních minim. Splnění principu lokality zajistí, že prohledáváním okolí bude docházet k malým změnám -- při nesplnění 
+by se chovaly jako \ti{random-search}, bez jakékoli systematičnosti. 
+Podle hodnoty $\rho_{FDC}$  dělíme 
+prostory na 
+\begin{enumerate}
+	\item přímočaré (\ti{straightforward}), kde $\rho_{FDC} \geq 0,15$, vzdálenosti prvků a fitness function korelují a \ti{guided-search} funguje správně,
+	\item náročné (\ti{difficult}), kde $\rho_{FDC} \in (-0,15;0,15)$, kde vzdálenosti a fitness function nevykazují žádnou korelaci a \ti{guided-search} se chová náhodně, a
+	\item zavádějící (\ti{misleading}), kde $\rho_{FDC} \leq -0,15$, vzdálenosti a fitness function vykazují zápornou korelaci a \ti{guided-search} se vzdaluje od optima.
+\end{enumerate}
+
+Z definice je jasné, že zavedením vhodné metriky je možné lokalitu ovlivnit. Praxe ukazuje, že naivní volba standardních metrik způsobuje malou lokalitu problému. Budeme ověřovat, zda v úloze optimalizace palivových vsázek existují korelované metriky, tedy takové, jejichž volbou by byl splněn princip lokality. Za účelem zavedení metriky definujme možné reprezentace palivových vsázek -- zápisy vsázek čísly či určitou matematickou strukturou, na které půjde metrika dobře definovat.
+
+
+
+% jak ji definujeme
+% motivace - proč to chceme, čeho bychom dosáhli, kdybychom ji zavedli
+%% jaké metody bychom mohli používat, 
+% jak ji můžeme zavést
+% jednotlivé prostory, jejich vztah, přechody, zobrazení
+% vliv metriky na konvergenci, spojitost a stejnoměrnou spojitost
+% problém reprezentace
+% na jake operace jsou prostory uzavrene? existuje tam pojem baze, dimenze, souradnic, 
+
+%TODO:
+%% Proč to děláme? -- lépe prohledávat prostor, resp. prohledávat okolí (WTF co to je okolí??) těch DOBRÝCH vsázek
+%% 		-- at muzem pouzivat guided-search algoritmy
+\section{Definice a vlastnosti}
+Metrikou rozumíme zobrazení $d: MxM \rightarrow \mathbb{R}_{0}^{+}$, kde $M$ je množina, 
+% případně na vektorovém prostoru $V$ jako $d: VxV \rightarrow T$, $T$ je těleso, 
+splňující
+\begin{enumerate}
+    \item \label{metr:PD} $\forall x,y \in M: d(x,y) \geq 0 \wedge d(x,y) = 0 \Leftrightarrow x=y$\,,
+    \item \label{metr:sym} $\forall x,y \in M: d(x,y) = d(y,x)$\,,
+    \item \label{metr:tri}$\forall x,y,z \in M: d(x,y) \leq d(x,z) + d(z,y)$.
+\end{enumerate}
+Zobrazení $\delta$ splňující pouze vlastnosti \eqref{metr:PD} a \eqref{metr:sym} nazveme semimetrikou.
+
+Okolím bodu $x \in M$ o poloměru $\epsilon$ nazveme množinu otevřenou kouli $B_{\delta}(x):=\{y\in M | d(x,y)< \epsilon \}$. 
+Alternativní možnost definice okolí je pomocí topologie\footnotei{.}{Používáme metriky, protože se s nimi snáze pracuje 
+v počítačových výpočtech.}
+
+
+%% from Rothland -- lokalita, metrika, norma,..
+
+\section{Reprezentace}
+Uspořádání AZ, tj. fyzický objekt, je potřeba abstrahovat a popsat čísly či jinými objekty, na kterých je možno metriku zavádět. 
+Popis volíme účelně -- měl by co nejlépe vystihovat vlastnosti fyzických AZ. Pro různě detailní popis zavádíme prostory $\Omega_C$, 
+$\Omega_P$, $\Omega_r$.
+
+V kontextu moderních heuristik je $\Omega_C$ množina genotypů (tj. \ti{search space}, $\Omega_P$ množina fenotypů.  
+%% Preklada se nejak pojem "search space"?
+
+Lokalita je daná metrikou na \ti{search space} nebo definicí lokálních vyhledávacích operátorů\footnote{Definice jednoho až na multiplikativní faktor určuje 
+definici druhého. Existuje-li metrika, pak lokální vyhledávací operátor přiřazuje body z okolí, naopak máme-li definovaný lokální vyhledávací operátor, 
+je metrika určena tak, aby přiřazoval blízké body. Pouze je nutné hlídat zachování všech požadovaných vlastností.} (dle \cite{rothlauf}, kap. 3).
+
+%% Neni zde spis Omega_r prostor fenotypu
+	%% asi ne
+
+%% prevedeni realneho problemu do neceho, s cim umime pocitat -- matice, vektory, cisla
+%% 	-- slo by i coz ineho - napr. stromy? -- co treba dat palivovy inventar do stromu?
+
+\subsection{Prostor $\Omega_C$}
+Prvky prostoru $\Omega_C$ jsou vsázky zapsané pomocí vektoru $\bv{c} = [\bv{c}_{pos}, \bv{c}_{rot}] = [FA_{1},\dots,FA_{28}, rot_{1},\dots,rot_{28}]$ 
+délky $2N$, 
+kde $FA_{i}$ je číslo palivového souboru na $i$-té pozici v AZ a $rot_{i}$ je jeho rotace.  
+
+Pokud je optimalizace rotací oddělitelný od problému přiřazení palivového souboru k pozici nebo pokud rotace palivového souboru má pouze malý vliv na 
+výsledné vlastnosti zóny, je popsaný zápis účelný. Pokud se rotace nedají řešit odděleně nebo rozdíl chování různých rotací palivového souboru je srovnatelný 
+s rozdílem parametrů při záměně souborů, je účelnější pohlížet na rotace palivových souborů jako na různé soubory.
+
+%%TODO:
+%% 28-dim konfig. prostor
+%% prostor -- nebo spíš grupa -- permutací-- jake ma vlastnosti?
+%% reprezentace grafem, resp. maticí
+%% maticové či grafové či grupové metody -- viz Roubalík
+%% umíme sem dát něco lepšího než grupu??
+%% co vlastně bude moje operace v grupě? A záleží mi na tom? Proč?
+
+
+\subsection{Prostor $\Omega_{P}$}
+Prvky $\Omega_P$ jsou \uv{fenotypy}, konkrétní fyzikální charakteristiky všech kazet v AZ, které se dají použít jako vstup pro NF-kód. Vznikají 
+přiřazením fyzikálních charakteristik palivového souboru k pozici v aktivní zóně
+\begin{equation}
+	\Omega_P = \{\bv{L}|\bv{L} = \bv{P(c)}\}\,,
+\end{equation}
+kde $\bv{L}\in\mathbb{R}^{P,N}$ je matice fyzikálních veličin popisuící palivovou vsázku -- její sloupce tvoří jednotlivé soubory (1\dots 28), 
+řádky pak fyzikální veličiny popisující soubor (vyhoření, obohacení,\dots) a $\bv{P}\in\mathbb{R}^{T,R,P}$ je matice popisující dostupné palivové 
+soubory ve všech možných rotacích. Považujeme-li jednotlivé rotace za různé palivové soubory, lze použít zápisu $\bv{L}\in\mathbb{R}^{TR,P}$.
+%% reprezentace maticemi -- jak je vhodne psat?
+%% delat usporadani jako na C?
+%% muzou byt matice 121x28
+%% je VP matic (urcite) -- umeli bychom mu dat nejakou 
+%% vhodnejsi operaci -- at lepe vystihne, jak funguje ten prostor
+%% jsou tam nejake invarianty?--jo, soucet radku pres vsechny sloupce
+
+\subsection{Prostor $\Omega_{res}$}
+$\Omega_r$ je prostor odezev reaktoru na danou vsázku, vypočtených neutronickým kódem. Popsat jej lze $v$-dimenzionálními vektory, tvořenými jednotlivými 
+odezvami (např. $F_{\Delta H}$, $F_{HA}$,\dots).
+
+%% uz je tez jakysi realny VP 6-dim vektoru
+
+
+\section{Nový přístup k návrhu palivových vsázek}
+Pokud by se podařilo najít metriky zajišťující lokalitu, bylo by možné navrhnout nový optimalizační algoritmus založený na \ti{guided-search} metodách. 
+Tvorba takového algoritmu by mohla být následující.
+\begin{enumerate}
+	\item Volba \uv{trénovacího} prostoru -- z již propočtených návrhů vsázek sestavíme $\Omega_P$ a $\Omega_r$. Hodnoty v $\Omega_P$ a 
+		$\Omega_r$ normalizujeme (a uložíme parametry dané transformace). Trénovací prostor by měl uniformě pokrývat všechny možné hodnoty, kterých 
+		veličiny mohou nabývat. To je důležité, aby později hledaná korelující metrika korelovala globálně, nikoli pouze v omezených oklastech.
+	\item Hledání metriky $d_P (.,.)$ na $\Omega_P$, která zajistí lokalitu (pokud existuje).
+	\item Na $\Omega_P$ najdeme operátory $S_{\epsilon}^{i}$ na $\Omega_P$, splňující 
+		\begin{itemize}
+			\item $S_{\epsilon} \neq Id$\,,
+			\item $\forall A\in \Omega_P: d_P (S_{\epsilon}(A), A) < \epsilon$\,.
+		\end{itemize}
+		Jinak řečeno jde o nalezení \uv{malých změn} v parametrech vsázky, které způsobí \uv{malé změny} v odezvách. Není však jasné, zda 
+		$S_{\epsilon}$ vůbec může existovat.
+	\item Vhodné zavedení $\Omega_C$ a operací na něm, aby způsobovaly změny popsané $S_{\epsilon}$ (existuje-li). 
+	
+\end{enumerate}
+
+
+Samotný algoritmus návrhu by pak mohl fungovat následovně.
+\begin{enumerate}
+	\item Inicializace $N$ náhodných počátečních konfigurací $\mathcal{C}^0 = [\vec{c}_1^0, \dots,\vec{c}_N^0]$\,.
+	% Náhodných? Nešlo by to lépe???
+	\item \label{step:gen} Pro každé $c_i^j$ vygenerování $k$ nových konfigurací z jejich okolí -- zavedenou notací zapsáno
+		\begin{equation}
+			\mathcal{C}_1^j = S_{\epsilon}^1 \mathcal{C}^j, \dots, \mathcal{C}_k^j = S_{\epsilon}^k \mathcal{C}^j\,.
+		\end{equation}
+	\item \label{step:eval} Evaluace fitness skóre
+	\item \label{step:iter} Výběr $N$ nejlepších kandidátů z $\mathcal{C}^j, \mathcal{C}_i^j$, ti pak tvoří $\mathcal{C}^{j+1}$\,.
+	\item \label{step:repeat} Pokud $\mathcal{C}^{j+1} = \mathcal{C}^{j}$, ulož $\mathcal{D}_l = \mathcal{C}^j$. Jinak pokračuj 
+		krokem \ref{step:gen}.
+	\item \label{step:best} Porovnej $\mathcal{D}_l$ a $\mathcal{D}_{l+1}$ a ulož $N$ nejlepších.
+	\item \label{step:reset} Opakuj \ref{step:gen}-\ref{step:repeat} s jiným počátečním $\mathcal{C}^0$.
+	\item Pokud se množina nejlepších kandidátů mění, opakuj \ref{step:best}-\ref{step:reset}. Pokud proběhlo $p$ opakování bez změny nejlepších 
+		kandidátů, ověř ty nejlepší úplným NF-solverem, ulož $q<N$ nejlepších i s výsledky a skonči.
+\end{enumerate}
+
+% sem zápisky ze sešitu 
+% sem Kvasničkovo pdfko
+
+
+
+
+
+% Mohou být reprezentovány sérií rovností a nerovností.
+% 
+% -- prostory a jejich vlastnosti
+% 
+% -- definice lokality -- a proč je to pro nás dobré
+% 
+% -- odkázat se na to, jak se to dělá dnes a na evaluaci
+% 
+% 
+% \chapter{Lokalita}
+% Lokalitu definujeme jako míru, jak vzdálenost $d(x,y)$ prvků $x,y$ z metrického prostoru (či jen množiny s metrikou) odpovídá vzdálenosti $f(x) - f(y)$. Jinak řečeno, lokalita úzce souvisí s topologickou spojitostí zobrazení $f$ (spojitá funkce bude princip lokality splňovat). Z definice spojitého zobrazení
+% \begin{equation}
+%     (\forall \epsilon>0)(\exists \delta > 0)(\forall x \in U_{\delta}(y))(f(x)\in U_{\epsilon}(y)),
+% \end{equation}
+% kde $U_{\delta}(y)$ značí okolí bodu $y$ o poloměru $\delta$. Spojitost tak zřejmě závisí na volbách metrik na definičním oboru i oboru hodnot.
+% 
+% Lokalita je klíčová vlastnost pro "guided search methods", tedy optimalizační metody, založené na iterativním zpřesňování, kde následující krok je závislý na výsledcích předchozího a noví kandidáti na řešení jsou hledáni v okolí kandidátů s vysokou hodnotou užitkové funkce. Na problémech nesplňující princip lokality obecně fungovat nebudou. Řešení takových úloh je pak omezeno na použití omezené třídy algoritmů (genetické, heuristické), které nemusí být nejlepší jak z hlediska nalezení optimálního řešení, tak výpočetního času. Hlavní motivací ověření principu lokality pro palivové vsázky tedy je snaha o zefektivnění řešení úlohy.
+% 
+% 
+% \section{Reprezentace}
+% Reprezentací rozumíme převedení reálného problému (konfigurace aktivní zóny) na matematickou úlohu. Reprezentace musí být jednoznačná a účelná - volíme takové objekty, s nimiž umíme snadno počítat. Vzhledem k náročnosti úlohy a symetrii optimalizujeme v případě reaktorů VVER pouze 1/6 AZ, zbytek je pak zavezen podle stejného schématu.
+% 
+% %Tady něco napiš, ať to navazuje
+% 
+% \subsection{Konfigurační prostor $\Omega_C$}
+% V konfigurčním prostoru zohledňujeme přiřazení palivového souboru ke konkrétní pozici v AZ.
+% 
+% Uvažujme aktivní zónu o $N$ pozicích (každé pozici v AZ přiřadíme číslo z $\hat{N}$\footnote{$\hat{N}=\{1,2,...N\}$}). Přiřazení palivových souborů 
+% 
+% 
+% a $M>N$ dostupných palivových souborů. 
+% 
+% Pak sortiment paliva můžeme zapsat vektorem $\vec{t}$, kde každá pozice odpovídá 1 dostupnému palivovému souboru a číslo na dané pozici jeho typu. Seřadíme-li prvky $\vec{t}$ vzestupně, bude obecně na prvních $n_1$ pozicích je 1, na dalších $n_2$ 2 ... na posledních $n_N$ prvcích bude N, přičemž $\sum n_i = M$. Např. $\vec{t} = (1,1,1,2,2,3,3,4,5)$ značí, že máme k dispozici 3 palivové soubory typu 1, 2 soubory typu 2, 2 soubory typu 3 a po 1 souboru od typů 4 a 5.
+% 
+% Palivovou vsázku pak můžeme popsat vektorem konfigurace paliva $\vec{c}$ o N složkách vybraných z $t$, přičemž $c_i = j$ odpovídá situaci, kdy na $i$-té pozici v AZ je palivový soubor $j$. Tedy $\vec{c}$ vznikne výběrem N prvků z $\vec{t}$ a jejich permutací. 
+% 
+% Permutaci můžeme zapsat vektorem $\vec{p}$, kde $c = p(t)$ (poznámku mám c=t(p), ale nějak se mi to nezdá... p vybere prvky z t a vznikne c), kde $p_i(t) = k$ $\Leftrightarrow$ na $i$-té pozici v $c$ je $k$-tý prvek z $t$.
+% 
+% Odpovídající si trojice by např. byly
+% \begin{align}
+%     t &= (1,1,1,2,2,3,4,5,6,6,7,8,8,8), \\
+%     c &= (2,1,2,3,4,1,1,5), \\
+%     p &= (4,1,5,6,7,2,3,8),
+% \end{align}
+% nicméně toto přiřazení není jednoznačné. Např. vektor $\textasciitilde{p} = (4,2,5,6,7,1,3,8)$. Mohli bychom přidat podmínku, že do vektoru $p$ zapisujeme vždy nejnižší možné číslo.
+% 
+% Nebo to udělejme jinak. Můžeme definovat unikátní vektor palivového souboru $\textasciitilde{t} = (1,2,3,4,5,...,k)$ a k němu příslušící $k$-složkový vektor násobností, na jehož $i$-té pozici je počet dostupných souborů typu $\textasciitilde{t}_i$.
+% 
+% Zavedeme-li $\textasciitilde{c}$, kde na $i$-té pozici je číslo z $k strecha$ vyjadřující typ souboru na $i$-té pozici v AZ, vidíme, že každou vsázku lze bijektivně zobrazit na vektor $\textasciitilde{c}$. To chceme, protože s vektory umíme dobře pracovat.
+% % tu napíšu ještě o vektoru permutací
+% 
+% 
+% 
+% \subsection{Prostor $\Omega_{LP}$}
+% Prostor $\Omega_{LP}$ vzniká procesem tzv. \textit{mappingu}, kdy pozičnímu přiřazení z $\Omega_{C}$ přidáme vlastnosti o jednotlivých palivových souborech - tj. každému palivovému souboru můžeme přiřadit např. vyhoření, $k_{\inf}$, izotopické složení,... Jednotlivé vsázky pak můžeme zapsat (bijektivně zobrazit) jako matice $M \in \mathbb{R}^{rxk}$, kde sloupce představují jednotlivé pozice v aktivní zóně a řádky jednotlivé veličiny popisující palivové soubory, tj. $M_{ij}$ je hodnota $i$-té veličiny popisující soubor na $j$-té pozici v AZ.
+% 
+% %tady napíšu, že vznikne přiřazením vlastností palivového souboru k danému vektoru konfigurace paliva
+% 
+% % jeho prvkem tedy budou matice R jxn, tj. sloupce jsou jednotlivé palivové soubory a řádky odpovídají jednotlivým veličinám (které považujeme za relevantní - např. k_inf, vyhoreni apod. te kazety
+% 
+% 
+% 
+% \subsection{Prostor $\Omega_{\phi}z$}
+% Prostor odezev. Fázový prostor tvořený odezvami reaktoru. Vsázky zde odpovídají jednotlivým bodům prostoru, souradnice. Jde o vektorový prostor, vzdálenost se zde dá dobře definovat.
+% % prostor R^l, kde l je pocet odezev, co nas zajimaji
+% 
+% 
+% 
+% % nadefinuj lokalitu, representace, prostoy, slož. zobraz. odkur kam zolrazuji
+
+
+%TODO: Může nefunkce modelu souviset s tím, že nevíme, jaký je vliv různých parametrů?
+%TODO: Mohli bychom napocitat Jakobian z Andrey 2D?

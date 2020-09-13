@@ -1,0 +1,513 @@
+\chapter{Obecná formulace optimalizace vsázek}
+
+\section{Definice, přístupy}
+Optimalizací palivových vsázek (\ac{lpo}, též \ac{micfmo})
+se rozumí hledání nejlepší konfigurace paliva, regulačních orgánů 
+a vyhořívajících absorbátorů v aktivní zóně. Optimalizace zahrnuje výběr palivových souborů, 
+jejich umístění a rotaci a výběr množství a umístění 
+vyhořívajících absorbátorů. Úloha je omezena dostupným palivem 
+(zahrnujícím čerstvé a částečně vyhořelé soubory)
+a bezpečnostními kritérii. Bezpečnostní kritéria a proces hodnocení jsou stanoveny v interních dokumentech 
+provozovatele.
+
+Podle palivového inventáře rozlišujeme \ti{incore} a \ti{excore} optimalizaci~\cite{roubalik}.
+\cen{
+	\item \textit{Incore} optimalizace je úloha přiřazení $m = n$ palivových elementů k $n$ pozicím v symetrické části \ac{az} (pro zjednodušení výpočtu se \ac{az} rozdělí na několik symetrických částí (v případě \ac{vver} na 6).
+	\item \textit{Excore} optimalizace více odpovídá reálnému provozu -- $m > n$, tedy nejde pouze o umístění palivových souborů, ale i o vhodný výběr souborů z inventáře, který je obecně větší než počet pozic v \ac{az}. Dále se optimalizují délky cyklů.%TODO roubalik
+}
+Z hlediska počtu cyklů se rozlišuje jednocyklová a vícecyklová optimalizace. 
+\cen{
+		\item Jednocyklová optimalizace (\ac{icfmo}) zahrnuje návrh pouze jednoho cyklu. To může vést k nevýhodnému palivovému inventáři pro 
+			následující cykly. 
+		\item Vícecyklová optimalizaci (\ac{ocfmo}) optimalizuje více cyklů dopředu, tj. bere v úvahu, že výstup jednoho cyklu 
+			ovlivňuje vstup následujícího. Úloha je výrazně náročnější (např. je potřeba modelovat izotopické složení palivových souborů 
+			na konci cyklu). Nejistota výpočtů roste s množstvím dopředu plánovaných cyklů, navíc může docházet 
+			k neplánovaným změnám (objevení netěsnosti či jiného poškození palivového souboru, neplánovaná odstávka). To 
+			způsobuje, že optimalizace na mnoho cyklů dopředu může být nepraktická. Je možné použít předpoklad, že 
+			\ac{icfmo} ovlivní \ac{ocfmo} jen omezeně. \ac{ocfmo} pak stanoví požadavky na \ac{icfmo}~\cite{schlunz}. 
+			%To je potřeba brát v úvahu a optimalizovat více cyklů dopředu, což úlohu komplikuje -- je potřeba 
+			%modelovat izotopické složení palivových souborů, 
+}
+
+%% ISSUES
+%% ===============================================
+%% palivová vsázka, překládkové schéma,... -- co je co?
+%% co všechno optimalizujeme
+%% rozdíl mezi kampaní a cyklem, jak je dlouhé u jednotlivých reaktorů, upřesnit!!!
+%% které veličiny maximalizujeme, kde je to psané, metodika hodnocení
+%% jaká jsou bezpečnostní omezení a kde jsou specifikována
+%% rozdil -- metody incore a outcore
+%% rozdil -- 1 cyklova a vicecyklova -- jak je v praxi
+
+%% Solved
+%% ============
+%% palivový soubor = ETE, 163 v zone, 6-úh, bezobálkový, tvořený 312 paliv. proutky, 18 vodícími trubkami a centrální trubkou
+%% palivová kazeta = EDU, 349 v zone, 6-uh, obálkové,126 tyčí,  -- cite sklenka, hermansky
+
+
+\section{Vlastnosti problému optimalizace vsázek}
+\label{ch:vlastnosti}
+% \ti{LPO} se označuje také jako \ti{MICFMO} (\ti{Multi-objective In-Core Fuel Management Optimization}). 
+Matematicky je \ac{micfmo} úloha vícekriteriálního optimálního 
+nelineárního přiřazení s omezujícími podmínkami (\ti{constrained})~\cite{roubalik}. Specifické vlastnosti užitkové funkce a prostorů, 
+na kterých operuje, budou rozebrány podrobněji 
+v kapitole \ref{ch:new}. Vlastnosti problému jako celku budou rozebrány níže. Bližší popis některých vlastností uvádí článek~\cite{stevens}.
+
+% %% nadefinovat MICFMO, omezující podmínky, kombinatorické kecy, omezující podmínky, pareto frontu, suboptimální vsázku, penalizace, Stevensovy vl.,
+% %% objective fx
+
+% zdůraznit rozdíl mezi diskrétní a spojitou optimalizací
+
+
+\subsection{Diskrétnost}
+\label{sec:diskretnost}
+Záměna palivových souborů se děje vždy diskrétně. To omezuje přístup k řešení problému -- mnoho analytických metod 
+nelze použít, protože jsou založeny na spojitých změnách. Proto je nutné použít metody k diskrétním problémům -- podobně 
+jako u \ti{problému obchodního cestujícího}-je možno prohledat část prostoru vsázek pomocí diskrétních kroků. 
+Prostor z principu nelze prohledat celý. 
+
+\ac{az} typu \ac{vver1000} o 163 palivových pozicích s uvážením rotací má 
+\eq{
+	6^{163}\cdot 163!
+}
+teoretických 
+	vsázek, navíc v palivovém inventáři elektrárny (sklad čerstvého paliva, bazén použitého paliva a aktuální obsah aktivní zóny) 
+	může být víc palivových souborů než pozic v \ac{az}. Je-li $m$ počet souborů v inventáři, bude maximální počet vsázek 
+	shora omezen $\binom{m}{163} 163! 6^{163}$. 
+	Reálný počet je však menší -- soubory se opakují, \ac{az} je symetrická (u \ac{vver1000} jde o šestinovou symetrii). S využitím symetrie se optimalizuje pouze $28$ pozic -- tomu odpovídá 
+	\eq{
+		\binom{m}{28} 28! 6^{28} > 10^{52}\,.
+	}
+	Restriktivní podmínky spoustu vsázek zamítnou -- např. z požadavku na nízkoúnikové vsázky 
+	se čerstvé kazety neumisťují na okraj zóny. Některé rotace konkrétního souboru v určité pozici jsou předem vyloučeny (např. kvůli gradientu 
+	vyhoření). Tuto množinu je možné předem z prohledávaného prostoru konfigurací vyloučit (\cite{roubalik}, kap.~3.1.2). 
+	S uvážením opakování souborů bude hrubý odhad 
+	\eq{
+		\binom{m}{28} \frac{6^{28}}{k_1! k_2! ... k_j!}\,,
+	}
+	kde $k_1$,...,$k_j$ jsou počty souborů prvního~,...,~$j$-tého druhu. 
+	S ohledem na omezené výpočetní kapacity se využívá heuristik. 
+% 
+% 	
+% 	ale předem nevíme, které to jsou -- apriorně 
+% můžeme vyloučit pouze pár \uv{patologických} případů -- např. čerstvá kazeta na okraji zóny (zcela proti konceptu nízkoúnikových vsázek). 
+% Uvážíme-li 
+% opakování souborů, bude hrubý odhad $\binom{m}{28} \frac{6^{28}}{k_1! k_2! ... k_j!}$. 
+% Některé kombinace souboru s danou rotací v dané pozici zakazujeme 
+% kvůli gradientu vyhoření. Tuto množinu umíme předem z prohledávaného prostoru konfigurací vyloučit (\cite{roubalik}, kap. 3.1.2). 
+% 
+% Kvůli tomu se používají heuristiky. 
+
+%TODO from Stevens appendix
+%% metody na diskretni problemy, jejich klasifikace
+%% delam prehazovanim 1 ci vice?
+%% slo by to zespojitit?
+%% souvislost s TSP
+%% souvislost s TSP
+%% "systematicke nahodne projizdeni"
+%% odhad velikosti konfig. prostoru -- obecne, incore, outcore, s restrikcemi
+
+%nefunkčnosti analytického přístupu k optimalizaci, neboť infinitesimálních změn nebude existovat. V některých případech může vést až k situaci, kdy maximum vázané na celočíselné body bude minimem pro funkci bez omezujících podmínek.
+
+\subsection{Black-box objective function}
+\label{subsec:black}
+Black-box objective function znamená, že hodnotu užitkové funkce nelze bez kompletního výpočtu určit, ani ji nelze nijak odhadnout. 
+V kontextu optimalizace vsázek to znamená, že vlastnosti vsázky nelze určit bez podrobného výpočtu neutronickým kódem. 
+Vlastnosti neutronického kódu:
+\cen{
+\item dlouhá doba výpočtu -- v 2D zjednodušení $\approx 0,3$ s na vsázku, úplný 3D výpočet 30--60 s (na jednom výpočetním jádře),
+\item nezávislost výpočtů pro různé vstupní konfigurace -- dobré pro 
+	paralelizaci, 
+\item správné ukončení výpočtu není garantováno -- optimalizační algoritmus 
+	musí zvládnout i tuto variantu (některé konfigurace \ac{az} končí 
+	chybou vždy),
+\item jsou známy pouze funkční hodnoty, nic dalšího (derivace, limity) -- počítání těchto hodnot z definice by bylo náročné, vzhledem 
+	k velkému množství parametrů, konfigurací a silné nelinearitě je otázkou, zda by znalost jacobiánu vůbec měla praktické 
+	využití.
+}
+
+\subsection{Multimodalita}
+
+Multimodalita znamená, že optimalizovaná funkce má vícero lokálních extrémů (maxim či minim), ale neexistuje metoda, jak předem určit 
+(bez nutnosti hledání maxima z množiny všech lokálních maxim), které z nich je globální. Vzhledem k velikosti prostoru je snaha prohledat 
+zčásti každou oblast a vybrat optimum z prohledaných 
+kandidátů. Je potřeba zajistit, aby se prohledávání nezastavilo v prvním nalezeném lokálním optimu. Toho se docílí vhodným výběrem heuristiky. 
+% továním řešení, která nevedou ke zlepšení. 
+Zvolená heuristika musí mít správný poměr mezi diverzifikací (prohledávání větší oblasti, které 
+však nemusí vést ke zlepšení) a intenzifikací (zlepšování nalezených řešení, důkladnější prohledávání malé oblasti), což je složitá úloha, která značně ovlivňuje 
+výběr vhodné metody. Algoritmy typicky začínají s vysokou diverzifikací a postupně přecházejí k intenzifikaci. Bližší rozbor problematiky je v~\cite{rothlauf}.
+
+
+% % \subsection{Multimodalita} %% Ze stevense
+% % 
+% % %%%%%%% Nevím, zda tu patří
+% % 
+% % Označme fázovým prostorem prostor $\mathbb{R}^n$, jehož body odpovídají palivovým vsázkám a souřadnice odpovídají hodnotám odezev. Body "oblaku" vygenerovaných vsázek uzavřeme do konvexních nadploch - tzv. pareto front - tak, aby pareto fronta 1 uzavírala celý oblak, pareto fronta 2 celý zbytek bez pareto fronty 1 apod.
+% % 
+% % Aplikujme penalizace, tj. multiplikativní faktory, které transformují "oblak" následovně
+% % \begin{enumerate}
+% %     \item Vsázky splňující všechny omezující podmínky zůstanou nezměněny
+% %     \item Vsázky nesplňující nějaké omezující podmínky budou posunuty směrem do pareto front vyššího řádu
+% %     \item Velikost posunutí bude úměrná rozdílu odezev vsázky od intervalu daného omezujícími podmínkami.
+% % \end{enumerate}
+% % 
+% % Pak platí, že kandidáti na suboptimální řešení budou po transformaci ležet v pareto frontách nižších řádů.
+% % 
+% % % viz Roubalik obrazek 4.9
+
+
+
+
+
+
+
+% \subsection{Aproximační rizika}
+%% kolik se da zanedbat?
+%% jaka je potreba presnost?
+
+% % \subsection{Aproximační rizika}
+% % Pro účely snažšího řešení se mnohdy hodí aproximovat problém pomocí spojitých funkcí na konvexních množinách (neboť mnoho deterministických algoritmů funguje za těchto předpokladů). Problém je, že optimální řešení aproximace problému nemusí řešit původní problém a aproximací můžeme ztrácet podmnožiny s řešením.
+
+
+
+\subsection{Vysoká dimenzionalita}
+S rostoucí dimenzionalitou úlohy (jak vstupů, tak výstupů) exponenciáně roste potřebný počet výpočtů. 
+
+Značné úspory je možné dosáhnout rozkladem složitého problému na množství\newline jednodušších\footnotei{.}{Označováno jako \ti{decomposability}, 
+což volně přeložme jako \ti{separabilita}. 
+Efektivní přístup k takovým problémům je popsán v~\cite{rothlauf}.} Pro ilustraci uvažujme optimalizaci funkce dvou diskrétních proměnných, 
+přičemž každá z nich může nabývat $k$ různých hodnot -- celkově je potřeba otestovat $k^2$ možností. Pokud by problém byl separabilní, 
+stačí ověřit $2k$ možností -- samostatně optimalizovat funkci v jednotlivých proměnných při konstantních hodnotách ostatních proměnných. To je 
+možné pro funkce tvaru 
+$f(x,y) = X(x)\cdot Y(y)$, $f(x) = X(x) + Y(y)$ apod. Black-box funkce obecně separabilní nejsou -- pro neutronický kód taktéž 
+není známa separabilita.
+
+
+%% kolik vstupnich dat dostava NFSolver na vstupu
+%% kolik na vystupu
+%% problem s hodne-dimenzionalni optimalizaci
+
+% % Větší dimenze problému znamená větší výpočtní náročnost.
+
+\subsection{Vícekriteriální optimalizace}
+\label{ch:vicekrit}
+Objective function není jedna hodnota, ale několik (zahrnuje veličiny popisující nevyrovnání výkonu, rezervu do krize varu, koeficienty reaktivity 
+a další veličiny specifické pro provoz). 
+Problém je, že optimalizované veličiny spolu souvisejí, ale jejich vztah je silně nelineární. Optimalizace jedné dokonce může 
+vést k potlačení druhé. Problém je možné převést 
+na optimalizaci jedné hodnoty zavedením 
+normy, kde jednotlivé veličiny budou zohledněny pomocí váhových funkcí. Množina řešení nalezených pomocí normování však nikdy nebude úplná -- vždy 
+bude zahrnovat pouze řešení optimální vůči zvoleným váhovým funkcím. Jejich volba však není jednoznačná. 
+
+Lepší je řešení pomocí tzv. Pareto-optimality\footnotei{.}{Název je na počest italského polyhistora Vilfreda Pareta (1848-1923).} Nechť je dán 
+problém maximalizace $q$-tice funkcí $\bv{f(x)}$, 
+kde $\bv{x} \in \mathcal{S}\subset\mathbb{R}^q, q\geq 2$.
+K porovnávání možných řešení se zavádí pojem dominance. 
+\begin{define}[Dominance]
+	\label{def:dominance}
+Vektor nebo $n$-tice čísel $\bv{x}^{\ast}\in \mathcal{S}$ dominuje v $\mathcal{S}$, 
+pokud 
+\begin{align}
+	\forall i\in \hat{q}, \forall\bv{x}\in\mathcal{S}: f_i(\bv{x}^{\ast}) \geq f_i(\bv{x})\,,\\
+	\exists j\in\hat{q}: f_j(\bv{x}^{\ast})>f_j(\bv{x})\,.
+\end{align}
+Dále se zavádí, že $\bv{z}^{\ast}:=f(\bv{x}^{\ast})$ dominuje v $\bv{f}(\mathcal{S})$. 
+Řešení $\bv{x}^{\ast}$ je nedominované na $Q\subset\mathcal{S} \Leftrightarrow \nexists \bv{y}\in Q: \bv{y}$ dominuje $\bv{x}^{\ast}$.
+\end{define}
+Dosazením $Q=\mathcal{S}$ do definice \eqref{def:dominance} vznikne množina všech nedominovaných řešení zvaná Pareto množina $\mathcal{P}_S$, její prvky 
+se nazývají Pareto-optimálními 
+řešeními a její obraz Pareto frontou $\bv{f}(\mathcal{P}_S) =: \mathcal{P}_{F}$. Intuitivně lze na $\mathcal{P}_S$ pohlížet jako na řešení, 
+ke kterým neexistuje lepší alternativa. 
+Pareto fronta v (obecně) $n$-dimenzionálním prostru tvoří $n-1$ dimenzionální lomenou (nad)plochu (proloží-li se body rovinami tak, že 
+body tvoří kraje rovin). Příklad pro 2D je na obr.~\ref{pareto2D.png}. Převede-li se obecná optimalizační úloha na 
+maximalizační, je $\mathcal{P}_F$ tvořena nejvzdálenějšími body. 
+\begin{define}[Slabá Pareto-optimalita]
+	\label{def:slaba_pareto_optim}
+Řešení $\bv{x}$ se nazývá slabě Pareto-optimální, jestliže neexistuje 
+\eq{
+	\bv{y}\in\mathcal{S}: f_i(\bv{y})>f_i(\bv{x}) \forall i\in\hat{q}\,.
+}
+\end{define}
+Každé Pareto-optimální řešení je i slabě Pareto-optimální, opačná implikace neplatí. Obdobná terminologie se zavádí i na $\bv{f}(\mathcal{S})$. 
+Řešení $\bv{x}^{\ast}$ je řádně Pareto-optimální, jestliže je Pareto-optimální 
+a navíc 
+\eq{
+	\exists M>0: \forall i\in \hat{q}, \forall \bv{x}\in\mathcal{S}: f_i(\bv{x})>f_i(\bv{x}^{\ast}) \exists j\in\hat{q}: f_j(\bv{x}^{\ast}) > f_j(\bv{x})
+}
+a~zároveň 
+\eq{
+	\frac{f_i(\bv{x})-f_i(\bv{x}^{\ast})}{f_j(\bv{x}^{\ast}) - f_j(\bv{x})} \leq M\,.
+}
+Řádnost je tak více než 
+Pareto-optimálnost -- pokud řádné Pareto-optimální řešení v něčem zaostává, je určitě v něčem jiném lepší. Navíc je zaručeno, že 
+deficit v jedné vlastnosti nebude \ti{výrazně} větší, než přebytek v jiné.
+
+Pro účely optimalizace se definuje ideální vektor $\bv{z}^{\ast} \in\mathbb{R}^q$ tak, že obsahuje maxima funkcí $f_i, i\in\hat{q}$. 
+Jde o teoretický koncept, v reálných problémech zpravidla neexistuje. Dále je definován utopický optimální vektor $\bv{z}^{\ast\ast}$ 
+tak, že $\forall i: z_{i}^{\ast\ast} = z_{i}^{\ast} + \epsilon$. Z definice $\bv{z}^{\ast}$ plyne, že $\bv{z}^{\ast\ast}$ neexistuje. 
+
+\pic{pareto2D.png}{Pareto fronty pro 2D množinu.}{Pareto fronty pro 2D množinu. Převzato z~\cite{roubalik}.}
+
+Výběr finálního řešení z Pareto množiny není jednoznačně dán. Podle specifikace kritéria pro finální výběr rozlišujeme čtyři metody~\cite{schlunz}.
+\cen{
+	\item Metody bez specifikování -- kritéria pro finální výběr nejsou definována. 
+	\item Apriorní metody -- kritéria jsou určena před započetím procesu hledání -- vyhledává se konkrétní Pareto-optimální řešení splňující 
+		zadaná kritéria.
+	\item Aposteriorní metody -- nalezení Pareto množiny předchází určení kritérií pro finální výběr.
+	\item Interaktivní metody -- proces je iterativní -- po nalezení vyhovující množiny se kritéria upraví (upřesní) a hledá se znovu.
+	}
+
+Výše diskutovaný převod na skalární funkci pomocí váhových funkcí 
+\begin{align}
+	\sum_{i=1}^q w_i f_i(\bv{x})\,,\label{eq:skalar}\\
+	\bv{x} \in\mathcal{S}\,,
+\end{align}
+kde $\forall i\in\hat{q}$, $w_i \geq0$, $\sum_i w_i = 1$, najde vždy jen určitou část $\mathcal{P}_S$ -- všechna řešení \eqref{eq:skalar} leží na $\mathcal{P}_S$. 
+Pro každou volbu $w_i$ se najde jiné 
+optimální řešení. Kvůli tomu obecně není známo, jak volit $w_i$. Řešením pro různé volby váhových funkcí  
+by bylo možné postupně najít různé části $\mathcal{P}_S$, ale to nezaručuje nalezení celé $\mathcal{P}_S$ (zejmnéna je-li $\mathcal{S}$ 
+nekonvexní). Iterativní řešení navíc může být výpočetně náročné. 
+
+Lepší postup je stanovení cílového stavu daného vektorem $\bar{\bv{z}}$ -- tj. složky $\bar{\bv{z}}$ jsou voleny jako hodnoty, které by mělo mít vhodné 
+řešení. Je možno použít $\bar{\bv{z}} = \bv{z}^{\ast}$ nebo $\bar{\bv{z}} = \bv{z}^{\ast\ast}$. Problém tak 
+přechází v minimalizaci
+\begin{align}
+	F_q (\bv{x}) &= \left(\sum_{i=1}^q w_i|f_i (\bv{x}) - \bar{z}_i|^p \right)^{\frac{1}{p}}\,,\\
+	\bv{x}&\in\mathcal{S}\,,
+\end{align}
+kde $p\geq1$. Není-li žádná veličina apriorně privilegovaná, je vhodné veličiny posunout na vhodnou škálu a minimalizovat největší relativní 
+odchylku od cílového vektoru. Minimalizovaná funkce přechází v
+\begin{align}
+	\tilde{F}_q (\bv{x}) &= \operatorname*{max}\limits_{i\in\hat{q}} \bigg|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\bigg| \,,\\
+	\bv{x}&\in\mathcal{S}\,.
+\end{align}
+Úloha však může vracet slabě Pareto-optimální řešení. Těm je možné vyhnout se přidáním penalizace za celkovou odchylku
+\begin{align}
+	\tilde{F}_q (\bv{x}) &= \operatorname*{max}\limits_{i\in\hat{q}} \bigg|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\bigg| + \mu\sum_{i=1}^q \bigg|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\bigg|\,,\label{eq:penalizace}\\
+	\bv{x}&\in\mathcal{S}\,,
+\end{align}
+kde $\mu>0$ je konstanta dostatečně malá, aby penalizace nepřerostla první člen. Při minimalizaci výrazu \eqref{eq:penalizace} by došlo k zastavení 
+prohledávání, jakmile by nalezené řešení splňovalo požadované vlastnosti. K nalezení skutečně nejlepšího řešení je potřeba 
+volit $\bar{\bv{z}} = \bv{z}^{\ast}$. Ideální vektor však nebývá znám, proto je apriorně jako cílový vektor zvolen utopický 
+vektor $\bv{z}^{\ast\ast}$. 
+
+% K nalezení globálního optima je pak potřeba zavést normu pomocí vah. Pro různé váhy pak existují obecně různá optimální řešení. Najít správnou váhovou funkci pak nemusí být jednoznačné, resp. někdy vůbec neexistuje metoda, jak ji najít.
+%% pareto fronta, pareto-optimalni reseni
+%% proc "nejde" skalarizovat
+%% jednoznacne reseni neexistuje
+%% ocitovat Schlunze, popr. clanky referencovane Schlunzem
+
+
+\subsection{Nekonvexnost omezujících podmínek}
+V případě \ac{micfmo} pochází restrikční podmínky z podmínek bezpečného a efektivního provozu elektrárny. 
+Na prostoru odezev jde zpravidla o omezení hodnoty dané odezvy na konkrétní interval. Promítnutí tohoto intervalu na prostor vsázek už nemusí 
+být konvexní a ani souvislá množina, zejména pak není známo, jak vypadá.
+
+%\footnotei{.}{Kdybychom to věděli, už dávno bychom omezili hledání na onu množinu a spoustu problémů s \ac{micfmo} bychom nemuseli řešit.} 
+
+Uvažujme obecně zadaný problém minimalizace
+\begin{align}
+	\tilde{F}_q (\bv{x}) &= \operatorname*{max}\limits_{i\in\hat{q}} \bigg|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\bigg| + \mu \sum_{i=1}^q \bigg|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\bigg|\,,\\
+	g_j (\bv{x}) &\leq g_{j}^{lim}\,, j \in\hat{r}\,,\\
+	h_k (\bv{x}) &\leq h_{k}^{lim}\,, k \in\hat{s}\,,\\
+	\bv{x}&\in\mathcal{S}\,.
+\end{align}
+Snadno implementovatelným řešením je použití aditivní penalizační funkce $G(\bv{x})$. Od té je požadováno, aby $G(\bv{x})=0$ pro $\bv{x}\in \bv{f}(\mathcal{S})$ 
+splňující restrikční podmínky a $G(\bv{y})>0$ pro $\bv{y}$ nesplňující podmínky, rostoucí s rozdílem skutečné odezvy od požadované. Definuje se
+\begin{align}
+	G(\bv{x}) &= \sum_{i=1}^r \mathrm{max}\left\{0, \frac{g_i (\bv{x})-g_{i}^{lim}}{|g_{i}^{lim}|} \right\}\,,\\
+	H(\bv{x}) &= \sum_{i=1}^s \left\|\frac{h_i (\bv{x})-h_{i}^{lim}}{h_{i}^{lim}} \right\|\,,\\
+	P_a (\bv{x}) &= \gamma(G(\bv{x}) + H(\bv{x}))\,,
+\end{align}
+kde $\gamma>0$ je součinitel dostatečně vysoký, aby penalizovaná užitková funkce 
+\begin{align}
+	\tilde{F}_q (\bv{x}) &= \operatorname*{max}\limits_{i\in\hat{q}} \left|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\right| + \mu \left|\frac{f_i (\bv{x}) - \bar{z}_i}{\bar{z}_i}\right| + P_a (\bv{x})\,,\\
+	\bv{x}&\in\mathcal{S}\,,
+\end{align}
+měla pro nevyhovující řešení větší hodnotu než pro většinu vyhovujících. Tím je možno převést extremalizaci $q$-tice funkcí s $r+s$ podmínkami na 
+extremalizaci jedné funkce. 
+%% jake mam restrikce
+%%
+
+% % \subsection{Nekonvexnost vazeb}
+% % 
+% % Podmnožiny fázového prostoru vyhovující omezujícím podmínkám bývají nekonvexní a extrémy na těchto podmnožinách nemusí odpovídat extrémům bez vazeb.
+% % 
+% % Řešit problematiku vázaných extrémů je náročné, navíc bychom se mohli zbavit dobrých řešení ležících v okolí hranice. Proto se používá řešení pomocí penalizací a pareto front.
+% % 
+
+% \section{Použitelné optimalizační techniky}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % Délka cyklu je doba, po které jsou některé kazety z aktivní zóny nahrazeny jinými, u současných energetických reaktorů 12-24 
+% % měsíců. Délka kampaně je pak doba, za kterou dojde k výměně všech palivových kazet, v současnosti 3-5 let \cite{fejt}. Jedna palivová kazeta se tak 
+% % používá až ve 4 cyklech.} 
+% 
+% %% Kampan - 3-5 letá -- doba, kterou může být daný palivový element v reaktoru
+% %% Cyklus - 12-24 měsíční -- doba mezi 2 překládkami
+% 
+% \section{Vlastnosti problému LPO}
+% %% nadefinovat MICFMO, omezující podmínky, kombinatorické kecy, omezující podmínky, pareto frontu, suboptimální vsázku, penalizace, Stevensovy vl.,
+% %% objective fx
+% 
+% JA
+% %%%%%%%%%%%%%%%%
+% -- hledání uspořádání paliva, regulačních orgánů a vyhořívajících absorbátorů, které splňuje omezující podminky a maximalizuje 
+% objektové funkce 
+% 
+% FEJT
+% %%%%%%%%%%%%%%%%
+% -- Obtížnost toho pro-blému spočívá ve velkém množství možných řešení, náročnosti výpočtů a snaze co nejvíce snížit celkovýpočet a dobu výpočtů, během kterých musí být nalezeno vhodné řešení. Kvůli těmto důvodům nenímožné  využít  exaktní  matematické  programy,  které  by  nalezly  nejlepší  řešení,  avšak  chceme-li  na-jít alespoň některá, která se k těmto ideálním případům přibližují, používáme heuristické algoritmy (Fejt)
+% 
+% -- rincipem optimalizace jepřesouvání kazet do různých pozic tak, aby byl nalezen optimální poměr mezi ekonomickým a bez-pečnostním aspektem. Z ekonomické hlediska se jedné například o různé délky cyklů nebo kampaní,maximální využití jaderného paliva nebo také minimální namáhání reaktorové nádoby. To, co ome-zuje tyto snahy, jsou především bezpečnostní limity, které musí být splněny, aby nedošlo k poškozenírůzných elementů nebo dokonce i k havárii. (Fejt)
+% 
+% -- Optimalizace se dá rozdělovat na dva druhy: jednocyklová a vícecyklová. V jednocyklové optima-lizaci se pracuje pouze s jedním cyklem jaderné elektrárny, narozdíl od vícecyklové, kde jsou zároveňoptimalizovány i budoucí cykly. (Fejt)
+% 
+% Roubalík
+% %%%%%%%%%%%%%%%%
+% -- Prodlouho dob ¥udrºitelnýprovozenergetickéhojadernéhoreaktorujenutnézaváºetdoreaktorupalivotakabybylyreektoványp oºadavkyprovozovateleelektrárnyaprovozovateleelektrickésít¥,ap°edev²ímabybylza ji²t¥nb ezp e£nýprovozjadernéelektrárny.Kvalitnínávrhpalivovévsázkymátakép ozitivnívlivnaºivotnostelek-trárny(nap°íkladnízkoúnikovévsázkyvýznamn¥pro dluºujíºivotnostreaktorovénádobyatímceléelektrárny). (Roubalík)
+% 
+% -- Nedílnousou£ástínávrhupalivovévsázkyjejejíoptimalizace,kterásp o £íváp°e-dev²ímvnávrhup°ekládkovéhoschématupalivovýchsoub or·,kterýbudespl¬ovatb ezp e£nostní,pro jektovéaprovoznílimity,kterésevsouladusesnahouza jistitb ez-p e£nýprovozneustálezp°ís¬ují. (Roubalík)
+% 
+% -- Pro jektovánípalivovévsázkyjepro ceshledáníusp o°ádání²t¥pnéhomateriálu,vy-ho°íva jícíchabsorbátor·aregula£níchorgán·vaktivnízón¥reaktoru,kterébudespl¬ovatzejména:Bezp e£nostnílimityjsoumezního dnotyt¥chfyzikálníchatechnologickýchpa-rametr·,kterép°ímoovliv¬ujístavfyzickýchbariérbránícíchúnikuradioaktivníchlátekzjadernéhoza°ízenídoºivotníhoprost°edí.Pro jektovélimityjsouho dnotyparametr·acharakteristikstavusystém·(prvk·)ajadernéelektrárnyjakocelku,stanovenépro jektempronormálníprovoz,abnor-málníprovozaprohavarijníp o dmínky.Zachovánípro jektovýchlimit·apro jekto-výchzáklad·za ji² ́ujeb ezp e£nostasp olehlivostpalivovéhosystému.[8]Limitníp o dmínkyproprovozstanovujíp o dmínkyb ezp e£néhoprovozujadernéelektrárnyvreºimech,kteréjsouuvaºoványaanalyzoványvb ezp e£nostnízpráv¥.Provoznílimitníp o dmínkyzahrnujízejménarozsahy,vekterýchjenutnéudrºovatfyzikálníatechnologicképarametrytak,abyvpr·b ¥huprovozunedo cházelokne-ºádoucímudosaºeního dnotparametr·nastavenío chrannýchsystém·.Zab ezp e£ujírovn¥ºprovozuschopnostza°ízeníd·leºitýchzhlediskajadernéb ezp e£nosti.[27] (Roubalík)
+% 
+% -- Krom¥za ji²t¥níb ezp e£néhoprovozumáprovozovateltakézá jemvyuºítpalivoconejefektivn¥ji,p°edev²ímpro dlouºitdobup obytupalivavreaktoruamaximalizovatcelkovévyho°enípaliva(tj.vyho°enípalivazaceloudobup obytupalivavreaktoru,nikolivjednékampani).Zhlediskanávrhupalivovévsázkyjsoutytop oºadavky£astoprotich·dné.Natomtomíst¥jenutnozd·raznit,ºeb ezp e£nýprovozreaktoru17
+% mávºdynejvy²²íprioritu (Roubalík)
+% 
+% Pro jektovánípalivovévsázkymádvahlavníasp ekty.Prvnímjepro jektováníinven-tá°epaliva,p o £t·palivovýchsoub or·sr·znýmivlastnostmijakojsouob ohacení,mnoºstvíarozmíst¥nívyho°íva jícíchabsorbátor·,radiálníaaxiálníprolovánípa-liva.Druhýmasp ektemjenávrhrozmíst¥níarotacejednotlivýchpalivovýchsoub or·vaktivnízón¥reaktoru.
+% 
+% Cílemvývo jepalivovýchsoub or·jezískáníinventá°ejadernéhopaliva,kterébudep°ivho dnémrozloºenívaktivnízón¥reaktoruvyuºitoconejefektivn¥jivrámciza-chováníb ezp e£nostních,pro jektovýchaprovozníchlimit·.D·leºitousou£ástípro-jektovánípalivovévsázkyjetakénalezeníoptimalníhoschématup°ekládkypaliva.
+% 
+% Pro jektováníkonguraceiinventá°ejadernéhopalivam·ºereagovatnanejr·zn¥j²íp oºadavkyprovozovatelejadernéelektrárny£iregulátoraelektrickésít¥.Krom¥hle-dáníoptimálníhorozloºenípalivapropravidelnýkampa¬ovitýreºimstýdenním18
+% prom¥nlivýmzatíºenímjemoºnéhledatrozloºenívsázkytakové,abyreaktormohlbýtprovozovánvprom¥nlivémzatíºení(tzv.loadfollowp owerplant,veFran-ciijsoun¥kte°íprovozovateléschopnisníºitvýkonaºo30%nominálníhovýkonurychlostí5%zaminutu[11]),stímsouvisíimoºnostprom¥nlivédélkycykl·.
+% 
+% Vprvnífáziseur£ujenávrhp o £tuaob ohacení£erstvýchpalivovýchsoub or·.Prokaºdýregion(skupinupalivovýchsoub or·sestejnýmivlastnostmizavezenoudoreaktoruvestejnoudobu)jet°ebadenovatjejichjejichob ohacení,prolování,p o £etabsorbátor·ap o £etkus·.Vtétofázisetaképrovádíp°edb ¥ºnýnávrhvsázkyabyseprokázalo,ºestakovýminventá°embudemoºnésplnitenergetickýp oºadaveknavsázkuab ezp e£nostnílimity.Tentokrokjenutnézap o £ítsdostate£ným(typickyn¥kolikam¥sí£ním)p°edstihem.
+% 
+% P°edsamotnýmzavezenímpalivadoAZjenutnédokon£itnávrhvsázky,toutodo-b oubýváup°esn¥nenergetickýp oºadaveknavsázkuajemoºné,ºesep ozm¥níp oºadavkynapalivovouvsázku.P°íklademzm¥nyp oºadavk·m·ºebýtzji²t¥nánet¥snostpalivovéhoproutkuvn¥kterémzpalivovýchsoub or·,kterýtaknem·ºebýtp ouºitvnásledujícíkampani.P°ítomnostnet¥snýchpalivovýchproutk·sepro-jevízvý²enímaktivitvprimárnímokruhu.Zaktivitvprimárnímokruhujemoºnéo dhadnoutvyho°enínet¥snéhoproutku,av²aktentoo dhadjezatíºenvelkouneur£i-tostí.Av²akjetoznámkatoho,ºetakovýproblémnastalapro jektantsenan¥jm·ºesdostate£ným£asovýmp°edstihem,p°ipravítzv.contingencyplan,kdysenavrhnen¥kolikvariantnásledujícívsázky,kdejsoup otenciálnínet¥snésoub orynahrazenysoub oremjiným.P°edspu²t¥nímreaktorujenutnépronálnínávrhvsázkydo datdetailníb ezp e£-nostního dno cenívsázkyap°ípadn¥dal²ívýp o £etníp o dklady.[24
+% 
+% Optimalizacepalivovévsázkyjepro ceshledánísub optimálnívsázky(p°ekládkovéhoschématu).Sub optimálnívsázkounenímy²lenojednokonkrétníp°ekládkovéschéma,jednáseomnoºinuv²echpalivovýchvsázek,kteréspl¬ujíoptimaliza£níkritéria,19
+% omezujícíp o dmínkyarestrik£níp o dmínky.Cílemoptimalizacetedynenínalezeníjednéoptimálnívsázky,ktomuanineexistujínástro je(vizkapitola3)aprop o £ítánív²echmoºnýchkonguracíbybylo£asov¥neúnosné.Protojenutné,abyoptima-liza£níkritéria,omezujícíarestrik£níp o dmínkybylynastavenytak,abynalezenávsázkavyhovovalav²emp oºadavk·m,kteréjsounapalivovouvsázkukladeny.
+% 
+% Optimaliza£nímikritériijsoumy²lenyhlavníp o dmínkyacíleoptimalizace.Jednáseosnahudosáhnoutp°edemzadanéxnídélkypalivovéhocyklu,minimalizaciF∆HaFHA,resp.dal²íchrelevantníchparametr·jakonap°íkladMTC,BCEOHap o d.Omezujícíp o dmínkyjsouv¥t²inouintervalyfyzikálníchaprovozníchparametr·,vekterýchsemohoup ohyb ovatvlastnostihledanévsázky.Restrik£níp o dmínkyvyjad°ujíp oºadavkynaomezeníumíst¥níur£itýchpalivovýchsoub or·najistép ozicevreaktoru.Typickýmp°íklademjezku²enost,ºe£erstvépalivovésoub orynenívho dnéumis ́ovatnaokra jAZ,protoºedo cházíkvysokémuúnikuneutron·avelkéuencinareaktorovounádobu.Restrik£níp o dmínkytakévyjad°ujíp oºadavek,ºeur£itépalivovésoub orynemohoumítnan¥kterýchp ozicíchjistéorientacea ́uºzd·vo dupr·hybupalivovéhosoub oruneb ogradientuvyho°ení.
+% 
+% Vminulostibylyp°ekládkypro jektoványp o dleschématuout-in(vizobrázek1.1),£erstvésoub oryasoub oryskrat²ídob oup obytuvreaktorubylyumis ́oványspí²ekokra jiaktivnízóny,tímbylodo cílenoconejmen²íhonevyrovnánívýkonuvreaktoru,tentop ostupv²akvedlkneefektivnímuvyuºitípalivaatakévelkémuúnikuneutron·zaktivnízóny,kterýp o²kozovalnádobureaktoruatímsniºovalºivotnostjejíiceléelektrárny.Protosep°e²loktakzvanýmnízkoúnikovýmvsázkámseschématemin-out,kdejsounaokra jzónyumis ́oványp°eváºn¥palivovésoub orysdel²ídob oup obytuvreaktoru,tímbylsníºenúnikneutron·.Ukazujese,ºep okudjsoujakooptimaliza£níkritériazvolenyminimalizaceF∆HamaximalizaceTef f,optimaliza£níprogrambzm¥lna jítvsázkuo dp ovída jícíschématuin-outautomaticky.
+% 
+% Chováníreaktorup°iprovozuovliv¬ujenejenrozmíst¥nípalivovýchsoub or·vre-aktoru,aletakéjejichrotace(orientacesoub oru).Palivovésoub orynan¥kterýchp ozicíchtotiºp°ip obytuvreaktoruvyho°íva jínesymetricky.Orientacepalivovéhosoub oruvdal²íkampaniprotoovliv¬ujerozloºení²t¥pnéhomateriáluvAZatímichováníreaktoru.Ur·znýchtyp·reaktor·jsoutytovlivyr·zné.Nap°íkladureak-toruVVER-440jetentovlivmen²í,p°istejnémrozmíst¥nípalivovýchsoub or·sevlivrotacepro jeví°ádov¥desetinamipro centvezm¥n¥rozloºenívýkonu,ureaktorutypuVVER-1000,jsoutouºjednotkypro cent.D·vo demjerelativnívelikostpali-vovéhosoub orukvelikostiaktivnízóny,p o oto £enípalivovéhosoub oruureaktoruVVER-440nemátakovýprostorovývlivnarozloºení²t¥pnéhomateriáluvprostoruAZjakotomujevp°ípad¥reaktoruVVER-1000.Ureaktor·stro júhelníkovoum°íºísep ouºíva jí²estiúhelníkovépalivovésoub ory,ukterýchexistuje6moºnýchzp·sob·rotací.Reaktoryse£tvercovoum°íºíp ouºíva jí£tvercovépalivovésoub oryse4moº-nýmirotacemi.
+% 
+% Vminulosti(ccap°edrokem2000)nebylaorientacímpalivovýchsoub or·vrámciop-timalizacepalivovévsázkyp°íli²velkáp ozornost,p°ípadn¥seorientace°e²ilyp ouzevrámcijiºnalezenéhorozmíst¥nípalivovýchsoub or·vreaktoru.Ikdyºplatí,ºerozmíst¥nípalivovýchsoub or·mánachováníreaktoruv¥t²ívlivneºjejichorientace,nelzevylou£it,ºep ozi£n¥hor²ívsázkam·ºemítlep²íchováníp°ivho dnékonguraciorientacípalivovýchsoub or·.Protojenávrhrotacínedílnousou£ástíoptimalizacepalivovévsázky.D·leºitýmúkolemoptimalizacejetakénalezeníoptimálníhoinventá°epaliva.Hle-dáníoptimálníp°ekládkypalivanesp o £íváp ouzevrozmíst¥nívybranýchpalivovýchsoub or·vAZ,naoptimaliza£níprogramjekladentakép oºadavek,abyprovedlrovnouvýb ¥rvho dnýchpalivovýchsoub or·ze²ir²íhosortimentusv¥t²ímip o £tyjednotlivýchtyp·li²ícíchseob ohacením,prolovánímaobsahemvyho°íva jícíchab-sorbátor·.
+% 
+% Optimalizaceprobíhátak,ºeoptimaliza£níprogramgenerujep°ekládkováschématasr·znýmrozmíst¥nímaorientacíjednotlivýchpalivovýchsoub or·.Kaºdép°eklád-kovéschémajep°edánovýp o £etnímukó du,kterýur£íjehoneutronov¥fyzikálnívlastnosti,tzv.o dezvyreaktoru.Tytovlastnostijsouo cen¥nyaur£íse,zdabylana-lezenavyhovujícívsázka.Tímtozp·sob emjezpracovanévelkémnoºstvívsázek,do-kudnenínalezenovyhovující°e²ení,vzhledemkvelkémumnoºstvíprohledávanýchvsázekjekladennaoptimaliza£níprogramp oºadavek,abybylschop envyhovujícívsázkunaléztvp°ijatelném£ase.
+% 
+% Optimaliza£níalgoritmyjsousvoup ovahouheuristické[23].Heuristikajemeto dahledání°e²eníproblému,°e²enínemusíbýtp°esné(neb onejlep²ívrámcioptimali-zace)anemusíbýtaninalezenovkrátkém£ase.astov²akslouºíjakometo darychlep oskytující°e²enídostate£n¥blízké(tj.spl¬ujep°edemzadanákritéria)nejlep²ímu21
+% °e²ení,tov²aknelzeob ecn¥dokázat.
+% 
+% %%%%%%%%%%%%ZASRANĚ DŮLEŽITÉ%%%%%%%%%%%%%%%%%%%
+% Zásadnívlastnostíoptimalizacepalivovýchvsázekjenespln¥níprincipulokality,tj.vyjád°enívzdálenosti,rep.blízkostimezijednotlivýmikonguracemiajejichneutro-nickýmio dezvami.Vsázky,kteréjsousip o dobnékongurací,bysim¥lybýtp o dobnéineutronickouo dezvou.Principlokalityvyjad°ujetzv.top ologickousp o jitost,kterájeklí£ováproúsp ¥²néprohledáváníobrovskéhoprostorumoºnýchkongurací(ty-pickyobsahuje1040−1050kongurací).Tentoprincipv²akvp°ípad¥optimalizacepalivovýchvsázekob ecn¥neplatí.Hlavníd·vo dje,ºenenímoºnéur£it,kterévsázkyjsousijakblízkép ouzenazáklad¥jejichkongurace.Palivovávsázkajetypickyreprezentovanáp ermutací.Po dobnostp ermutacílzevyjád°itjejichvzdálenostínajejichp ermutahedronu1.Ukazujese,ºeanivsázkyreprezentovanép ermutacemi,kteréjsousiblízkévesmysluvzdálenostinap ermutahedronu,nema jíp o dobnéneutronickéo dezvy.Tentoproblém,jevtétopráciblíºep opsána°e²envkapitole3.
+% 
+% Gradientnímeto dyvyuºíva jíznalostiderivaceú£elovéfunkceknalezenílokálníhominima.Meto davkaºdémb o d¥optimalizace(aktuálnímkandidátovinaoptimální°e²ení)sp o £tegradientú£elovéfunkcep o dlevektoruparametr·reprezentujícíchkan-didátanaoptimální°e²ení.Tentogradientur£ujesm¥r,kterýmsebudeubíratdal²íprohledávání.[1],[15]Tytometo dyv²akma jínedostateksp o £íva jícívtom,ºevp°í-pad¥optimalizacepalivovévsázkynenímoºnéur£itgradientú£elovéfunkce,protoºetaneníob ecn¥top ologickysp o jitá.
+% 
+% Mezidal²íklasickémeto dypat°ínap°íkladlineárníprogramování,coºjemeto dahle-da jícíminimumfunkceonprom¥nnýchnamnoºin¥p opsanésoustavoulineárníchnerovností.[15]Problémtétometo dyje,ºeúlohaoptimalizacepalivovýchvsázekneníob ecn¥lineární,lineárníaproximacejsoup°íli²silnéavytrácísetakcharakte-ristickévlastnostiúlohy.[14],[20]
+% 
+% 
+% 
+% %%% test.kva%%%
+% % -- PŘEDĚLAT NEBO MINIMÁLNĚ POSUNOUT DÁL
+% % -- název asi obecné vlastnosti nebo matematické a numerické vlastnosti
+% % 
+% % -- Primárně jed dle Schlunze a Roubalíka
+% % 
+% % -- hlavne numericky pohled na vec, proc je to tak slozite -- dle Kropaczek vzadu -- tech 5 vlastnosti
+% % 
+% % -- co to zpusobuje, jak se s tim vyporadat
+% % 
+% % -- omezujici podminky, hodnoceni -- pareto fronta, úpná dominance,...
+% % 
+% % -- co po vsazce pozadujeme -- bezpečnostní a ekonomické požadavky
+% 
+% %
+% %% =========== Z Roubalíka ==============
+% % 
+% % \section{Vlastnosti}
+% % 
+% % 
+% % Optimalizací palivových vsázek je myšlen proces hledání optimálního překládkového schématu, tj. takového uspořádání paliva, regulačních orgánů a vyhořívajících absorbátorů v reaktoru, které po celou dobu kampaně splňuje omezující podmínky a zároveň má nejlepší odezvy.
+% % Odezvy, tedy veličiny charakterizující důležité parametry vsázky (délka cyklu, rovnoměrnost výkonu, NF charakteristiky,...), můžeme charakterizovat vektorem odezev $\vec{r} = \Phi(LP)$. O vsázce $A*$ řekneme, že má nejlepší odezvy, jestliže v dané množině paliv. vsázek $LP$ maximalizuje\footnote{Obecně některé parametry potřebujeme maximalizovat, některé minimalizovat. Minimalizaci veličiny $f$ však můžeme triviálně převést na maximalizaci veličiny $g:=-f$} $r$.
+% % 
+% % Omezujícími podmínkami rozumíme podmínky na odezvy, které musí vsázka splňovat. Jsou dané zpravidla požadavky na bezpečnost (zpětnovazební koeficienty), v menší míře pak snahou nevystavovat technologii reaktoru větším neutronovým tokům, než je nutné. 
+% % 
+% % 
+% % \section{Maximalizace odezev}
+% % Volba odezev, které budeme maximalizovat, obecně není jednoznačná. Příliš málo veličin může vést k nalezení příliš mnoha řešení (mezi nimiž nebudeme schopni rozhodnout), příliš mnoho veličin pak k vyloučení některých jinak dobrých řešení a navíc zvýšení náročnosti úlohy. 
+% % 
+% % V praxi používaná kritéria jsou typicky:
+% % \begin{itemize}
+% %     \item Délka palivového cyklu - dle typu elektrárny a provozních zkušeností, např. v EDU je kampaňový provoz s 12 měsíčními kampaněmi a 5-letým palivovým cyklem; snaha o delší kampaně a větší vyhoření - ekonomické důvody
+% %     \item bc (\textit{end of cycle boron concentration} = koncentrace $H_3BO_3$ na konci kampaně)
+% %     \item fha (\textit{assembly power peaking factor} = 
+% %     \item fdh (\textit{pin power peaking factor} = poproutkové nevyrovnání výkonu)
+% %     \item pbu (\textit{maximum pin burnup}) = maximální proutkové vyhoření)
+% %     \item mtc (\textit{moderator temperature coefficient} = koeficient zpětné vazby od teploty moderátoru
+% % \end{itemize}
+% % 
+% % Vsázky hodnotíme pomocí několika odezev. Maximalizace více veličin však způsobuje nejednoznačnost úlohy. Mohlo by se zdát účelné zavést nějakou účelovou funkci $f(\vec{r})\rightarrow \mathbb{R}$ a hledat její extrémy. Problémem je, že jednak nemáme metodu, jaké váhy přiřadit jednotlivým parametrům. To by vedlo k tomu, že bychom získali nejlepší vsázku vzhledem k nějaké $f$, ale ne obecně (mohli bychom zahodit dobré kandidáty). 
+% % 
+% % Maximalizaci budeme definovat pareto výběrem (NEBO MŮŽU OBECNĚ ŘÍCT VE SMYSLU DOMINANCE? - tj. vektor $\vec{r_a}$ je maximálním, neexistuje-li vektor k němu dominantní, tedy vektor neexistuje-li $\vec{r_b}\neq \vec{r_a}$ takový, že $\vec{r_b,i}\geq \vec{r_a,i} \forall i$).
+% % 
+% % 
+% % 
+% % 
+% % 
+% % 
+% % 
+% % % Jaká jsou ta kritéria?
+% % 
+% % 
+% % % Zde zmiň, proč používáme pareto výběr, proč se neprovádí skalarizace 
+% % % Rozeber, které parametry používáme (těch 6 či kolik začínajících k_inf
+% % % Zmiň, že obecně není definované - vybrali jsme nějak účelně, ale není jednoznačné ani správné... Mohli a možná i měli bychom tam dát více odezev, ale to by zas výpočetí náročnost byla příliš brutální
+% % 
+% % \section{Omezující podmínky}
+% % % Zmiň, jaké tu tyipicky máme, jaké v pravi, jak se určují. 
+% % 
+% % 
+% % \section{Klasifikace optimalizačního problému}
+% % Pohlížíme-li na optimalizaci vsázek jako na optimalizační problém, můžeme jej charakterizovat následujícími vlastnostmi \cite{stevens}
+% % \begin{enumerate}
+% %     \item multimodalita,
+% %     \item nekonvexnost vazeb,
+% %     \item celočíselnost,
+% %     \item aproximační rizika, %nevím, jak se to překládá...
+% %     \item vícekriteriální optimalizace,
+% %     \item velká dimenzionalita.
+% % \end{enumerate}
+% % 
+% % 
+% % %%%%%%%%%%%
+% % 
+% % 
+% % 
+% % 
+% % 
+% % 
+% % %rozepiš tu, co to znamená a jaké řepoklady 
+% % 
+% % %\section{Omezující podmínky}
+% % %Vypiš stručné definice, veličiny - z atomového zákona, LaP apod.
+% % 
+% % %\section{Odezvy}
+% % % vypiš definice, zmiň, že nejsou jednoznačné
+% % 
+% % %\section{Matematická formulace optimalizační úlohy}
+% % % Zmiň, jaké má vlastnosti
+% % 
+% % 
+% % 
+% %     %je to v:
+% %     %         Schlunz Abstrakt, 1.2, 2, 3, 4,
+% %     %         Roubalik 1 - 3
+% %     %         Stevens 1, 2, bonus
+% %     %         Kropaczek s. 1-4
+% %     %         Parks 1
+% %     %         Kvasnicka 1
+% %     % 

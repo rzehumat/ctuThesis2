@@ -1,0 +1,208 @@
+\documentclass[a4paper,twoside,12pt]{book}
+
+
+\input{packages.tex}
+\input{config.tex}
+\input{commands.tex}
+
+
+\begin{document}
+
+\frontmatter
+
+\thispagestyle{empty}
+
+\begin{center}
+	{\LARGE
+		\cvut\par
+		\fjfi
+	}
+    \vspace{10mm}
+
+    \begin{tabular}{c}
+		\tb{\kjr} \\[3pt]   
+		\tb{Obor: \obor}\\
+    \end{tabular}
+
+   \vspace{10mm} \logoCVUT \vspace{15mm} 
+
+   {\huge \tb{\nazevcz}\par}
+   \vspace{5mm}   
+   {\huge \tb{\nazeven}\par}
+   
+   \vspace{15mm}
+   {\Large \MakeUppercase{\druh}}
+
+   \vfill
+   {\large
+    \begin{tabular}{ll}
+    Vypracoval: & \autor\\
+    Vedoucí práce: & \vedouci\\
+    Rok: & \rok
+    \end{tabular}
+   }
+\end{center}
+
+\clearpage{\pagestyle{empty}\cleardoublepage} % prázdná stránka za tou "titulní", bez čísla
+
+%%%%%%%%%%%% ZADÁNÍ PRÁCE %%%%%%%%%%%%
+% Zadání (podepsané děkanem!) musíte NASKENOVAT. Ideálně jako 2stránkové PDF (soubor "zadani_cele.pdf"). 
+% Před svázáním to v jednom výtisku VYMĚNÍTE ZA ORIGINÁLNÍ ZADÁNÍ (podepsané děkanem fakulty)!
+\newpage  % SEM NESAHEJTE!
+\thispagestyle{empty} % SEM NESAHEJTE!
+
+%% zde podle toho, jak jste zadání naskenovali, VYBERTE variantu A, B nebo C:
+%
+% --- varianta A: zadání naskenované jako 2stránkové PDF:
+\includepdf[pages={1}]{img/bp-rzehulka-zad1.pdf} % NAHRAĎTE správným souborem!
+\includepdf[pages={1}]{img/bp-rzehulka-zad2.pdf}
+%
+%% --- varianta B: zadání naskenované jako jednotlivé stránky:
+%\includepdf[pages={1}]{zadani1.pdf} % 1. strana zadání v PDF
+%\includepdf[pages={1}]{zadani2.pdf} % 2. strana zadání v PDF
+%
+%% --- varianta C: zadání naskenované jako 2 samostatné obrázky:
+%% 1. strana zadání
+%\begin{center}
+%     \includegraphics[width=1\textwidth]{zadani1.jpg}
+%\end{center}
+%% 2. strana zadání
+%\newpage  % SEM NESAHEJTE!
+%\thispagestyle{empty} % SEM NESAHEJTE!
+%\begin{center}
+%     \includegraphics[width=1\textwidth]{zadani2.jpg}
+%\end{center}
+
+
+%%%%%%%%%%%% Prohlášení -- SEM NESAHEJTE! Generuje se automaticky z výše nastavených maker \kde{} a \prohlaseni{}. %%%%%%%%%%%%
+\newpage % SEM NESAHEJTE!
+\thispagestyle{empty}  % SEM NESAHEJTE!
+
+% SEM NESAHEJTE!
+\vfill % prázdné místo. SEM NESAHEJTE!
+
+\tb{Prohlášení} % SEM NESAHEJTE!
+
+\vspace{1em} % vertikální mezera. SEM NESAHEJTE!
+\prohlaseni
+
+\vspace{2em}  % SEM NESAHEJTE!
+\hspace{-0.5em}\begin{tabularx}{\textwidth}{X c}  % SEM NESAHEJTE!
+V \kde\ dne .................... &........................................ \\	% SEM NESAHEJTE!
+	& \autor
+\end{tabularx}	% SEM NESAHEJTE!
+
+
+%%%%%%%%%%%% Poděkování  %%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+
+\vfill % prázdné místo
+
+
+% -- následující kus kódu (do "%%%%%%%%%%%% ABSTRAKT") můžete odstranit, pokud nechcete psát poděkování:
+\tb{Poděkování}
+
+\vspace{1em} % vertikální mezera
+\podekovani
+\begin{flushright}
+\autor
+\end{flushright}  % <------- tady končí stránka s poděkováním
+
+
+%%%%%%%%%%%% ABSTRAKT atp. Je generován AUTOMATICKY podle maker nastavených na začátku souboru) %%%%%%%%%%%% 
+\newpage   % SEM NESAHEJTE!
+\thispagestyle{empty}   % SEM NESAHEJTE!
+
+% příprava:    (na následujících 8 řádků NESAHEJTE!)
+\newbox\odstavecbox
+\newlength\vyskaodstavce
+\newcommand\odstavec[2]{%
+    \setbox\odstavecbox=\hbox{%
+         \parbox[t]{#1}{#2\vrule width 0pt depth 4pt}}%
+    \global\vyskaodstavce=\dp\odstavecbox
+    \box\odstavecbox}
+\newcommand{\delka}{120mm} % šířka textů ve 2. sloupci tabulky
+
+% použití přípravy:    % dovnitř "tabular" vůbec NESAHEJTE!
+\begin{tabular}{ll}
+  {\em Název práce:} & ~ \\
+  \multicolumn{2}{l}{\odstavec{\textwidth}{\bf \nazevcz}} \\[1em]
+  {\em Autor:} & \autor \\[1em]
+  {\em Studijní program:} & \program \\
+  {\em Obor:} & \obor \\
+  {\em Druh práce:} & \druh \\[1em]
+  {\em Vedoucí práce:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
+  {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
+ \\[1em]
+  & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
+  \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
+  {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+
+  {\em Title:} & ~\\
+  \multicolumn{2}{l}{\odstavec{\textwidth}{\bf \nazeven}}\\[1em]
+  {\em Author:} & \autor \\[1em]
+  \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
+  {\em Key words:} & \odstavec{\delka}{\keyword}
+\end{tabular}
+
+
+
+%%%%%%%%%%%% Obsah práce ... je generován AUTOMATICKY %%%%%%%%%%%%
+\renewcommand\cftchapfont{\small\bfseries}
+\renewcommand\cftsecfont{\footnotesize}
+\renewcommand\cftsubsecfont{\footnotesize}
+
+\renewcommand\cftchappagefont{\small\bfseries}
+\renewcommand\cftsecpagefont{\footnotesize}
+\renewcommand\cftsubsecpagefont{\footnotesize}
+
+\newpage  % SEM NESAHEJTE!
+\parskip=0pt
+\begin{small}
+\tableofcontents % SEM NESAHEJTE!
+\end{small}
+\parskip=7pt
+\newpage % SEM NESAHEJTE!
+
+
+%--------------------------------------------------------
+%|         Zde začíná SAMOTNÁ PRÁCE (text)              |
+%--------------------------------------------------------
+%%%TODO jebni tu pod obsah seznam tabulek, seznam obrazku
+% \printglossary[type=\acronymtype]
+
+%   \printnomenclature  
+%\addcontentsline{toc}{chapter}{Abbreviations}
+%\printglossary[type=\acronymtype, title=Abbreviations]
+\include{addons/acronyms}
+\listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+\include{kapitoly/uvod}
+\include{kapitoly/temelin}
+\include{kapitoly/obecne}
+\include{kapitoly/new}
+\include{kapitoly/vysl}
+\include{kapitoly/nfsolver}
+\include{kapitoly/zaver}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%% SEZNAM POUŽITÝCH ZDROJŮ (LITERATURA) %%%%%%%%%%%%
+% \nocite{*}
+% \bibliography{ref}
+% \bibliographystyle{czplain}
+\printbibliography[heading=bibintoc]
+
+%%%%%%%%%%%% PŘÍLOHY PRÁCE %%%%%%%%%%%%
+\newpage % SEM NESAHEJTE!
+\appendix % SEM NESAHEJTE!
+
+\include{addons/appendix}
+
+\end{document} % SEM NESAHEJTE! Konec.

@@ -1,0 +1,157 @@
+\chapter*{Přílohy}
+\addcontentsline{toc}{chapter}{Přílohy}
+\renewcommand{\thesection}{\Alph{section}}
+
+\section{Protokol z aproximace metriky pomocí HPELM}
+\label{app:protocol}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{img/largeprot100000-1-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-2-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-3-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-4-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-5-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-6-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-7-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-8-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-9-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-10-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-11-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-12-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-13-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-14-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-15-1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{img/largeprot100000-16-1.png}
+\end{figure}
+% \includepdf[pages={2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}]{img/largeprot100000.pdf}
+\newpage
+\section{Veličiny použité pro popis palivových souborů.}
+\label{app:params}
+\begin{table}[h]
+\footnotesize
+\centering
+\caption{Veličiny pro popis palivových souborů.}
+\label{tab:fap_gen}
+%\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|}
+\hline
+\tb{Veličina} & \tb{Jednotka} & \tb{Popis} \\ \hline
+\verb|kinf| & -- & \makecell{Koeficient násobení nekonečného reaktoru \\ (z daného palivového souboru,\\ vypočteno kódem)} \\ \hline
+\verb|kinf_lib| & -- & \makecell{Koeficient násobení nekonečného reaktoru \\ (z daného palivového souboru,\\ referenční hodnota z knihovny)} \\ \hline
+\verb|rho_mod| & \jdt{kg\cdot m^{-3}} & Hustota moderátoru (\jdt{H_2 O}) \\ \hline
+\verb|t_mod| & \jdt{\degree C} & Teplota moderátoru (\jdt{H_2 O}) \\ \hline
+\verb|t_fuel| & \jdt{\degree C} & Teplota paliva \\ \hline
+\verb|burnup| & \jdt{MWd\cdot (kg~U)^{-1}} & Vyhoření \\ \hline
+\verb|power| & \jdt{W\cdot cm^{-1}} & Lineární hustota výkonu \\ \hline
+\verb|c_h3bo3| & \jdt{g\cdot kg^{-1}} & Koncentrace \jdt{H_3 BO_3} \\ \hline
+\verb|pnl| & s & Doba života okamžitých neutronů \\ \hline
+\makecell{\texttt{rflux\_1} \\ \texttt{rflux\_2}} & -- & \makecell{Relativní hustota toku neutronů \\ v 1., resp. 2. grupě} \\ \hline
+\makecell{\texttt{velocity\_1} \\ \texttt{velocity\_2}} & \jdt{m\cdot s^{-1}} & \makecell{Rychlost neutronů \\ v 1., resp. 2. grupě} \\ \hline
+\makecell{\texttt{y\_i135} \\ \texttt{y\_xe135}} & -- & Výtěžek \ce{^{135}I}, resp. \ce{^{135}Xe} \\ \hline
+\end{tabular}
+
+\end{table}
+
+\begin{table}[h]
+\scriptsize
+\centering
+\caption{Účinné průřezy pro popis palivových souborů.}
+\label{tab:fap_sigma}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{\tb{2G} $\bv{\Sigma_a}$} & \multicolumn{2}{c|}{\tb{2G} $\bv{\Sigma}$} & \tb{1G} $\bv{\Sigma}$ & \tb{2G} $\bv{\sigma_a}$ & \multicolumn{2}{c|}{\makecell{\tb{2G} $\bv{\sigma}$ \\ \tb{(neznačené jsou absorpční)}}} \\ \hline
+\texttt{sa\_0\_1} & \texttt{sa\_0\_2} & \texttt{ss1\_1} & \texttt{ss2\_1} & \texttt{a\_xe135} & \texttt{msa\_gd152\_1} & \texttt{micro\_f\_u235\_1} & \texttt{micro\_f\_u235\_2} \\ \hline
+\texttt{sa\_b\_1     }& \texttt{sa\_b\_2     }& \texttt{ss1\_2 }& \texttt{ss2\_2 }& \texttt{c\_u235  }& \texttt{msa\_gd155\_1 }& \texttt{micro\_f\_u238\_1  }& \texttt{micro\_f\_u238\_2 }\\ \hline
+\texttt{sa\_gd\_1    }& \texttt{sa\_gd\_2    }& \texttt{nf1   }& \texttt{nf2    }& \texttt{a\_u236  }&  \texttt{msa\_gd156\_1 }& \texttt{micro\_f\_pu239\_1 }& \texttt{micro\_f\_pu239\_2} \\ \hline
+\texttt{sa\_gd152\_1 }& \texttt{sa\_gd152\_2 }& \texttt{kf1   }& \texttt{kf2    }& \texttt{c\_u238  }& \texttt{msa\_gd157\_1 }& \texttt{micro\_c\_u235\_1  }& \texttt{micro\_c\_u235\_2} \\ \hline
+\texttt{sa\_gd155\_1 }& \texttt{sa\_gd155\_2 }& \texttt{ds1   }& \texttt{ds2    }& \texttt{c\_pu239 }& \texttt{msa\_gd158\_1 }& \texttt{micro\_c\_u238\_1  }& \texttt{micro\_c\_u238\_2} \\ \hline
+\texttt{sa\_gd156\_1 }& \texttt{sa\_gd156\_2 }& \texttt{df1   }& \texttt{df2    }& \texttt{a\_pu240 }& \texttt{msa\_gd160\_1 }& \texttt{micro\_c\_pu239\_1 }& \texttt{micro\_c\_pu239\_2} \\ \hline
+\texttt{sa\_gd157\_1 }& \texttt{sa\_gd157\_2 }& \texttt{sf1   }& \texttt{sf2    }& \texttt{c\_pu241 }& \texttt{msa\_gd152\_2 }& \texttt{micro\_b10\_1     }& \texttt{micro\_b10\_2} \\ \hline
+\texttt{sa\_gd158\_1 }& \texttt{sa\_gd158\_2 }& \texttt{d1    }& \texttt{d2     }& \texttt{f\_pu239 }& \texttt{msa\_gd155\_2 }& \texttt{micro\_xe135\_1   }& \texttt{micro\_xe135\_2} \\ \hline
+\texttt{sa\_gd160\_1 }& \texttt{sa\_gd160\_2 }& \texttt{ch1   }& \texttt{ch2    }& \texttt{f\_pu241 }& \texttt{msa\_gd156\_2 }&  &  \\ \hline
+\texttt{sa\_xe\_1    }& \texttt{sa\_xe\_2    }& \texttt{sa1   }& \texttt{sa2    }& \texttt{f\_u235  }& \texttt{msa\_gd157\_2 }&  &  \\ \hline
+\texttt{sa\_sm\_1    }& \texttt{sa\_sm\_2    }&  &  & \texttt{f\_u238 }& \texttt{msa\_gd158\_2 }&  &  \\ \hline
+		      &  &  &  &  & \texttt{msa\_gd160\_2} &  &  \\ \hline
+\end{tabular}
+\end{table}
+\newpage
+\section{Obsah přiloženého CD}
+\begin{itemize}
+\item Tato práce ve formátu PDF (bp\_rzehulka2020.pdf).
+\item Použitá data před zpracováním -- složka data.
+\item Skript codedatapreparationextractFuelParameters.rb, napsaný v jazyce Ruby, načítající soubor u1c15.fap.csv, vytvoří soubor fapSorted.csv, kde jsou \ac{ps} seřazeny k dalšímu použití.
+\item Složka matlab se zdrojovými kódy v MATLABu k fitování.
+	\cit{
+	\item Soubor configSample.json k nastavení parametru modelu (metoda, množství dat, minimální velikost listu u regression tree ensamble,...).
+	\item Funkci makeMod.m načítající parametry z config.json| souboru a volající funkci computeLocal a případně pomocnou funkci renameOutputs. 
+	\item Pomocná funkce renameOutputs.m k unikátnímu pojmenování výstupních souborů.
+	\item Funkce computeLocal.m načítající MATLAB Workspace s maicí konfigurací $C$, odezev $R$ a 3D maticí parametrů \ac{ps} FAP. Dále volá funkci 
+		createTrainData2. Na vytvořená datech volá funkci k tvorbě modelu. Nakonec vše uloží.
+	\item Funkce createTrainData2.m vybírající náhodnou podmnožinu $C$ a $R$ dané velikosti. Volá funkci createP a tvoří rozdíl norem \ac{ps} 
+		v \ac{az}.
+	\item Funkce createP.m vybírá z matice FAP parametry daného \ac{ps} v dané rotaci.
+	\item Funkce trainModel.m tvořící model z vytvořených dvojic.
+
+
+	}
+\item Složka codehpelmpairs obsahující:
+	\cit{
+	\item Skript gpurunpairs.py, používaný k vytvoření párů vstupních dat, odečtení rozdílu jejich parametrů a nafitování metodou \ac{hpelm}. 
+		Vytvořený model postupně otestuje, uloží grafy z testování a nakonec vytvoří zdrojový soubor tex k tvorbě protokolu.
+	\item Skript myfunc.py obsahující pomocné funkce pro skript gpurunpairs.py.
+	\item Soubor config.json určený k nastavení paraemetrů fitovaného modelu (množství dat, počet neuronů,...).
+	}
+\item Složka nfsolver obsahuje následující:
+	\cit{
+	\item Skript creator.ipynb, načítající konfigurace, odezvy a fapSorted.csv. Provádí normalizaci nebo standardizaci výstupů a tvorbu 
+		vstupního datasetu, včetně odstranění konstantních hodnot a normalizace nebo standardizace a uložení do vhodného formátu (např. Apache Parquet).
+	\item Skript pca.ipynb, používaného pro provedení PCA transformace vstupních dat.
+	\item Skript hpelmnfsolverhpelmnfsolver.ipynb, používaný pro pokusy aproximovat neutronický kód metodou \ac{hpelm}.
+	\item Skript tfnfsolvertffitnfsolver.ipynb, používaný pro pokusy aproximovat neutronický kód metodou \ac{dnn}.
+	}
+\end{itemize}

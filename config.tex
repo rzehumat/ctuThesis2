@@ -1,0 +1,85 @@
+\newcommand{\klicova}{optimalizace palivových vsázek, princip lokality v heuristické\newline optimalizaci, regrese metodami strojového učení}  % zde NAPIŠTE česky max. 5 klíčových slov
+\newcommand{\keyword}{loading pattern optimization, locality in heuristics, machine\newline learning regression}       % zde NAPIŠTE anglicky max. 5 klíčových slov (přeložte z češtiny)
+\newcommand{\abstrCZ}{
+Tato práce se zabývá principem lokality v optimalizaci palivových vsázek. 
+V úvodu je stručně popsán reaktor \acs{vver1000} a jeho provoz v Jaderné elektrárně Temelín, který byl použit jako modelový příklad a zdroj dat. 
+V teoretické části je matematicky formulována úloha optimalizace palivových vsázek a jsou diskutovány její vlastnosti. 
+Následně je zaveden pojem lokality a je popsán nejasný stav využití lokality v řešení optimalizace vsázek. 
+V praktické části je popsán koncept zavedení inherentně korelujících metrik a proces jejich hledání. 
+V závěru jsou diskutovány výsledky hledání a je popsáno, proč byly pokusy neúspěšné.
+}
+% zde NAPIŠTE abstrakt v češtině (cca 7 vět, min. 80 slov)
+\newcommand{\abstrEN}{ % zde NAPIŠTE abstrakt v angličtině
+The thesis deals with the locality principle concerning loading pattern optimization. 
+Introductory part briefly describes the VVER-1000 reactor and its operation in Temelín nuclear power plant, which is used as a model example and source of data.
+The theoretical part mathematically defines the loading pattern optimization problem and mentions some of its properties. 
+The following part focuses on the locality principle and current vague status of its usage in loading pattern optimization.
+}
+\newcommand{\prohlaseni}{Prohlašuji, že jsem svou bakalářskou práci vypracoval\woman{} samostatně a použil\woman{} jsem pouze podklady (literaturu, projekty, SW atd.) uvedené v přiloženém seznamu.} % text prohlášení můžete mírně upravit :-)
+\newcommand{\podekovani}{
+        Děkuji vedoucímu práce RNDr.~Michalu Kvasničkovi za četné nápady, množství konzultací a trpělivost. Děkuji Ing.~Lence
+        Frýbortové,~Ph.D., za poskytnuté konzultace a pomoc s finalizací textu po odborné i formální stránce. Děkuji RNDr.~Miroslavu
+        Váchovi za přípravu dat. 
+        Speciální poděkování patří Katedře jaderných reaktorů a Katedře matematiky FJFI (zastupovaným Ing.~Janem Frýbortem,~Ph.D.,
+        a Ing.~Pavlem Strachotou,~Ph.D.) za poskytnutí výpočetních kapacit, bez kterých by tato práce nemohla být provedena v dostatečném
+        rozsahu. 
+        Závěrem děkuji Ronovi za konzultace týkající se kódu a použitých metod a Braňovi, Maťovi, Ivče a Káti za četné připomínky k formálnímu zpracování
+        a za morální podporu.
+}
+
+
+
+\newcommand{\program}{Aplikace přírodních věd} % změňte, pokud máte jiný stud. program
+\newcommand{\obor}{Jaderné inženýrství} % změňte, pokud máte jiný obor
+
+\newcommand{\druh}{Bakalářská práce} % nebo "Diplomová práce"
+\newcommand{\woman}{} % pokud jste ŽENA, ZMĚŇTE na: ...{\woman}{a} (je to do Prohlášení)
+
+\newcommand{\logoCVUT}{\includegraphics{img/symbol_cvut_konturova_verze_cb.pdf}} % logo ČVUT -- podle grafického manuálu ČVUT platného od prosince 2016. Pokud nevyhovuje PDF-verze, tak použijte jinou variantu loga: https://www.cvut.cz/logo-a-graficky-manual -> "Symbol a logo ČVUT v Praze"). Pokud chcete logo úplně vynechat, zadejte místo "\includegraphics{...}" text "\vspace{35mm}"
+
+% přesně podle formuláře "Zadání bak./dipl.img práce" VYPLŇTE:
+\newcommand{\nazevcz}{Optimalizace palivových vsázek - Lokalita metrik podobnosti}    % český název práce (přesně podle zadání!)
+\newcommand{\nazeven}{Optimization of Fuel Loading Patterns - Locality of Similarity Metrics}          % anglický název práce (přesně podle zadání!)
+\newcommand{\autor}{Matěj Rzehulka}   % vyplňte své jméno a příjmení (s akademickým titulem, máte-li jej)
+\newcommand{\vedouci}{RNDr. Michal Kvasnička} % vyplňte jméno a příjmení vedoucího práce, včetně titulů, např.: Doc. Ing. Ivo Malý, Ph.D.
+\newcommand{\pracovisteVed}{ÚJV Řež, a.s.} % ZMĚŇTE, pokud vedoucí Vaší práce není z KSI
+\newcommand{\konzultant}{RNDr. Miroslav Vácha} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonz}{ÚJV Řež, a.s.} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+\newcommand{\konzultantt}{Ing. Lenka Frýbortová, Ph.D.} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonzt}{KJR FJFI ČVUT v Praze} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+
+% podle skutečnosti VYPLŇTE:
+\newcommand{\rok}{2020}  % rok odevzdání práce (jen rok odevzdání, nikoli celý akademický rok!)
+\newcommand{\kde}{Praze} % studenti z Děčína ZMĚNÍ na: "Děčíně" (doplní se k "prohlášení")
+
+
+
+\renewcommand\cftchapfont{\normalsize\bfseries}
+\renewcommand\cftsecfont{\small}
+
+
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+
+\frenchspacing % za větou bude mezislovní mezera (v anglických textech je mezera za větou delší)
+\widowpenalty=1000 % "síla" zákazu vdov (= jeden řádek ze začátku odstavce na konci stránky)
+\clubpenalty=1000 % "síla" zákazu sirotků (= jeden řádek/slovo z konce odstavce samostatně na začátku stránky)
+\brokenpenalty=1000 % "síla" zákazu zlomu stránky za řádkem, který má na konci rozdělené slovo
+
+\topmargin=-10mm      % horní okraj trochu menší
+\textwidth=150mm      % šířka textu na stránce
+\textheight=250mm     % "výška" textu na stránce
+
+
+\pagenumbering{arabic} % číslování stránek arabskými číslicemi
+\pagestyle{fancy}
+%\pagestyle{plain}      % stránky číslované dole uprostřed
+
+\parindent=0pt % odsazení 1. řádku odstavce
+\parskip=7pt   % mezera mezi odstavci
+
+\renewcommand\cftchapfont{\normalsize\bfseries}
+\renewcommand\cftsecfont{\small}
+

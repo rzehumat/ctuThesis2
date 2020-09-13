@@ -1,0 +1,184 @@
+\chapter{Evaluace lokality}
+Snažíme se maximalizovat korelaci mezi vzdálenostmi v \ti{search space} a mezi odezvami. Budeme zkoušet různá zavádění norem na $\Omega_C$ (\ti{indirect 
+representation}), resp. $\Omega_P$ (\ti{direct representation}). Dle kap. \ref{ch:reprezentace} navrhneme metriky nebo operátory.
+% když zavedeme metriky, jak zkoumat lokalitu
+% praktické ověření - může fungovat?
+% dvojice metrik, zavedení, ohodnocení
+% kvasničkův nápad
+
+\section{Zavedení metrik}
+Možnost metriky indukované normou neuvažujeme\footnote{Miniálně ne při intuitivně zavedených souřadnicích nebo při standardní normě. Je možno zkoumat různá zavedení 
+normy a jejich vliv na lokalitu.} -- homogenita normy 
+by znamenala vedla ke korelaci 
+vzdáleností s násobky parametrů -- ale užitková funkce je nelineární. 
+
+Hledáme metriky na prostorech $\Omega_C$ či $\Omega_P$, které korelují 
+se vzdálenostmi na $\Omega_r$. Korelaci můžeme efektivně vyhodnotit 
+v grafu (Obr. \ref{fig:nekorelujici}, \ref{fig:korelujici}), kde na ose $x$ jsou vzdálenosti 
+konfigurací, resp. fyzikálních parametrů a na ose $y$ vzdálenosti na 
+prostoru odezev. 
+
+\pic{nekorelujici.png}{Znázornění nekorelujících metrik. Každý bod reprezentuje dvojici vsázek, kde na ose $x$ je vzdálenost konfigurací a na ose $y$ vzdálenost odezev. Je vidět 3 možnosti. Bod A odpovídá dvojici blízkých odezev, ale vzdálených konfigurací. B je požadovaný stav. C je vzdálené odezvami, ale blízké konfiguracemi.}
+
+Existence stavů A a C je nežádoucí. Stav A znamená, že při běhu optimalizačního algoritmu bude "přehlédnut", protože se nenachází v okolí (ve smyslu 
+konfigurace) výchozí vsázky. Algoritmus tak ignoruje existenci potenciálně lepší vsázky na okolí. Metriku prostoru konfigurací je potřeba upravit, 
+aby dvojici A vyhodnotila jako bližší.
+
+Dvojice C je blízká ve smyslu konfigurací, ačkoli není blízká odezvami. To způsobí, že se algoritmus v další iteraci dostane k vsázce s výrazně jinými 
+vlastnostmi, což je pro postupné prohledávání nežádoucí. Pouze bod B je z hlediska korelace správně -- jeho relativní vzdálenost konfigurace odpovídá 
+relativní vzdálenosti odezev. 
+
+Dobrá volba metrik je na Obr. \ref{fig:korelujici}. Metriky jsou zde zvoleny tak, že většina bodů odpovídá situaci B.
+
+%% definice metriky
+%% obecne vlastnosti -- nejake, co by se nam realne mohly hodit?
+
+
+\subsection{Prostor $\Omega_C$}
+%% permutační, grafové, maticové, grupové metriky
+
+
+\subsection{Prostor $\Omega_P$}
+Intuitivně můžeme předpokládat, že vsázky blízké v $\Omega_P$ mohou mít blízké odezvy\footnotei{.}{Opačně to neplatí, protože 
+nf-solver obecně není prosté zobrazení, i.e. zcela různé vsázky mohou mít podobné odezvy. To nám však nevadí, lokalita vyžaduje 
+implikaci doprava.} Je potřeba najít správné škálování (multiplikativní konstanty, které zohlední vliv jednotlivých veličin 
+na výsledné odezvy), tj. uvažujeme metriku
+\begin{equation}
+	d_P (\bv{P(c_1)}, \bv{P(c_2)}) = \sqrt[p]{\sum_{i,j} k_{i,j}(\bv{P(c_1)}_{i,j}-\bv{P(c_2)}_{i,j})^p}\,,
+	\label{vaz-p-metrika}
+\end{equation}
+a na $\Omega_{res}$ metriku danou absolutní hodnotou rozdílu. Neznámé konstanty $k_{i,j}$ můžeme odhadnout 
+ze známých dat.
+
+
+%% je to VP -> metriky na matice
+%% vazena na pozici a na parametr
+%% -- kazde unikatne -->  121*28=3388 parametru + mocnina = 3389 param
+%% -- vaha = w(pozice)*w(parametr) => 121+28 = 149 parametru -> + mocnina = 150 param
+%% fitovat ty parametry -- loss function je koef. korelace (tj. to je accuracy, bo ide do 1, 
+%% -> loss fcn bude (1-corr), popr. (1-corr)/corr
+
+\subsection{Prostor $\Omega_{res}$}
+
+\section{Zavedení operátorů}
+Chceme takové operátory, které budou vsázkám přiřazovat jiné vsázky s podobnými odezvami. Apriorně však nevíme, 
+jak takové operátory vypadají. 
+\subsection{Operátory na $\Omega_C$}
+% operátor R_i rotace kazety na i-té pozici -- očekáváme, že lokální nebude
+	% u čerstvých kazet se chová jako identita
+	% problém -- to by mělo záviset na typu kazety, co tam bude, a na zbytku pozic
+% operátor tau_ij (permutační)
+	% lokální by neměl být, fest to záleží na tom, jakou kazetu přesouváme
+	% koreluje to s fyzickou vzdáleností i a j? Trochu by mělo, ale očekáváme, že lokalitu to nezachrání
+\subsection{Operátory na $\Omega_P$}
+
+\section{Korelace metrik}
+Hledáme korelující dvojice metrik v $\Omega_r$ a $\Omega_P$, resp. $\Omega_C$.  
+
+
+\subsection{Prostory $\Omega_C$ a $\Omega_P$}
+%TODO:
+%% obecně nekorelují, protože omega_C
+%% šlo by vylepšit zavedením VHODNÉHO uspořádání, resp. číslování na C
+%% ted je C "pozice v AZ, na ni cislo kazety" -- slo by obracene? Typu "cislo kazety, na ni cislo -- pokud pujde do AZ, kam?
+%% popr. matice M=[28, NoKazet], M_ij = 1 ... na i-te pozici je j-ta kazeta, 0.. neni tam --> incore budou bistochasticke ctvercove
+%% 
+
+
+
+\subsection{Prostory $\Omega_C$ a $\Omega_{res}$}
+%% tu fitovat onech 150 + 6+1 parametru
+
+\subsection{Prostory $\Omega_P$ a $\Omega_{res}$}
+Dle zavedení metriky \eqref{vaz-p-metrika} odhadneme konstanty $k$ tak, aby byla maximalizována lokalita. Z dat vybereme vsázky s blízkými odezvami 
+a budeme zkoumat oblak jejich "fenotypů". Ty, které budou korelovat se vzdáleností odezev, budou přispívat k metrice, ostatní zohledněny nebudou.
+
+
+
+\subsection{Složení z $\Omega_C$ a $\Omega_{res}$}
+Jako příklad uveďme operátor HTBX z článku \cite{parks}, převedený do terminologie této bakalářské práce. Každému palivovému souboru přiřadíme reaktivitu (typický příklad komponenty prvků $\Omega_P$). Přiřazení (\uv{mapping}) z $\Omega_C$ na $\Omega_P$ nadefinujme tak, že čísla v $\Omega_C$ odpovídají pořadí souborů seřazených vzestupně podle reaktivity. Pak operace záměny souborů na 
+sousedících pozicích, lišících se o 1 v $\Omega_C$, je "kandidát" na hledanou lokální změnu. Dalším takovým může být výměna souboru za soubor mimo aktivní zónu, který se málo liší v dané veličině.
+
+Princip můžeme zobecnit -- hledejme všechny takové veličiny, vykazující dané chování. Funguje taková lokalita jen pro určitou pozici v AZ, nebo pro všechny? Jak 
+záleží na konfiguraci zbytku AZ?
+
+% Uvažujme, že na $\Omega_P$ najdeme veličinu takovou, že její změna vykazuje lokalitu.  
+
+
+
+
+
+% -- zmíníme možné zavedení vzdálenosti a proč by mohlo / nemohlo fungovat
+% -- jak je chceme zavést -- at korelují
+% 
+% 
+% -- co bychom s tím udělali, kdybychom to zavedli 
+% 
+% 
+% 
+% Uvažujme, že reálná data nikdy nebudou chovat zcela lokálně nebo zcela skokově. Zaveďme proto zobrazení $\lambda(d_{LP}, d_{R}) \rightarrow \mathbb{R}$, kde $\chi_{LP}$ je metrika na prostoru palivových vsázek, $\chi_{R}$ je metrika na prostoru odezev a LP je množina palivových vsázek. Budeme chtít, aby zobrazení splňovalo, že pro více lokální chování dvojice metrik na daném prostoru vsázek bude $\lambda$ rostoucí. Too a
+% 
+% 
+% Snadno ukážeme, že volba $\lambda = corr(d_{LP}, d_{R})$, kde $corr$ je koeficient korelace, požadavek splňuje.
+% 
+% Úlohu evaluace lokality zobrazení $\phi$ pak můžeme formulovat následovně: Pro různé druhy metrik na prostoru palivových vsázek a odezev zkoumejte koeficient korelace. Snažte se najít nebo vyloučit existenci dvojice metrik s korelací jdoucí k 1.
+% 
+% \section{Zavedení metrik}
+% Metrikou rozumíme zobrazení $d: MxM \rightarrow \mathbb{R}$, kde $M$ je množina, případně na vektorovém prostoru $V$ jako $d: VxV \rightarrow T$, $T$ je těleso, splňující
+% \begin{enumerate}
+%     \item \label{metr:PD} $\forall x,y \in M: d(x,y) \geq 0 AND d(x,y) = 0 \Leftrightarrow x=y$
+%     \item \label{metr:sym} $\forall x,y \in M: d(x,y) = d(y,x)$
+%     \item $\forall x,y,z \in M: d(x,y) \leq d(x,z) + d(z,y)$.
+% \end{enumerate}
+% Zobrazení $\delta$ splňující pouze vlastnosti \ref{metr:PD} a \ref{metr:sym} nazveme pseudometrikou.
+% 
+% \subsection{omega c}
+% 
+% \subsection{$\Omega_{LP}$}
+% Jelikož jej můžeme bijektivně převést na prostor reálných matic, dostáváme vektorový prostor, kde je metrika dobře definovaná.
+% 
+% \subsubsection{"Obecná metrika"}
+% Obecně přichází v úvahu \textit{p-metrika}, definovaná jako 
+% \begin{equation}
+%     d(\mathbb{A}, \mathbb{B}) := \left( \sum_{i,j = 1}^{n} |a_{ij} - b_{ij}|\right)^{\frac{1}{p}},
+% \end{equation}
+% kde $p\geq 1$. Dále budeme chtít zohlednit význam jednotlivých parametrů palivových souborů na výsledné parametry vsázky. Zohledníme to multiplikativní nezápornou funkcí $f=f(i)$, kde $i$ je řádkový index v matici, můžeme odhadnout z jejich fyzikálního významu. Pokud bychom předpokládali, že parametry jsou v matici seřazeny sestupně dle významu, můžeme obecně požadovat $f$ nerostoucí.
+% 
+% Budeme chtít zohlednit i vliv pozice souboru v AZ. Uvažujeme-li, že větší vliv mají soubory vzdálenější od středu, můžeme požadovat (číslujeme-li pozice v AZ od středu k okraji) $g=g(j)$, která bude nerostoucí.
+% 
+% Pak můžeme zavést funkci $h(i,j) = f(i)\cdot g(j)$ a obecnou metriku v $\Omega_{LP}$ jako
+% \begin{equation}
+%     d_h (\mathbb{A}, \mathbb{B}) := \left( \sum_{i,j = 1}^{n} (h(i,j)|a_{ij} - b_{ij}|\right))p^{\frac{1}{p}}.
+% \end{equation}
+% 
+% Při počítání metriky chceme zavést váhovou funkci pro vzdálenost od středu - protože soubory mají různě velký vliv v závislosti na vzdálenosti od středu -> třeba pomocí N kladnych cisel -> vynasobí "element-wise" sloupce tech matic.
+% 
+% Podobně můžeme zavést váhovou funkci pro duležitost odezev -> treba $l$ součinitelů -> element-wise vynásobí řádky těch matic.
+% 
+% Volbou $p = 1$ a $h_{i,j}=1 \forall i,j$ dostáváme síťovou (Manhattanskou) metriku. Eukleidovskou vzdáleností rozumíme volbu $p = 2$ a $h_{i,j}=1 \forall i,j$, Minkowského metrikou ($p$-metrikou) nazveme metriku s volbou $h_{i,j}=1 \forall i,j$ a libovolného $p \geq 1$. Ta v limitě pro $p \to \infty$ přechází v maximovou metriku $d_h (\mathbb{A}, \mathbb{B}) := max_{i,j} |a_{ij} - b_{ij}|$. 
+% 
+% 
+% 
+% % obecne tu budou funkc
+% \subsection{omega phi}
+% Pro vektory můžeme definovat Mahalonobisovu metriku jako 
+% \begin{equation}
+%     d(x,y) \sqrt{(x-y)^T S^{-1} (x-y)},
+% \end{equation}
+% kde $S$ je kovarianční matice. Speciálně volbou $S = I$ dostáváme Eukleidovskou metriku.
+% 
+% 
+% \section{Korelace metrik}
+% Nalezení dvojice metrik mezi $\Omega_{LP}$ (popř. $\Omega_{C}$) a $\Omega_{\phi}$, pro kterou budou vzdálenosti v zmíněných prostorech vykazovat silnou korelaci by znamenalo, že k optimalizaci palivových vsázek by bylo možné používat "guided-search" algoritmy, přičemž bychom iterovali pomocí prohledávání okolí v rámci daných metrik.
+% 
+% V případě neúspěchu při nalezení takových metrik by se potvrdilo nesplnění lokality a tedy by na optimalizaci palivových vsázek nebylo možné používat metody založené na prohledávání okolí. Tedy by nám zůstaly např. metody typu EDA.
+% 
+% \subsection{Prostory $\Omega_C$ a $\Omega_{LP}$}
+% 
+% \subsection{Prostory $\Omega_C$ a $\Omega_{\phi}$}
+% Očekáváme, že vzdálenosti na $\Omega_{\phi}$ nebudou korelovat se vzdálenostmi na $\Omega_{C}$, protože v $\Omega_{C}$ nezohledňujeme neutronově-fyzikální charakteristiky jednotlivých palivových souborů. Tedy i pozičně vzdálené vsázky mohou mít podobné odezvy (např. mají-li podobné n-f charakteristiky) a naopak pozičně podobné vsázky mohou mít různé odezvy, budou-li mít různé n-f charakteristiky.
+% 
+% 
+% \subsection{Prostory $\Omega_{LP}$ a $\Omega_{\phi}$}
+% 
+% 
