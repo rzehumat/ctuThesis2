@@ -4,3 +4,11 @@
 - no single language settings -- just on one place, not many times (thesisname, keywords, language, Praze/Prague, ...
 - Woman settings not set
 - vlnování
+- chybí manuál a readme
+- příklady obrázků
+- definice, věta, důkaz
+- style of vectors
+- style of acronyms
+- better math, better units
+- zminit, že musí spustit biber na literaturu a že zobrazuje jen citovanou
+- zminit, že je optimalizovane pro pdflatex
