@@ -1,82 +1,90 @@
+%%% Specification of all necessary stuff %%%
+% ========================================
+
+
 % Specification of the author and consultants
-\newcommand{\autor}{Jaroslav Cimrman}   % vyplňte své jméno a příjmení (s akademickým titulem, máte-li jej)
-\newcommand{\vedouci}{RNDr. Josef Pekárek} % vyplňte jméno a příjmení vedoucího práce, včetně titulů, např.: Doc. Ing. Ivo Malý, Ph.D.
-\newcommand{\pracovisteVed}{Zakoupil a Zbořil, a.~s.} % ZMĚŇTE, pokud vedoucí Vaší práce není z KSI
-\newcommand{\konzultant}{Ing. } % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
-\newcommand{\pracovisteKonz}{ÚJV Řež, a.s.} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
-\newcommand{\konzultantt}{Ing. Lenka Frýbortová, Ph.D.} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
-\newcommand{\pracovisteKonzt}{KJR FJFI ČVUT v Praze} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+\newcommand{\autor}{Thesis Author}   % vyplňte své jméno a příjmení (s akademickým titulem, máte-li jej)
+\newcommand{\woman}{} % pokud jste ŽENA, ZMĚŇTE na: ...{\woman}{a} (je to do Prohlášení)
+
+\newcommand{\vedouci}{title. Great Supervisor} % vyplňte jméno a příjmení vedoucího práce, včetně titulů, např.: Doc. Ing. Ivo Malý, Ph.D.
+\newcommand{\pracovisteVed}{Awesome and Rich company from Supervisor} % ZMĚŇTE, pokud vedoucí Vaší práce není z KSI
+\newcommand{\konzultant}{title. Talkative Consultant} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonz}{Very consultive Group} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
+\newcommand{\konzultantt}{title. Awesome SecondOne} % POKUD MÁTE určeného konzultanta, NAPIŠTE jeho jméno a příjmení
+\newcommand{\pracovisteKonzt}{The second Group} % POKUD MÁTE konzultanta, NAPIŠTE jeho pracoviště
 
 % Specification of thesis -- copy and paste from your task list
-\newcommand{\nazevcz}{Optimalizace palivových vsázek - Lokalita metrik podobnosti}
-\newcommand{\nazeven}{Optimization of Fuel Loading Patterns - Locality of Similarity Metrics}
-
-\newcommand{\druh}{Bakalářská práce} % nebo "Diplomová práce"
-
+\newcommand{\nazevcz}{Název česky}
+\newcommand{\nazeven}{Název anglicky}
 \newcommand{\rok}{2020}  % rok odevzdání práce (jen rok odevzdání, nikoli celý akademický rok!)
 \newcommand{\kde}{Praze} % studenti z Děčína ZMĚNÍ na: "Děčíně" (doplní se k "prohlášení")
+\newcommand{\program}{Aplikace přírodních věd} % změňte, pokud máte jiný stud. program
+\newcommand{\obor}{Jaderné inženýrství} % změňte, pokud máte jiný obor
 
+% Uncomment exactly one -- either czech or english
+\newcommand{\druh}{Bakalářská práce} 
+%\newcommand{\druh}{Výzkumný úkol} 
+%\newcommand{\druh}{Diplomová práce}
 
+% ..or english equivalent
+%\newcommand{\druh}{Bachelor thesis} 
+%\newcommand{\druh}{Research project} 
+%\newcommand{\druh}{Master thesis}
 
 % Keywords in zde NAPIŠTE česky max. 5 klíčových slov AND translate them into english
 \newcommand{\klicova}{slovo1, slovo2, slovo3}  
 \newcommand{\keyword}{keyword1, keyword2, keyword3}
 \newcommand{\abstrCZ}{% zde NAPIŠTE abstrakt v češtině (cca 7 vět, min. 80 slov)
-Tato práce se zabývá
+Tato práce se zabývá psaním závěrečných prací.
 }
 \newcommand{\abstrEN}{% zde NAPIŠTE abstrakt v angličtině
-The thesis deals with 
+The thesis deals with the issue of thesis writing. 
 }
 \newcommand{\prohlaseni}{% text prohlášení můžete mírně upravit
 Prohlašuji, že jsem svou bakalářskou práci vypracoval\woman{} samostatně a použil\woman{} jsem pouze podklady (literaturu, projekty, SW atd.) uvedené v přiloženém seznamu.
 } 
 \newcommand{\podekovani}{%Podekovani se doporucuje neprehanet
-% Děkuji Ing. Eleonoře Krtečkové, Ph.D. za vedení mé bakalářské práce a za podnětné návrhy, které ji obohatily.
+ Děkuji Ing. Eleonoře Krtečkové, Ph.D. za vedení mé bakalářské práce a za podnětné návrhy, které ji obohatily.
 % NEBO:
 % Děkuji vedoucímu práce doc. Pafnutijovi Snědldítětikaši, Ph.D. za neocenitelné rady a pomoc při tvorbě bakalářské práce.
 }
 
-
-
-\newcommand{\program}{Aplikace přírodních věd} % změňte, pokud máte jiný stud. program
-\newcommand{\obor}{Jaderné inženýrství} % změňte, pokud máte jiný obor
-
-\newcommand{\woman}{} % pokud jste ŽENA, ZMĚŇTE na: ...{\woman}{a} (je to do Prohlášení)
-
-\newcommand{\logoCVUT}{\includegraphics{img/symbol_cvut_konturova_verze_cb.pdf}} % logo ČVUT -- podle grafického manuálu ČVUT platného od prosince 2016. Pokud nevyhovuje PDF-verze, tak použijte jinou variantu loga: https://www.cvut.cz/logo-a-graficky-manual -> "Symbol a logo ČVUT v Praze"). Pokud chcete logo úplně vynechat, zadejte místo "\includegraphics{...}" text "\vspace{35mm}"
-
-% přesně podle formuláře "Zadání bak./dipl.img práce" VYPLŇTE:
-
-% podle skutečnosti VYPLŇTE:
-
-
-
-\renewcommand\cftchapfont{\normalsize\bfseries}
-\renewcommand\cftsecfont{\small}
-
-
+% Page style -- uncomment exactly one
+% 
+% Style 1 -- fancy
+\pagestyle{fancy}
 \fancyfoot{}
 \fancyhead[RO,LE]{\thepage}
 \fancyhead[RE]{\nouppercase{\leftmark}}
 \fancyhead[LO]{\nouppercase{\rightmark}}
 
-\frenchspacing % za větou bude mezislovní mezera (v anglických textech je mezera za větou delší)
-\widowpenalty=1000 % "síla" zákazu vdov (= jeden řádek ze začátku odstavce na konci stránky)
-\clubpenalty=1000 % "síla" zákazu sirotků (= jeden řádek/slovo z konce odstavce samostatně na začátku stránky)
-\brokenpenalty=1000 % "síla" zákazu zlomu stránky za řádkem, který má na konci rozdělené slovo
+% Style 2 -- plain
+%\pagestyle{plain}      % stránky číslované dole uprostřed
 
+
+% Page numbering
+\pagenumbering{arabic} % číslování stránek arabskými číslicemi
+
+% Margins 
 \topmargin=-10mm      % horní okraj trochu menší
 \textwidth=150mm      % šířka textu na stránce
 \textheight=250mm     % "výška" textu na stránce
 
-
-\pagenumbering{arabic} % číslování stránek arabskými číslicemi
-\pagestyle{fancy}
-%\pagestyle{plain}      % stránky číslované dole uprostřed
-
+% Intendation
 \parindent=0pt % odsazení 1. řádku odstavce
 \parskip=7pt   % mezera mezi odstavci
 
-\renewcommand\cftchapfont{\normalsize\bfseries}
-\renewcommand\cftsecfont{\small}
+% Font size
+\renewcommand\cftchapfont{\small\bfseries}
+\renewcommand\cftsecfont{\footnotesize}
+\renewcommand\cftsubsecfont{\footnotesize}
 
+\renewcommand\cftchappagefont{\small\bfseries}
+\renewcommand\cftsecpagefont{\footnotesize}
+\renewcommand\cftsubsecpagefont{\footnotesize}
+
+% Spacing
+\frenchspacing % za větou bude mezislovní mezera (v anglických textech je mezera za větou delší)
+\widowpenalty=1000 % "síla" zákazu vdov (= jeden řádek ze začátku odstavce na konci stránky)
+\clubpenalty=1000 % "síla" zákazu sirotků (= jeden řádek/slovo z konce odstavce samostatně na začátku stránky)
+\brokenpenalty=1000 % "síla" zákazu zlomu stránky za řádkem, který má na konci rozdělené slovo
