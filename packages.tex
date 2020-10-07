@@ -3,7 +3,13 @@
 \usepackage[nottoc]{tocbibind}      % citace
 \usepackage[utf8]{inputenc}     % vstupní znaková sada tohoto dokumentu: UTF-8
 \usepackage{makecell}
+
+% Uncomment exactly one
 \usepackage[czech]{babel} % česky psaná práce, typografická pravidla. Překládejte pomocí "latex.exe" nebo "pdflatex.exe"
+% \usepackage[slovak]{babel} 
+% \usepackage[english]{babel}
+
+
 \usepackage[resetfonts]{cmap}
 \usepackage{lmodern}
 \usepackage{xargs}
@@ -33,10 +39,14 @@
 %\newindex{default}{idx}{ind}{Rejstřík} % zavádí rejstřík v případě použití balíku index
 \usepackage{tocloft}
 \usepackage{paralist}
-\usepackage{csquotes}
+
+% Proper bibliography
 \usepackage[style=iso-numeric, backend=biber, language=czech]{biblatex}
-\addbibresource{ref.bib}
+\usepackage{csquotes}
 \usepackage{amsthm}
+\addbibresource{ref.bib}
+
+
 \theoremstyle{definition}
 \newtheorem{define}{Definice}[section]
 
@@ -47,14 +57,5 @@
 \usepackage[version=3]{mhchem}
 
 \usepackage{gensymb}
-% \usepackage[nocfg,intoc]{nomencl}
-
-% \makenomenclature
 
 \usepackage[printonlyused,footnote]{acronym}
-
-%\usepackage[acronym]{glossaries}
-% \newacronym{api}{API}{Application Programming Interface}
-% \makeglossaries
-% \newacronym{gcd}{GCD}{Greatest Common Divisor}
-
