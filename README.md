@@ -5,8 +5,8 @@ It is not my piece of work and therefore I do not have any author rights.
 # Download
 
 ## Overleaf
-- It's expected to appear in the Overleaf Gallery soon (already submitted, now wainting for them to publish it)
 - New project -> Temlates - View all -> find "ctuThesis2"
+- or use link https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx
 
 ## Linux
 - Green button "Code" -> Download ZIP
