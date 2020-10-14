@@ -24,15 +24,36 @@
 \newcommand{\program}{Aplikace přírodních věd} % změňte, pokud máte jiný stud. program
 \newcommand{\obor}{Jaderné inženýrství} % změňte, pokud máte jiný obor
 
-% Uncomment exactly one -- either czech or english
+%% LANGUAGE SETTINGS
+% Uncomment exactly one block
+
+%==================
+%% CZECH
+\usepackage[czech]{babel} % česky psaná práce, typografická pravidla. Překládejte pomocí "latex.exe" nebo "pdflatex.exe"
+
+% Uncomment exactly one 
 \newcommand{\druh}{Bakalářská práce} 
 %\newcommand{\druh}{Výzkumný úkol} 
 %\newcommand{\druh}{Diplomová práce}
+%==================
 
-% ..or english equivalent
+%==================
+%% SLOVAK
+% \usepackage[slovak]{babel} 
+%==================
+
+
+%==================
+%% ENGLISH
+% \usepackage[english]{babel}
+
+% Uncomment exactly one 
 %\newcommand{\druh}{Bachelor thesis} 
 %\newcommand{\druh}{Research project} 
 %\newcommand{\druh}{Master thesis}
+%==================
+
+
 
 % Insert scan of your task -- put it in "img" folder -- 2 separate PDFs recommended
 \newcommand{\skenZadaniPredni}{specimen1.pdf}
@@ -71,6 +92,14 @@ Prohlašuji, že jsem svou bakalářskou práci vypracoval\woman{} samostatně a
 
 % Page numbering
 \pagenumbering{arabic} % číslování stránek arabskými číslicemi
+
+% Depth of table of contents (ToC) (2 is RECOMMENDED, other are believed to be confusing and poorly arranged!
+% 0 = only parts and chapters are included in ToC
+% 1 = parts, chapters, sections
+% 2 = parts, chapters, sections, subsections
+% 3 = parts, chapters, sections, subsections, subsubsections
+\setcounter{tocdepth}{2}
+
 
 % Margins 
 \topmargin=-10mm      % horní okraj trochu menší
