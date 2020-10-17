@@ -2,23 +2,33 @@ Alternative thesis template. Optimized for FNSPE CTU, but could be used anywhere
 
 It is not my piece of work and therefore I do not have any author rights.
 
+For other CTU templates for theses, see
+- [Tomas Hejda's template for CTU theses](https://github.com/tohecz/ctuthesis), 
+- [KSI FNSPE CTU template](https://ksi.fjfi.cvut.cz/sablona-zaverecne-prace), 
+- [Milos Kozak's template for CTU FEE](https://www.overleaf.com/latex/templates/sablona-pro-psani-disertacni-prace-na-cvut-fel/ptpvbxhsjdmg), 
+- [Ondrej Guth's template for CTU FIT](https://www.overleaf.com/latex/templates/fit-ctu-dissertation-template/bjrwpqfztbjf). 
+
+
 # Download
 
 ## Overleaf
-- New project -> Temlates - View all -> find "ctuThesis2"
-- or use link https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx
+- New project -> Temlates - View all -> find "ctuThesis2" or [use link](https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx)
 
 ## Linux
 - Green button "Code" -> Download ZIP
-    - cd _my\_dir_
-    - 7z x _that\_downloaded\_ZIPfile_
+```
+cd my\_dir
+7z x that\_downloaded\_ZIPfile
+```
 - OR second option: 
-    - cd _my\_dir_
-    - git clone https://github.com/rzehumat/ctuThesis2.git
-    - rm -rf _.git_
+```
+cd my\_dir
+git clone https://github.com/rzehumat/ctuThesis2.git
+rm -rf _.git
+```
 
 ## Windows
-- Green button "Code" -> Download ZIP
+- Green button `Code` -> Download ZIP
     - unzip it
  
 # Working with the teplate (manual for beginners)
@@ -26,7 +36,7 @@ It is not my piece of work and therefore I do not have any author rights.
 2. (optional) in case of cz/sk woman, check correct suffixes (e.g. in "Prohlášení")
 3. start writing
     - I recommend writing each chapter in separate file (in order to produce PDF fast)
-    - add file names to _main.tex_ by command _\\include_ (filename without suffix _.tex_)
+    - add file names to _main.tex_ by command `\\include` (filename without suffix _.tex_)
     - for the sake of readability, it's recommended to store chapter source files in _kapitoly\/_
     - all packages to be imported are located in _packages.tex_
 
@@ -34,31 +44,33 @@ It is not my piece of work and therefore I do not have any author rights.
 There are some own commands or aliases to make LaTeX syntax shorter or to reduce the code (DRY principle). They are located in _commands.tex_.
 
 ## Figures
-- _\\pic_ is for figure; by default it's set to have constant width _0.8\\textwidth_ and placement _H_
+- `\\pic` is for figure; by default it's set to have constant width `0.8\\textwidth` and placement `H`
     - picture source is expected to be in _img_ folder
-> \\pic{examplePicture.png}{Shorter decription to appear in the List of Figures.}{Description for caption -- could have any length. BlaBlaBlaBla.}
+```
+\\pic{examplePicture.png}{Shorter decription to appear in the List of Figures.}{Description for caption -- could have any length. BlaBlaBlaBla.}
+```
+- `\\dpic` is for 2 figures side-by-side
 
-- _\\dpic_ is for 2 figures side-by-side
-
-- _\\tpic_ is for 3 figures side-by-side
+- `\\tpic` is for 3 figures side-by-side
 
 ## Equations
-- _\\eq_ is alias for _equation_ environment, i.e.
-    > \\begin{equation}
-    >    a = b
-    > \\end{equation}
-    - is the same as
-    > \\eq{
-    >    a = b
-    > }
-
-- _\\eqa_ is alias for _\\align_ environment -- works the same as _\\eq_
+- `\\eq` is alias for `equation` environment, i.e.
+```
+    \\begin{equation}
+       a = b
+    \\end{equation}
+    is the same as
+    \\eq{
+       a = b
+    }
+```
+- `\\eqa` is alias for `\\align` environment -- works the same as `\\eq`
 
 ## Aliases
-- _\\tb_ is alias for _\\textbf_
-- _\\ti_ is alias for _\\textit_
-- _\\cit_ is alias for _\\compactitem_
-- _\\cen_ is alias for _\\compactenum_
+- `\\tb` is alias for `\\textbf`
+- `\\ti` is alias for `\\textit`
+- `\\cit` is alias for `\\compactitem`
+- `\\cen` is alias for `\\compactenum`
 
 
 
