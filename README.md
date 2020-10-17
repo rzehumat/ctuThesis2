@@ -60,17 +60,17 @@ There are some own commands or aliases to make LaTeX syntax shorter or to reduce
 - `\eq` is alias for `equation` environment, i.e.
 
 ```
-    \begin{equation}
-       a = b
-    \end{equation}
+\eq{
+   a = b
+}
 ```
 
-    is the same as
+- is the same as
 
 ```
-    \eq{
-       a = b
-    }
+\begin{equation}
+   a = b
+\end{equation}
 ```
 
 - `\eqa` is alias for `\align` environment -- works the same as `\eq`
