@@ -12,19 +12,22 @@ For other CTU templates for theses, see
 # Download
 
 ## Overleaf
-- New project -> Temlates - View all -> find "ctuThesis2" or [use link](https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx)
+- New project -> Templates - View all -> find "ctuThesis2" or [use link](https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx)
 
 ## Linux
-- Green button "Code" -> Download ZIP
+- Green button "Code" --> Download ZIP
+
 ```
-cd my\_dir
-7z x that\_downloaded\_ZIPfile
+cd my_dir
+7z x that_downloaded_ZIPfile
 ```
+
 - OR second option: 
+
 ```
-cd my\_dir
+cd my\dir
 git clone https://github.com/rzehumat/ctuThesis2.git
-rm -rf _.git
+rm -rf .git
 ```
 
 ## Windows
@@ -44,35 +47,33 @@ rm -rf _.git
 There are some own commands or aliases to make LaTeX syntax shorter or to reduce the code (DRY principle). They are located in _commands.tex_.
 
 ## Figures
-- `\\pic` is for figure; by default it's set to have constant width `0.8\\textwidth` and placement `H`
+- `\pic` is for figure; by default it's set to have constant width `0.8\textwidth` and placement `H`
     - picture source is expected to be in _img_ folder
 ```
-\\pic{examplePicture.png}{Shorter decription to appear in the List of Figures.}{Description for caption -- could have any length. BlaBlaBlaBla.}
+\pic{examplePicture.png}{Shorter decription to appear in the List of Figures.}{Description for caption -- could have any length. BlaBlaBlaBla.}
 ```
-- `\\dpic` is for 2 figures side-by-side
+- `\dpic` is for 2 figures side-by-side
 
-- `\\tpic` is for 3 figures side-by-side
+- `\tpic` is for 3 figures side-by-side
 
 ## Equations
-- `\\eq` is alias for `equation` environment, i.e.
+- `\eq` is alias for `equation` environment, i.e.
 ```
-    \\begin{equation}
+    \begin{equation}
        a = b
-    \\end{equation}
+    \end{equation}
     is the same as
-    \\eq{
+    \eq{
        a = b
     }
 ```
-- `\\eqa` is alias for `\\align` environment -- works the same as `\\eq`
+- `\eqa` is alias for `\align` environment -- works the same as `\eq`
 
 ## Aliases
-- `\\tb` is alias for `\\textbf`
-- `\\ti` is alias for `\\textit`
-- `\\cit` is alias for `\\compactitem`
-- `\\cen` is alias for `\\compactenum`
-
-
+- `\tb` is alias for `\textbf`
+- `\ti` is alias for `\textit`
+- `\cit` is alias for `\compactitem`
+- `\cen` is alias for `\compactenum`
 
 
 # Known issues
