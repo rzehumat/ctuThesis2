@@ -58,15 +58,21 @@ There are some own commands or aliases to make LaTeX syntax shorter or to reduce
 
 ## Equations
 - `\eq` is alias for `equation` environment, i.e.
+
 ```
     \begin{equation}
        a = b
     \end{equation}
+```
+
     is the same as
+
+```
     \eq{
        a = b
     }
 ```
+
 - `\eqa` is alias for `\align` environment -- works the same as `\eq`
 
 ## Aliases
