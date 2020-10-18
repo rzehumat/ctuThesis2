@@ -42,7 +42,7 @@ rm -rf .git
 2. (optional) in case of cz/sk woman, check correct suffixes (e.g. in "Prohlášení")
 3. start writing
     - I recommend writing each chapter in separate file (in order to produce PDF fast)
-    - add file names to _main.tex_ by command `\\include` (filename without suffix _.tex_)
+    - add file names to _main.tex_ by command `\include` (filename without suffix _.tex_)
     - for the sake of readability, it's recommended to store chapter source files in _kapitoly\/_
     - all packages to be imported are located in _packages.tex_
 
