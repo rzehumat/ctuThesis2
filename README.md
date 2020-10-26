@@ -1,3 +1,4 @@
+Testing second branch
 Alternative thesis template. Optimized for FNSPE CTU, but could be used anywhere else just by modifying university name etc.
 
 It is not my piece of work and therefore I do not have any author rights.
