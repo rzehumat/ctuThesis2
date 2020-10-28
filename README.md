@@ -139,6 +139,11 @@ For additional references (e.g. color settings, range of rows to list etc.) see 
 - `\cit` is alias for `\compactitem`
 - `\cen` is alias for `\compactenum`
 
+## Czech stuff
+- style of references set to ISO-690
+- for czech style of quotation marks (9966) use `\uv{textInsideQuotationMarks}`
+ 
+
 # Useful tools
 > Do not hurt yourself.
 1. [Detexify](https://detexify.kirelabs.org/classify.html) -- image recognition -- searches LaTeX commands for handwritten symbol.
