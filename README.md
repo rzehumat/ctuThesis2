@@ -2,7 +2,7 @@ Alternative thesis template. Optimized for FNSPE CTU, but could be used anywhere
 
 It is not my piece of work and therefore I do not have any author rights.
 
-For other CTU templates for theses, see
+This template is not an official one, there are more available at CTU. Ask your supervisor, which one should you use! For other CTU templates for theses, see
 - [Tomas Hejda's template for CTU theses](https://github.com/tohecz/ctuthesis), 
 - [KSI FNSPE CTU template](https://ksi.fjfi.cvut.cz/sablona-zaverecne-prace), 
 - [Milos Kozak's template for CTU FEE](https://www.overleaf.com/latex/templates/sablona-pro-psani-disertacni-prace-na-cvut-fel/ptpvbxhsjdmg), 
