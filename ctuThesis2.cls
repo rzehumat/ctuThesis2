@@ -59,9 +59,14 @@
 
 % TODO: pass language options from class here
 \usepackage[english]{babel} 
+% \usepackage[czech]{babel} 
+% \usepackage[slovak]{babel} 
 
 % TODO: apply this according to language options
 \usepackage{indentfirst}
+\newcommand{\stdindent}{\setlength{\parindent}{2em}}
+\newcommand{\stdskip}{\setlength{\parskip}{0em}}
 
+\pagenumbering{arabic} % číslování stránek arabskými číslicemi
 
 % commands
