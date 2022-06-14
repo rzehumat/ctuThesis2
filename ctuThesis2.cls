@@ -388,3 +388,111 @@
   %\end{center}
   
 }
+
+\newcommand{\makeProclamation}{
+  %%%%%%%%%%%% Prohlášení -- SEM NESAHEJTE! Generuje se automaticky z výše nastavených maker \kde{} a \prohlaseni{}. %%%%%%%%%%%%
+  \newpage % SEM NESAHEJTE!
+  \thispagestyle{empty}  % SEM NESAHEJTE!
+  
+  % SEM NESAHEJTE!
+  ~
+  \vfill % prázdné místo. SEM NESAHEJTE!
+  
+  \tb{Prohlášení} % SEM NESAHEJTE!
+  
+  \vspace{1em} % vertikální mezera. SEM NESAHEJTE!
+  \prohlaseni
+  
+  \vspace{2em}  % SEM NESAHEJTE!
+  \hspace{-0.5em}\begin{tabularx}{\textwidth}{X c}  % SEM NESAHEJTE!
+  V \kde\ dne .................... &........................................ \\	% SEM NESAHEJTE!
+  	& \autor
+  \end{tabularx}	% SEM NESAHEJTE!
+
+}
+
+\newcommand{\makeAcknowledgement}{
+  %%%%%%%%%%%% Poděkování  %%%%%%%%%%%%
+  \newpage
+  \thispagestyle{empty}
+  
+  ~
+  \vfill % prázdné místo
+  
+  
+  % -- následující kus kódu (do "%%%%%%%%%%%% ABSTRAKT") můžete odstranit, pokud nechcete psát poděkování:
+  \tb{Poděkování}
+  
+  \vspace{1em} % vertikální mezera
+  \podekovani
+  \begin{flushright}
+  \autor
+  \end{flushright}  % <------- tady končí stránka s poděkováním
+
+}
+
+
+
+  \newcommand\odstavec[2]{%
+      \setbox\odstavecbox=\hbox{%
+           \parbox[t]{#1}{#2\vrule width 0pt depth 4pt}}%
+      \global\vyskaodstavce=\dp\odstavecbox
+      \box\odstavecbox}
+
+  \newbox\odstavecbox
+  \newlength\vyskaodstavce
+  \newcommand{\delka}{120mm} % šířka textů ve 2. sloupci tabulky
+
+\newcommand{\vedouci}{Supervisor Name}
+\newcommand{\pracovisteVed}{Supervisor Affiliation}
+
+\newcommand{\konzultant}{Consultant Name}
+\newcommand{\pracovisteKonz}{Consultant Affiliation}
+
+\newcommand{\makeAbstract}{
+  \newpage   % SEM NESAHEJTE!
+  \thispagestyle{empty}   % SEM NESAHEJTE!
+  
+  \begin{tabular}{ll}
+    {\em Název práce:} & ~ \\
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazevcz}} \\[1em]
+    {\em Autor:} & \autor \\[1em]
+    {\em Studijní program:} & \program \\
+    {\em Obor:} & \obor \\
+    {\em Druh práce:} & \druh \\[1em]
+    {\em Vedoucí práce:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
+    {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
+   \\[1em]
+    & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
+    {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+  
+    {\em Title:} & ~\\
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
+    {\em Author:} & \autor \\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
+    {\em Key words:} & \odstavec{\delka}{\keyword}
+  \end{tabular}
+}
+
+\newcommand{\makeTOC}{
+  %%%%%%%%%%%% Obsah práce ... je generován AUTOMATICKY %%%%%%%%%%%%
+  
+  \newpage  % SEM NESAHEJTE!
+  \parskip=0pt
+  \begin{small}
+  \tableofcontents % SEM NESAHEJTE!
+  \end{small}
+  \parskip=7pt
+  \newpage % SEM NESAHEJTE!
+}
+
+\newcommand{\supervisor}[2]{
+  \renewcommand{\vedouci}{#1}
+  \renewcommand{\pracovisteVed}{#2}
+}
+
+\newcommand{\consultant}[2]{
+  \renewcommand{\konzultant}{#1}
+  \renewcommand{\pracovisteKonz}{#2}
+}
