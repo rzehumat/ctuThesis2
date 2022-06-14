@@ -458,6 +458,7 @@
 \newcommand{\skenZadaniPredni}{specimen1.pdf}
 \newcommand{\skenZadaniZadni}{specimen2.pdf}
 \newcommand{\keyword}{foo, bar}
+\newcommand{\abstrEN}{Some abstract}
 
 
 \newcommand{\makeAbstract}{
@@ -475,8 +476,8 @@
     {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
    \\[1em]
     & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
-    % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
+    {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
   
     {\em Title:} & ~\\
     \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
@@ -539,4 +540,8 @@
 
 \newcommand{\keywords}[1]{
   \renewcommand{\keyword}{#1}
+}
+
+\newcommand{\abstract}[1]{
+  \renewcommand{\abstrEN}{#1}
 }
