@@ -57,3 +57,11 @@
 
 \usepackage[printonlyused,footnote]{acronym}
 
+% TODO: pass language options from class here
+\usepackage[english]{babel} 
+
+% TODO: apply this according to language options
+\usepackage{indentfirst}
+
+
+% commands
