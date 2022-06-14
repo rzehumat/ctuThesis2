@@ -319,3 +319,72 @@
 \newcommand{\di}{Dopplerův institut}
 
 \newcommand{\logoCVUT}{\includegraphics{img/symbol_cvut_konturova_verze_cb.pdf}} % logo ČVUT -- podle grafického manuálu ČVUT platného od prosince 2016. Pokud nevyhovuje PDF-verze, tak použijte jinou variantu loga: https://www.cvut.cz/logo-a-graficky-manual -> "Symbol a logo ČVUT v Praze"). Pokud chcete logo úplně vynechat, zadejte místo "\includegraphics{...}" text "\vspace{35mm}"
+
+\renewcommand{\maketitle}{
+  \thispagestyle{empty}
+  
+  \begin{center}
+  	{\LARGE
+  		\skola\par
+  		\fakulta
+  	}
+      \vspace{10mm}
+  
+      \begin{tabular}{c}
+  		\tb{\katedra} \\[3pt]   
+  		\tb{Obor: \obor}\\
+      \end{tabular}
+  
+     \vspace{10mm} \logoCVUT \vspace{15mm} 
+  
+     {\huge \tb{\nazevcz}\par}
+     \vspace{5mm}   
+     {\huge \tb{\nazeven}\par}
+     
+     \vspace{15mm}
+     {\Large \MakeUppercase{\druh}}
+  
+     \vfill
+     {\large
+      \begin{tabular}{ll}
+      Vypracoval: & \autor\\
+      Vedoucí práce: & \vedouci\\
+      Rok: & \rok
+      \end{tabular}
+     }
+  \end{center}
+  
+  \clearpage{\pagestyle{empty}\cleardoublepage} % prázdná stránka za tou "titulní", bez čísla
+
+}
+
+\newcommand{\includeAssignment}{
+  %%%%%%%%%%%% ZADÁNÍ PRÁCE %%%%%%%%%%%%
+  % Zadání (podepsané děkanem!) musíte NASKENOVAT. Ideálně jako 2stránkové PDF (soubor "zadani_cele.pdf"). 
+  % Před svázáním to v jednom výtisku VYMĚNÍTE ZA ORIGINÁLNÍ ZADÁNÍ (podepsané děkanem fakulty)!
+  \newpage  % SEM NESAHEJTE!
+  \thispagestyle{empty} % SEM NESAHEJTE!
+  
+  %% zde podle toho, jak jste zadání naskenovali, VYBERTE variantu A, B nebo C:
+  %
+  % --- varianta A: zadání naskenované jako 2stránkové PDF:
+  \includepdf[pages={1}]{img/\skenZadaniPredni} % NAHRAĎTE správným souborem!
+  \includepdf[pages={1}]{img/\skenZadaniZadni}
+  %
+  %% --- varianta B: zadání naskenované jako jednotlivé stránky:
+  %\includepdf[pages={1}]{zadani1.pdf} % 1. strana zadání v PDF
+  %\includepdf[pages={1}]{zadani2.pdf} % 2. strana zadání v PDF
+  %
+  %% --- varianta C: zadání naskenované jako 2 samostatné obrázky:
+  %% 1. strana zadání
+  %\begin{center}
+  %     \includegraphics[width=1\textwidth]{zadani1.jpg}
+  %\end{center}
+  %% 2. strana zadání
+  %\newpage  % SEM NESAHEJTE!
+  %\thispagestyle{empty} % SEM NESAHEJTE!
+  %\begin{center}
+  %     \includegraphics[width=1\textwidth]{zadani2.jpg}
+  %\end{center}
+  
+}
