@@ -69,4 +69,32 @@
 
 \pagenumbering{arabic} % číslování stránek arabskými číslicemi
 
+% Depth of table of contents (ToC) (2 is RECOMMENDED, other are believed to be confusing and poorly arranged!
+% 0 = only parts and chapters are included in ToC
+% 1 = parts, chapters, sections
+% 2 = parts, chapters, sections, subsections
+% 3 = parts, chapters, sections, subsections, subsubsections
+\setcounter{tocdepth}{2}
+
+% Margins 
+\topmargin=-10mm      % horní okraj trochu menší
+\textwidth=150mm      % šířka textu na stránce
+\textheight=250mm     % "výška" textu na stránce
+
+% Font size
+\renewcommand\cftchapfont{\small\bfseries}
+\renewcommand\cftsecfont{\footnotesize}
+\renewcommand\cftsubsecfont{\footnotesize}
+
+\renewcommand\cftchappagefont{\small\bfseries}
+\renewcommand\cftsecpagefont{\footnotesize}
+\renewcommand\cftsubsecpagefont{\footnotesize}
+
+% Spacing
+\frenchspacing % za větou bude mezislovní mezera (v anglických textech je mezera za větou delší)
+\widowpenalty=1000 % "síla" zákazu vdov (= jeden řádek ze začátku odstavce na konci stránky)
+\clubpenalty=1000 % "síla" zákazu sirotků (= jeden řádek/slovo z konce odstavce samostatně na začátku stránky)
+\brokenpenalty=1000 % "síla" zákazu zlomu stránky za řádkem, který má na konci rozdělené slovo
+
+
 % commands
