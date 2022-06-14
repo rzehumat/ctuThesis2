@@ -449,6 +449,17 @@
 \newcommand{\konzultant}{Consultant Name}
 \newcommand{\pracovisteKonz}{Consultant Affiliation}
 
+\newcommand{\skola}{University Name}
+\newcommand{\fakulta}{Faculty Name}
+\newcommand{\katedra}{Department Name}
+\newcommand{\kde}{City}
+\newcommand{\obor}{Study major}
+\newcommand{\druh}{Generic academic work}
+\newcommand{\skenZadaniPredni}{specimen1.pdf}
+\newcommand{\skenZadaniZadni}{specimen2.pdf}
+\newcommand{\keyword}{foo, bar}
+
+
 \newcommand{\makeAbstract}{
   \newpage   % SEM NESAHEJTE!
   \thispagestyle{empty}   % SEM NESAHEJTE!
@@ -465,7 +476,7 @@
    \\[1em]
     & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
     \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
-    {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
   
     {\em Title:} & ~\\
     \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
@@ -495,4 +506,37 @@
 \newcommand{\consultant}[2]{
   \renewcommand{\konzultant}{#1}
   \renewcommand{\pracovisteKonz}{#2}
+}
+
+\newcommand{\university}[1]{
+  \renewcommand{\skola}{#1}
+}
+
+\newcommand{\faculty}[1]{
+  \renewcommand{\fakulta}{#1}
+}
+
+\newcommand{\department}[1]{
+  \renewcommand{\katedra}{#1}
+}
+
+\newcommand{\city}[1]{
+  \renewcommand{\kde}{#1}
+}
+
+\newcommand{\major}[1]{
+  \renewcommand{\obor}{#1}
+}
+
+\newcommand{\type}[1]{
+  \renewcommand{\druh}{#1}
+}
+
+\newcommand{\scanOfAssignment}[2]{
+  \renewcommand{\skenZadaniPredni}{#1}
+  \renewcommand{\skenZadaniZadni}{#2}
+}
+
+\newcommand{\keywords}[1]{
+  \renewcommand{\keyword}{#1}
 }
