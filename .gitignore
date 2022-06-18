@@ -10,3 +10,5 @@ aa.tex
 *.toc
 *.swp
 .vscode/
+*.pdf
+!main.pdf
