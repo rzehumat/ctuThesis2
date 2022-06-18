@@ -337,9 +337,10 @@
   
      \vspace{10mm} \logoCVUT \vspace{15mm} 
   
-     {\huge \tb{\nazevcz}\par}
+     % {\huge \tb{\nazevcz}\par}
+     {\huge \tb{\@title}\par}
      \vspace{5mm}   
-     {\huge \tb{\nazeven}\par}
+     % {\huge \tb{\nazeven}\par}
      
      \vspace{15mm}
      {\Large \MakeUppercase{\druh}}
@@ -347,9 +348,9 @@
      \vfill
      {\large
       \begin{tabular}{ll}
-      Vypracoval: & \autor\\
+      Vypracoval: & \@author\\
       Vedoucí práce: & \vedouci\\
-      Rok: & \rok
+      Rok: & \Year % \rok
       \end{tabular}
      }
   \end{center}
@@ -406,7 +407,7 @@
   \vspace{2em}  % SEM NESAHEJTE!
   \hspace{-0.5em}\begin{tabularx}{\textwidth}{X c}  % SEM NESAHEJTE!
   V \kde\ dne .................... &........................................ \\	% SEM NESAHEJTE!
-  	& \autor
+  	& \@author
   \end{tabularx}	% SEM NESAHEJTE!
 
 }
@@ -426,7 +427,7 @@
   \vspace{1em} % vertikální mezera
   \podekovani
   \begin{flushright}
-  \autor
+  \@author
   \end{flushright}  % <------- tady končí stránka s poděkováním
 
 }
@@ -467,21 +468,24 @@
   
   \begin{tabular}{ll}
     {\em Název práce:} & ~ \\
-    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazevcz}} \\[1em]
-    {\em Autor:} & \autor \\[1em]
-    {\em Studijní program:} & \program \\
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazevcz}} \\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}} \\[1em]
+    {\em Autor:} & \@author \\[1em]
+    % {\em Studijní program:} & \program \\
     {\em Obor:} & \obor \\
     {\em Druh práce:} & \druh \\[1em]
     {\em Vedoucí práce:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
     {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
    \\[1em]
-    & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
+    % & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
     % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
-    {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    {\em Klíčová slova:} & \odstavec{\delka}{\keyword} \\[2em]
   
     {\em Title:} & ~\\
-    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
-    {\em Author:} & \autor \\[1em]
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}\\[1em]
+    {\em Author:} & \@author \\[1em]
     \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
     {\em Key words:} & \odstavec{\delka}{\keyword}
   \end{tabular}
@@ -498,6 +502,8 @@
   \parskip=7pt
   \newpage % SEM NESAHEJTE!
 }
+
+\newcommand{\prohlaseni}{foo}
 
 \newcommand{\supervisor}[2]{
   \renewcommand{\vedouci}{#1}
@@ -545,3 +551,21 @@
 \newcommand{\abstract}[1]{
   \renewcommand{\abstrEN}{#1}
 }
+
+\newcommand{\proclamation}[1]{
+  \renewcommand{\prohlaseni}{#1}
+}
+
+\newcommand{\acknowledgement}[1]{
+  \renewcommand{\podekovani}{#1}
+}
+
+\newcommand{\podekovani}{bar}
+\newcommand{\style}[1]{}
+
+\newcommand{\Year}{9999}
+
+\renewcommand{\year}[1]{
+  \renewcommand{\Year}{#1}
+}
+
