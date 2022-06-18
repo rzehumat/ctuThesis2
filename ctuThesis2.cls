@@ -2,7 +2,13 @@
 
 \ProvidesClass{ctuThesis2}
 
-\LoadClass[a4paper,twoside,12pt]{book}
+% other options are assumed to be related to book package
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\ProcessOptions\relax
+
+
+
+\LoadClass{book}
 
 % necessary packages
 \usepackage[T1]{fontenc}    % kódování písma
