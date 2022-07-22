@@ -2,6 +2,55 @@
 
 \ProvidesClass{ctuThesis2}
 
+% languages
+%% TODO TODO continue here
+
+
+\DeclareOption{czech}{
+    % \PassOptionsToPackage{main=czech}{babel}
+    % \RequirePackage[czech]{babel}
+    \newcommand{\cvut}{České vysoké učení technické v Praze}
+    \newcommand{\fjfi}{Fakulta jaderná a fyzikálně inženýrská}
+    \newcommand{\fel}{Fakulta elektrotechnická}
+    \newcommand{\fit}{Fakulta informačních technologií}
+    
+    % FNSPE 
+    \newcommand{\km}{Katedra matematiky}
+    \newcommand{\kf}{Katedra fyziky}
+    \newcommand{\kvhj}{Katedra humanitních věd a jazyků}
+    \newcommand{\kipl}{Katedra inženýrství pevných látek}
+    \newcommand{\kfe}{Katedra fyzikální elektroniky}
+    \newcommand{\kmat}{Katedra materiálů}
+    \newcommand{\kjch}{Katedra jaderné chemie}
+    \newcommand{\kdaiz}{Katedra dozimetrie a aplikace ionizujícího záření}
+    \newcommand{\kjr}{Katedra jaderných reaktorů}
+    \newcommand{\ksi}{Katedra softwarového inženýrství}
+    \newcommand{\di}{Dopplerův institut}
+
+    \newcommand{\AreaWord}{Obor}
+    \newcommand{\YearWord}{Rok}
+    \newcommand{\SupervisorWord}{Vedoucí práce}
+    \newcommand{\AuthorWord}{Vypracoval}
+    \newcommand{\VU}{Výzkumný úkol}
+    \newcommand{\titleCZ}[1]{\renewcommand{\TitleCZ}{#1}}
+    \newcommand{\titleEN}[1]{\renewcommand{\TitleEN}{#1}}
+    \newcommand{\Title}{
+       {\huge \tb{\TitleCZ}\par}
+       \vspace{5mm}   
+       {\huge \tb{\TitleEN}\par}
+    }
+    \newcommand{\declarationWord}{Prohlášení}
+    \newcommand{\thanksWord}{Poděkování}
+    \newcommand{\declafault}{foo}
+    \newcommand{\town}[1]{\renewcommand{\inTownDay}{V #1 dne}}
+}
+
+\DeclareOption{english}{}
+\DeclareOption{slovak}{}
+
+
+
+
 % other options are assumed to be related to book package
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
@@ -9,67 +58,21 @@
 
 
 \LoadClass{book}
+% \usepackage[english]{babel}
 
+
+\input{template/packages.tex}
 % necessary packages
-\usepackage[T1]{fontenc}    % kódování písma
-\usepackage[nottoc]{tocbibind}      % citace
-\usepackage[utf8]{inputenc}     % vstupní znaková sada tohoto dokumentu: UTF-8
-\usepackage{makecell}
 
-\usepackage[resetfonts]{cmap}
-\usepackage{lmodern}
-\usepackage{xargs}
-\usepackage[title]{appendix}
-\usepackage{import}
-\usepackage[a4paper, hmarginratio=3:2]{geometry} % využití A4 stránky a nastavení okrajů (u vazby bude širší)
-\usepackage{upgreek}
-\usepackage{pdfpages} % pokud nemáte formulář "Zadání bak./dipl. práce" naskenovaný jako PDF, tak ZAKOMENTUJTE
-\usepackage[hidelinks,unicode]{hyperref} % v PDF budou klikací odkazy ("hidelinks" je nebude rámovat)
-\usepackage{emptypage}
-\usepackage{graphicx} % balíček pro vkládání rastrových grafických souborů (PNG apod.)
-%\usepackage{epsfig} % balíčky pro vkládání grafických souborů typu EPS
-\usepackage{float} % rozšířené možnosti umístění obrázků
-
-\usepackage[font=small,labelfont=bf]{caption}
-%\usepackage{caption} % pro popisky obrázků, tabulek atd.
-
-\usepackage{tabularx} % rozšířené možnosti tabulek
-
-\usepackage{listings}  % balíček vhodný pro ukázky zdrojového kódu v~textu práce/příloh. Nutno nastavit! http://ftp.cvut.cz/tex-archive/macros/latex/contrib/listings/listings.pdf
-\usepackage{amsmath} % balíček pro pokročilou matematickou sazbu
-\usepackage{amssymb}
-%\usepackage{color} % pro možnost barevného textu
-%\usepackage{fancybox} % umožňuje pokročilé rámečkování
-%\usepackage{minipage}
-%\usepackage{index} % nutno použít v případě tvorby rejstříku balíčkem makeindex
-%\newindex{default}{idx}{ind}{Rejstřík} % zavádí rejstřík v případě použití balíku index
-\usepackage{tocloft}
-\usepackage{paralist}
-
-% Proper bibliography
-\usepackage[style=iso-numeric, backend=biber, language=czech]{biblatex}
-\usepackage{csquotes}
-\usepackage{amsthm}
 \addbibresource{ref.bib}
 
 
-%% nice header style
-\usepackage{fancyhdr}
-
-%% elements, isotopes,...
-\usepackage[version=3]{mhchem}
-
-\usepackage{gensymb}
-
-\usepackage[printonlyused,footnote]{acronym}
 
 % TODO: pass language options from class here
-\usepackage[english]{babel} 
+% \usepackage[english]{babel} 
 % \usepackage[czech]{babel} 
 % \usepackage[slovak]{babel} 
 
-% TODO: apply this according to language options
-\usepackage{indentfirst}
 \newcommand{\stdindent}{\setlength{\parindent}{2em}}
 \newcommand{\stdskip}{\setlength{\parskip}{0em}}
 
@@ -304,25 +307,8 @@
 
 
 % CTU stuff
-\newcommand{\cvut}{České vysoké učení technické v~Praze}
 
 % CTU Faculties
-\newcommand{\fjfi}{Fakulta jaderná a fyzikálně inženýrská}
-\newcommand{\fel}{Fakulta elektrotechnická}
-\newcommand{\fit}{Fakulta informačních technologií}
-
-% FNSPE 
-\newcommand{\km}{Katedra matematiky}
-\newcommand{\kf}{Katedra fyziky}
-\newcommand{\kvhj}{Katedra humanitních věd a jazyků}
-\newcommand{\kipl}{Katedra inženýrství pevných látek}
-\newcommand{\kfe}{Katedra fyzikální elektroniky}
-\newcommand{\kmat}{Katedra materiálů}
-\newcommand{\kjch}{Katedra jaderné chemie}
-\newcommand{\kdaiz}{Katedra dozimetrie a aplikace ionizujícího záření}
-\newcommand{\kjr}{Katedra jaderných reaktorů}
-\newcommand{\ksi}{Katedra softwarového inženýrství}
-\newcommand{\di}{Dopplerův institut}
 
 \newcommand{\logoCVUT}{\includegraphics{img/symbol_cvut_konturova_verze_cb.pdf}} % logo ČVUT -- podle grafického manuálu ČVUT platného od prosince 2016. Pokud nevyhovuje PDF-verze, tak použijte jinou variantu loga: https://www.cvut.cz/logo-a-graficky-manual -> "Symbol a logo ČVUT v Praze"). Pokud chcete logo úplně vynechat, zadejte místo "\includegraphics{...}" text "\vspace{35mm}"
 
@@ -456,8 +442,8 @@
 \newcommand{\konzultant}{Consultant Name}
 \newcommand{\pracovisteKonz}{Consultant Affiliation}
 
-\newcommand{\skola}{University Name}
-\newcommand{\fakulta}{Faculty Name}
+\newcommand{\skola}{University}
+\newcommand{\fakulta}{Faculty}
 \newcommand{\katedra}{Department Name}
 \newcommand{\kde}{City}
 \newcommand{\obor}{Study major}
