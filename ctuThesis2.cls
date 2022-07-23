@@ -5,47 +5,8 @@
 % languages
 %% TODO TODO continue here
 
+\input{template/lngopt_cz.tex}
 
-\DeclareOption{czech}{
-    % \PassOptionsToPackage{main=czech}{babel}
-    % \RequirePackage[czech]{babel}
-    \newcommand{\cvut}{České vysoké učení technické v Praze}
-    \newcommand{\fjfi}{Fakulta jaderná a fyzikálně inženýrská}
-    \newcommand{\fel}{Fakulta elektrotechnická}
-    \newcommand{\fit}{Fakulta informačních technologií}
-    
-    % FNSPE 
-    \newcommand{\km}{Katedra matematiky}
-    \newcommand{\kf}{Katedra fyziky}
-    \newcommand{\kvhj}{Katedra humanitních věd a jazyků}
-    \newcommand{\kipl}{Katedra inženýrství pevných látek}
-    \newcommand{\kfe}{Katedra fyzikální elektroniky}
-    \newcommand{\kmat}{Katedra materiálů}
-    \newcommand{\kjch}{Katedra jaderné chemie}
-    \newcommand{\kdaiz}{Katedra dozimetrie a aplikace ionizujícího záření}
-    \newcommand{\kjr}{Katedra jaderných reaktorů}
-    \newcommand{\ksi}{Katedra softwarového inženýrství}
-    \newcommand{\di}{Dopplerův institut}
-
-    \newcommand{\AreaWord}{Obor}
-    \newcommand{\YearWord}{Rok}
-    \newcommand{\SupervisorWord}{Vedoucí práce}
-    \newcommand{\AuthorWord}{Vypracoval}
-    \newcommand{\VU}{Výzkumný úkol}
-    \newcommand{\titleCZ}[1]{\renewcommand{\TitleCZ}{#1}}
-    \newcommand{\titleEN}[1]{\renewcommand{\TitleEN}{#1}}
-    \newcommand{\Title}{
-       {\huge \tb{\TitleCZ}\par}
-       \vspace{5mm}   
-       {\huge \tb{\TitleEN}\par}
-    }
-    \newcommand{\declarationWord}{Prohlášení}
-    \newcommand{\thanksWord}{Poděkování}
-    \newcommand{\declafault}{foo}
-    \newcommand{\town}[1]{\renewcommand{\inTownDay}{V #1 dne}}
-}
-
-\DeclareOption{english}{}
 \DeclareOption{slovak}{}
 
 
@@ -178,7 +139,7 @@
   
       \begin{tabular}{c}
   		\tb{\katedra} \\[3pt]   
-  		\tb{Obor: \obor}\\
+  		\tb{\AreaWord: \obor}\\
       \end{tabular}
   
      \vspace{10mm} \logoCVUT \vspace{15mm} 
@@ -194,9 +155,9 @@
      \vfill
      {\large
       \begin{tabular}{ll}
-      Vypracoval: & \@author\\
-      Vedoucí práce: & \vedouci\\
-      Rok: & \Year % \rok
+      \AuthorWord: & \@author\\
+      \SupervisorWord: & \vedouci\\
+      \YearWord: & \Year % \rok
       \end{tabular}
      }
   \end{center}
@@ -245,14 +206,14 @@
   ~
   \vfill % prázdné místo. SEM NESAHEJTE!
   
-  \tb{Prohlášení} % SEM NESAHEJTE!
+  \tb{\DeclarationWord} % SEM NESAHEJTE!
   
   \vspace{1em} % vertikální mezera. SEM NESAHEJTE!
   \prohlaseni
   
   \vspace{2em}  % SEM NESAHEJTE!
   \hspace{-0.5em}\begin{tabularx}{\textwidth}{X c}  % SEM NESAHEJTE!
-  V \kde\ dne .................... &........................................ \\	% SEM NESAHEJTE!
+  \inTownDay .................... &........................................ \\	% SEM NESAHEJTE!
   	& \@author
   \end{tabularx}	% SEM NESAHEJTE!
 
@@ -268,7 +229,7 @@
   
   
   % -- následující kus kódu (do "%%%%%%%%%%%% ABSTRAKT") můžete odstranit, pokud nechcete psát poděkování:
-  \tb{Poděkování}
+  \tb{\ThanksWord}
   
   \vspace{1em} % vertikální mezera
   \podekovani
@@ -299,7 +260,6 @@
 \newcommand{\skola}{University}
 \newcommand{\fakulta}{Faculty}
 \newcommand{\katedra}{Department Name}
-\newcommand{\kde}{City}
 \newcommand{\obor}{Study major}
 \newcommand{\druh}{Generic academic work}
 \newcommand{\skenZadaniPredni}{specimen1.pdf}
@@ -373,9 +333,6 @@
   \renewcommand{\katedra}{#1}
 }
 
-\newcommand{\city}[1]{
-  \renewcommand{\kde}{#1}
-}
 
 \newcommand{\major}[1]{
   \renewcommand{\obor}{#1}
