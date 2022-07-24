@@ -11,8 +11,6 @@
 \input{template/lngopt_cz.tex}
 \input{template/lngopt_en.tex}
 
-\DeclareOption{slovak}{}
-
 
 
 
