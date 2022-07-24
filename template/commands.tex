@@ -148,3 +148,39 @@
 \renewcommand\_[2][1]{\ifmmode _{\textnormal{\scalebox{#1}{#2}}}\else\underscore#2\fi} %roman subscript
 \renewcommand\^[2][1]{\ifmmode ^{\textnormal{\scalebox{#1}{#2}}}\else\xor#2\fi} %roman superscript
 \def\smallind{0.8}
+
+%% Math aliases
+\newcommand{\mdef}[3]{
+	\begin{define}[#1]
+		\label{mdef:#2}
+		#3
+	\end{define}
+}
+
+\newcommand{\mtheor}[3]{
+	\begin{theorem}[#1]
+		\label{mtheor:#2}
+		#3
+	\end{theorem}
+}
+
+\newcommand{\mlemma}[3]{
+	\begin{lemma}[#1]
+		\label{mlemma:#2}
+		#3
+	\end{lemma}
+}
+
+\newcommand{\mcomm}[3]{
+	\begin{comment}[#1]
+		\label{mcomm:#2}
+		#3
+	\end{comment}
+}
+
+\newcommand{\mex}[2]{
+	\begin{example}
+		\label{mex:#1}
+		#2
+	\end{example}
+}
