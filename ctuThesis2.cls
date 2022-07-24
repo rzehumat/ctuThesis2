@@ -248,6 +248,8 @@
 
 \newcommand{\konzultant}{Consultant Name}
 \newcommand{\pracovisteKonz}{Consultant Affiliation}
+\newcommand{\secondKonzultant}{~}
+\newcommand{\pracovisteSecKonz}{~}
 
 \newcommand{\skola}{University}
 \newcommand{\fakulta}{Faculty}
@@ -281,9 +283,13 @@
   \renewcommand{\pracovisteVed}{#2}
 }
 
-\newcommand{\consultant}[2]{
+\newcommandx{\consultant}[2]{
   \renewcommand{\konzultant}{#1}
   \renewcommand{\pracovisteKonz}{#2}
+}
+\newcommand{\secondOne}[2]{
+  \renewcommand{\secondKonzultant}{#1}
+  \renewcommand{\pracovisteSecKonz}{#2}
 }
 
 \newcommand{\university}[1]{
