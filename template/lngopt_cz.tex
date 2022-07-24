@@ -22,6 +22,7 @@
     \newcommand{\AreaWord}{Obor}
     \newcommand{\YearWord}{Rok}
     \newcommand{\SupervisorWord}{Vedoucí práce}
+    \newcommand{\ConsultantWord}{Konzultant}
     \newcommand{\AuthorWord}{Vypracoval}
     \newcommand{\VU}{Výzkumný úkol}
     \newcommand{\titleCZ}[1]{\renewcommand{\TitleCZ}{#1}}
@@ -36,4 +37,34 @@
     \newcommand{\declafault}{foo}
     \newcommand{\inTownDay}{foo}
     \newcommand{\city}[1]{\renewcommand{\inTownDay}{V #1 dne}}
+    \newcommand{\TitleWord}{Název práce}
+    \newcommand{\ThesisType}{Druh práce}
+    \newcommand{\KeywordsWord}{Klíčová slova}
+\newcommand{\makeAbstract}{
+  \newpage   % SEM NESAHEJTE!
+  \thispagestyle{empty}   % SEM NESAHEJTE!
+  
+  \begin{tabular}{ll}
+    {\em \TitleWord:} & ~ \\
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}} \\[1em]
+    {\em \AuthorWord:} & \@author \\[1em]
+    % {\em Studijní program:} & \program \\
+    {\em \AreaWord:} & \obor \\
+    {\em \ThesisType:} & \druh \\[1em]
+    {\em \SupervisorWord:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
+    {\em \ConsultantWord:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
+   \\[1em]
+    % & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
+    % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    {\em \KeywordsWord:} & \odstavec{\delka}{\keyword} \\[2em]
+  
+    {\em Title:} & ~\\
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}\\[1em]
+    {\em Author:} & \@author \\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
+    {\em Keywords:} & \odstavec{\delka}{\keyword}
+  \end{tabular}
+}
 }

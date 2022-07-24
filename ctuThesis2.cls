@@ -6,6 +6,7 @@
 %% TODO TODO continue here
 
 \input{template/lngopt_cz.tex}
+\input{template/lngopt_en.tex}
 
 \DeclareOption{slovak}{}
 
@@ -268,34 +269,6 @@
 \newcommand{\abstrEN}{Some abstract}
 
 
-\newcommand{\makeAbstract}{
-  \newpage   % SEM NESAHEJTE!
-  \thispagestyle{empty}   % SEM NESAHEJTE!
-  
-  \begin{tabular}{ll}
-    {\em Název práce:} & ~ \\
-    % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazevcz}} \\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}} \\[1em]
-    {\em Autor:} & \@author \\[1em]
-    % {\em Studijní program:} & \program \\
-    {\em Obor:} & \obor \\
-    {\em Druh práce:} & \druh \\[1em]
-    {\em Vedoucí práce:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
-    {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
-   \\[1em]
-    % & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
-    % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
-    % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
-    {\em Klíčová slova:} & \odstavec{\delka}{\keyword} \\[2em]
-  
-    {\em Title:} & ~\\
-    % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}\\[1em]
-    {\em Author:} & \@author \\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
-    {\em Key words:} & \odstavec{\delka}{\keyword}
-  \end{tabular}
-}
 
 \newcommand{\makeTOC}{
   %%%%%%%%%%%% Obsah práce ... je generován AUTOMATICKY %%%%%%%%%%%%
