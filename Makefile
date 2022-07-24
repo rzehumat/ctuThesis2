@@ -2,13 +2,18 @@
 # Do we need all the files / haven't we forgotten any?
 # e.g. shouldn't we utilize some aux files?
 # could we utilize pdflatex -draftmode for faster compilation?
-main.pdf: main.tex ctuThesis2.cls addons/* img/* kapitoly/* main.bbl main.bcf main.blg
+main.pdf: main.tex ctuThesis2.cls addons/* img/* chapters/* main.bbl main.bcf main.blg
 	pdflatex main
 	pdflatex main
 
 # Do we really need all these three?
-main.blg main.bcf main.bbl: ref.bib
+main.blg main.bbl: ref.bib main.aux main.bcf
+	pdflatex main
 	biber main
+
+main.aux: main.tex chapters/* addons/* img/*
+	pdflatex main
+
 
 clean:
 	rm main.aux
