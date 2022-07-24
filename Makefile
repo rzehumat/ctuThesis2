@@ -9,3 +9,15 @@ main.pdf: main.tex ctuThesis2.cls addons/* img/* kapitoly/* main.bbl main.bcf ma
 # Do we really need all these three?
 main.blg main.bcf main.bbl: ref.bib
 	biber main
+
+clean:
+	rm main.aux
+	rm main.bbl
+	rm main.bcf
+	rm main.blg
+	rm main.lof
+	rm main.log
+	rm main.out
+	rm main.run.xml
+	rm main.toc
+	rm texput.log
