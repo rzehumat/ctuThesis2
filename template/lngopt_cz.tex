@@ -57,15 +57,17 @@
     {\em \ConsultantWord:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
    \\[1em]
     % & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em \AbstractWord:} ~ \abstrCZ  }} \\[1em]
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em \AbstractWord:} ~ \abstrEN  }} \\[1em]
     % {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
+    {\em \AbstractWord:} & \odstavec{\delka}{\abstrCZ} \\[2em]
     {\em \KeywordsWord:} & \odstavec{\delka}{\keyword} \\[2em]
   
     {\em Title:} & ~\\
     % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
     \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}\\[1em]
     {\em Author:} & \@author \\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
+    % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
+    {\em Abstract:} & \odstavec{\delka}{\abstrEN} \\
     {\em Keywords:} & \odstavec{\delka}{\keyword}
   \end{tabular}
 }
@@ -78,4 +80,9 @@
   \newtheorem{lemma}[define]{Lemma}
   \newtheorem{comment}{Poznámka}
   \newtheorem{example}{Příklad}
+
+  \newcommand{\abstract}[2]{
+    \renewcommand{\abstrCZ}{#1}
+    \renewcommand{\abstrEN}{#2}
+  }
 }

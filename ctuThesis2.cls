@@ -258,6 +258,7 @@
 \newcommand{\skenZadaniZadni}{specimen2.pdf}
 \newcommand{\keyword}{foo, bar}
 \newcommand{\abstrEN}{Some abstract}
+\newcommand{\abstrCZ}{Nějaký abstrakt}
 
 
 
@@ -315,9 +316,6 @@
   \renewcommand{\keyword}{#1}
 }
 
-\newcommand{\abstract}[1]{
-  \renewcommand{\abstrEN}{#1}
-}
 
 \newcommand{\proclamation}[1]{
   \renewcommand{\prohlaseni}{#1}
