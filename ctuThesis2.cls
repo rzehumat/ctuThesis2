@@ -1,6 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
 
 \ProvidesClass{ctuThesis2}
+\LoadClass{book}
+
+
 
 % languages
 %% TODO TODO continue here
@@ -17,14 +20,13 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 
+\input{template/packages.tex}
+% necessary packages
 
 
-\LoadClass{book}
 % \usepackage[english]{babel}
 
 
-\input{template/packages.tex}
-% necessary packages
 
 \addbibresource{ref.bib}
 
@@ -74,15 +76,16 @@
 \input{template/commands.tex}
 
 
+  \theoremstyle{definition}
+  % Mathematics "Defintion-Theorem-Proof"
+  \theoremstyle{definition}
+  \newtheorem{define}{Definice}[section]
+  \newtheorem{theorem}[define]{Věta}
+  \newtheorem{lemma}[define]{Lemma}
+  \newtheorem{comment}{Poznámka}
+  \newtheorem{example}{Příklad}
 
 
-% Mathematics "Defintion-Theorem-Proof"
-\theoremstyle{definition}
-\newtheorem{define}{Definice}[section]
-\newtheorem{theorem}[define]{Věta}
-\newtheorem{lemma}[define]{Lemma}
-\newtheorem{comment}{Poznámka}
-\newtheorem{example}{Příklad}
 
 %% Math aliases
 \newcommand{\mdef}[3]{
