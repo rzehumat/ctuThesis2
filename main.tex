@@ -1,6 +1,5 @@
 % TODO: add language options
-% TODO: remove the zombie code from here
-\documentclass[a4paper,twoside,12pt,czech]{ctuThesis2}
+\documentclass[a4paper,twoside,11pt,czech]{ctuThesis2}
 % TODO: this is only temporary solution
 \usepackage[czech]{babel}
 \author{John Goose}
@@ -47,6 +46,13 @@
 \abstract{Vy jste se zase kochal, co?}{
 Pellentesque congue aliquet nulla quis vestibulum. Aenean vitae porttitor nunc. Praesent imperdiet erat eget justo dictum tempus. Proin pulvinar metus eget arcu elementum blandit. Duis et lacus id tellus blandit eleifend. Vestibulum eleifend molestie scelerisque. Pellentesque convallis ex sed ipsum faucibus, in fermentum nunc dignissim. Nullam eu eros non enim mattis porttitor. Nunc maximus, elit placerat elementum faucibus, eros nisi rhoncus leo, a porttitor nisl ligula ac libero. Integer fermentum eget dolor id tempus.
   A decent abstract.
+\makeatletter
+\if@twoside
+napicu
+\else
+dobre
+\fi
+\makeatother
 }
 % \begin{abstract}
 %   Some neat abstract to attract readers.
@@ -82,8 +88,11 @@ Pellentesque congue aliquet nulla quis vestibulum. Aenean vitae porttitor nunc. 
 % }
 
 % style of page layout
-\style{fancy}
-% \style{plain}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
 
 \begin{document}
 

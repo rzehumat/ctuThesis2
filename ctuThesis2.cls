@@ -326,7 +326,6 @@
 }
 
 \newcommand{\podekovani}{bar}
-\newcommand{\style}[1]{}
 
 \newcommand{\Year}{9999}
 
