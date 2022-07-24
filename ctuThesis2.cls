@@ -8,6 +8,8 @@
 % languages
 %% TODO TODO continue here
 
+\input{template/packages.tex}
+% necessary packages
 \input{template/lngopt_cz.tex}
 \input{template/lngopt_en.tex}
 
@@ -18,8 +20,6 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 
-\input{template/packages.tex}
-% necessary packages
 
 
 % \usepackage[english]{babel}
@@ -72,16 +72,6 @@
 % ==== Aliases, own commands ====
 
 \input{template/commands.tex}
-
-
-  \theoremstyle{definition}
-  % Mathematics "Defintion-Theorem-Proof"
-  \theoremstyle{definition}
-  \newtheorem{define}{Definice}[section]
-  \newtheorem{theorem}[define]{Věta}
-  \newtheorem{lemma}[define]{Lemma}
-  \newtheorem{comment}{Poznámka}
-  \newtheorem{example}{Příklad}
 
 
 
