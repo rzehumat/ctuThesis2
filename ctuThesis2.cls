@@ -287,7 +287,7 @@
   \renewcommand{\konzultant}{#1}
   \renewcommand{\pracovisteKonz}{#2}
 }
-\newcommand{\secondOne}[2]{
+\newcommand{\secondConsultant}[2]{
   \renewcommand{\secondKonzultant}{#1}
   \renewcommand{\pracovisteSecKonz}{#2}
 }

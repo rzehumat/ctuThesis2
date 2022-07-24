@@ -36,12 +36,25 @@
     \newcommand{\ThanksWord}{Poděkování}
     \newcommand{\declafault}{foo}
     \newcommand{\inTownDay}{foo}
-    \newcommand{\city}[1]{\renewcommand{\inTownDay}{V #1 dne}}
+    \newcommand{\city}[1]{\renewcommand{\inTownDay}{#1, }}
     \newcommand{\TitleWord}{Název práce}
     \newcommand{\ThesisType}{Druh práce}
     \newcommand{\KeywordsWord}{Klíčová slova}
     \newcommand{\AppendicesWord}{Přílohy}
     \newcommand{\AbstractWord}{Abstrakt}
+    \newcommand{\SecondTitle}{~}
+    \newcommand{\secondTitle}[1]{
+      \renewcommand{\SecondTitle}{#1}
+    }
+    \newcommand{\SecondKeywords}{~}
+    \newcommand{\secondKeywords}[1]{
+      \renewcommand{\SecondKeywords}{#1}
+    }
+    \newcommand{\SecondAbstract}{~}
+    \newcommand{\secondAbstract}[1]{
+      \renewcommand{\SecondAbstract}{#1}
+    }
+
 \newcommand{\makeAbstract}{
   \newpage   % SEM NESAHEJTE!
   \thispagestyle{empty}   % SEM NESAHEJTE!
@@ -66,11 +79,11 @@
   
     {\em Title:} & ~\\
     % \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
-    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}\\[1em]
+    \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \SecondTitle}}\\[1em]
     {\em Author:} & \@author \\[1em]
     % \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
-    {\em Abstract:} & \odstavec{\delka}{\abstrEN} \\
-    {\em Keywords:} & \odstavec{\delka}{\keyword}
+    {\em Abstract:} & \odstavec{\delka}{\SecondAbstract} \\
+    {\em Keywords:} & \odstavec{\delka}{\SecondKeywords}
   \end{tabular}
 }
   \newcommand{\AcronymsWord}{Seznam použitých zkratek}
@@ -83,8 +96,7 @@
   \newtheorem{comment}{Poznámka}
   \newtheorem{example}{Příklad}
 
-  \newcommand{\abstract}[2]{
+  \newcommand{\abstract}[1]{
     \renewcommand{\abstrCZ}{#1}
-    \renewcommand{\abstrEN}{#2}
   }
 }
