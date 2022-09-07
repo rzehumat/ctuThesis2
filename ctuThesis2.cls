@@ -113,7 +113,7 @@
   
   \vspace{2em}  
   \hspace{-0.5em}\begin{tabularx}{\textwidth}{X c} 
-  \inTownDay .................... &........................................ \\	
+  \inCityDay .................... &........................................ \\	
   	& \@author
   \end{tabularx}
 }
