@@ -162,7 +162,7 @@ For additional references (e.g. color settings, range of rows to list etc.) see 
  
 
 # Useful tools
-> Do not hurt yourself.
+> Make your life simpler
 1. [Detexify](https://detexify.kirelabs.org/classify.html) -- image recognition -- searches LaTeX commands for handwritten symbol.
 2. [TablesGenerator](https://www.tablesgenerator.com/) converts Excel table into LaTeX one.
 3. [CitacePRO](https://www.citacepro.com/) (access via CTU account) generates BibLaTeX entries from ISBN, DOI or other identificator.
