@@ -54,14 +54,14 @@ rm -rf .git
 
 # Compilation
 - Overleaf -- just use the `Recompile` button
-- Linux -- `pdflatex` for the document and `biber` for bibliography are recommended
-    - use:
+- Linux 
+    - `latexmk` is always the best option; to avoid errors with graphics, use `latexmk --latex=pdflatex main`
+    - `pdflatex` for the document and `biber` for bibliography are recommended, use:
 ```
 pdflatex main
 biber main
 pdflatex main
 ```
-    - `latexmk` is always the best option, but it does not work here (to be fixed)
 
 # Special commands
 There are some own commands or aliases to make LaTeX syntax shorter or to reduce the code (DRY principle). They are located in _commands.tex_.
