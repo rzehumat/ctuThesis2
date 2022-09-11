@@ -1,6 +1,6 @@
-Alternative thesis template. Optimized for FNSPE CTU, but could be used anywhere else just by modifying university name etc.
+Alternative template for thesis in LaTeX. Optimized for FNSPE CTU, but could be used anywhere else just by modifying university name etc.
 
-It is not my piece of work and therefore I do not have any author rights.
+This is not my original work -- it has been created by rewriting the template from KSI FNSPE (link below)
 
 This template is not an official one, there are more available at CTU. Ask your supervisor, which one should you use! For other CTU templates for theses, see
 - [Tomas Hejda's template for CTU theses](https://github.com/tohecz/ctuthesis), 
@@ -9,10 +9,13 @@ This template is not an official one, there are more available at CTU. Ask your 
 - [Ondrej Guth's template for CTU FIT](https://www.overleaf.com/latex/templates/fit-ctu-dissertation-template/bjrwpqfztbjf). 
 
 
-# Download
+# Download and installation
 
 ## Overleaf
-- New project -> Templates - View all -> find "ctuThesis2" or [use link](https://www.overleaf.com/latex/templates/ctuthesis2/kbpgrdmtmggx)
+- Download this GitHub project by button `Code -> Download ZIP`
+- In Overleaf, log in, select `New Project` -> `Upload Project` and select the `zip` file
+
+Remark: Currently available template in the Overleaf Template Gallery is outdated and will be updated soon.
 
 ## Linux
 - Green button "Code" --> Download ZIP
@@ -25,7 +28,7 @@ cd my_dir
 - OR second option: 
 
 ```
-cd my\dir
+cd my_dir
 git clone https://github.com/rzehumat/ctuThesis2.git
 rm -rf .git
 ```
@@ -33,18 +36,32 @@ rm -rf .git
 ## Windows
 - Green button `Code` -> Download ZIP
     - unzip it
- 
-# Working with the teplate (manual for beginners)
-> KISS: Keep it simple, stupid.
-> Stay DRY.
 
-1. edit _config.tex_ according to your thesis assignment
-2. (optional) in case of cz/sk woman, check correct suffixes (e.g. in "Prohlášení")
-3. start writing
+ 
+# Writing
+
+1. update `main.tex` with values specific to your assignment
+  - currently available languages are Czech and English; Slovak is to be added
+  - if your language is Czech, fill in the translations into `*EN` commands, if your language is English, comment them out
+2. start writing
     - I recommend writing each chapter in separate file (in order to produce PDF fast)
-    - add file names to _main.tex_ by command `\include` (filename without suffix _.tex_)
-    - for the sake of readability, it's recommended to store chapter source files in _kapitoly\/_
-    - all packages to be imported are located in _packages.tex_
+    - add file names to `main.tex` by command `\include` (filename without suffix `.tex`)
+    - for the sake of readability, it's recommended to store chapter source files in `chapters/`
+    - all packages to be imported are located in `template/packages.tex`
+        - feel free to add your packages to `template/packages.tex` or to `main.tex`, whatever fits you better
+    - there are some special commands defined in `template/commands.tex` (list below), feel free to use them / modify to make your writing easier
+    - add your bibliography entries in `BibTeX` or `BibLaTeX` format to `ref.bib`
+
+# Compilation
+- Overleaf -- just use the `Recompile` button
+- Linux -- `pdflatex` for the document and `biber` for bibliography are recommended
+    - use:
+```
+pdflatex main
+biber main
+pdflatex main
+```
+    - `latexmk` is always the best option, but it does not work here (to be fixed)
 
 # Special commands
 There are some own commands or aliases to make LaTeX syntax shorter or to reduce the code (DRY principle). They are located in _commands.tex_.
@@ -152,12 +169,3 @@ For additional references (e.g. color settings, range of rows to list etc.) see 
 4. [Mendeley](https://www.mendeley.com) -- citation manager software by Elsevier, provides functionality similar to CitacePRO.
 5. `Export` button at Google Scholar or ScienceDirect etc. -- automatically generates BibTeX entries.
 
-
-# Known issues
-- Woman settings not set
-- definice, věta, důkaz
-- style of acronyms
-- better math, better units
-- zminit, že musí spustit biber na literaturu a že zobrazuje jen citovanou
-- zminit, že je optimalizovane pro pdflatex
-- department acronyms incomplete
