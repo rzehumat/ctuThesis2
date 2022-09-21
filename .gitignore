@@ -2,9 +2,13 @@
 *.bbl
 *.bcf
 *.blg
+*.fdb_latexmk
+*.fls
 *.lof
 *.log
 *.out
-aa.tex
 *.run.xml
 *.toc
+*.swp
+.vscode/
+!main.pdf

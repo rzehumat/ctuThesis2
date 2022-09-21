@@ -1,0 +1,59 @@
+\DeclareOption{english}{
+  % translations
+    \newcommand{\AbstractWord}{Abstract}
+    \newcommand{\AcronymsWord}{List of Acronyms}
+    \newcommand{\AppendicesWord}{Appendices}
+    \newcommand{\AreaWord}{Study major}
+    \newcommand{\AuthorWord}{Author}
+    \newcommand{\ConsultantWord}{Consultant}
+    \newcommand{\DeclarationWord}{Declaration}
+    \newcommand{\KeywordsWord}{Keywords}
+    \newcommand{\SupervisorWord}{Supervisor}
+    \newcommand{\ThanksWord}{Acknowledgement}
+    \newcommand{\ThesisTypeWord}{Type}
+    \newcommand{\TitleWord}{Title}
+    \newcommand{\YearWord}{Year}
+
+
+    % infotable at the beginning
+    \newcommand{\makeAbstract}{
+      \newpage
+      \thispagestyle{empty}
+
+      \begin{tabular}{ll}
+        {\em \TitleWord:} & ~ \\
+        \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}} \\[1em]
+        {\em \AuthorWord:} & \@author \\[1em]
+        {\em \AreaWord:} & \obor \\
+        {\em \ThesisTypeWord:} & \druh \\[1em]
+        {\em \SupervisorWord:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
+        {\em \ConsultantWord:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}
+       \\[1em]
+         & \odstavec{\delka}{\secondKonzultant \\ \pracovisteSecKonz}
+       \\[1em]
+        {\em \AbstractWord:} & \odstavec{\delka}{\abstrEN} \\[2em]
+        {\em \KeywordsWord:} & \odstavec{\delka}{\keyword} \\[2em]
+      
+      \end{tabular}
+    }
+
+    % Mathematics "Defintion-Theorem-Proof"
+    \theoremstyle{definition}
+    \newtheorem{define}{Definition}[section]
+    \newtheorem{theorem}[define]{Theorem}
+    \newtheorem{lemma}[define]{Lemma}
+    \newtheorem{comment}{Comment}
+    \newtheorem{example}{Example}
+
+    % misc
+    \newcommand{\abstract}[1]{
+      \renewcommand{\abstrEN}{#1}
+    }
+
+    \newcommand{\inCityDay}{foo}
+    \newcommand{\city}[1]{\renewcommand{\inCityDay}{#1, }}
+
+    \newcommand{\BP}{Bachelor thesis}
+    \newcommand{\VU}{Research project}
+    \newcommand{\DP}{Master thesis}
+}

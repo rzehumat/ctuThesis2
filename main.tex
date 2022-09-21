@@ -1,193 +1,101 @@
-\documentclass[a4paper,twoside,12pt]{book}
+% choose language here
+\documentclass[a4paper,twoside,12pt,english]{ctuThesis2}
+\usepackage[english]{babel}
 
+\author{Student Hardworking}
+\supervisor{Supervisor Strict}{A very famous institution}
 
-\input{packages.tex}
-\input{config.tex}
-\input{commands.tex}
+% Consultant and second consultant. Comment out to ommit.
+\consultant{Consultant Consulting}{An even more famous group}
+\secondConsultant{Consultant Second}{Not that famous group}
 
+% Comment out `titleEN` if your language is english
+\title{O zvířatech}
+% \titleEN{About animals}
+
+\university{Forest university}
+\faculty{School of Deer}
+\department{Department of domestication}
+
+% CZ/SK: Použijte 6. pád
+\city{Praha}
+\year{2022}
+
+% your study major 
+\major{Domestication}
+
+% choose one of `BP`, `VU` or `DP` or rename it by whatever you like
+\type{\BP}
+
+\scanOfAssignment{specimen1.pdf}{specimen2.pdf}
+
+% use `keywordsEN` for english translation, comment out if not needed
+\keywords{chov, krmení}
+% \keywordsEN{husbandry, feeding}
+
+% use `abstractEN` for english translation, comment out if not needed
+\abstract{
+Pellentesque congue aliquet nulla quis vestibulum. Aenean vitae porttitor nunc. Praesent imperdiet erat eget justo dictum tempus. Proin pulvinar metus eget arcu elementum blandit. Duis et lacus id tellus blandit eleifend. Vestibulum eleifend molestie scelerisque. Pellentesque convallis ex sed ipsum faucibus, in fermentum nunc dignissim. Nullam eu eros non enim mattis porttitor. Nunc maximus, elit placerat elementum faucibus, eros nisi rhoncus leo, a porttitor nisl ligula ac libero. Integer fermentum eget dolor id tempus.
+  A decent abstract.
+}
+% \abstractEN{Translation of the abstract}
+
+% use e.g. 
+% Prohlašuji, že jsem svou bakalářskou práci vypracoval samostatně a použil jsem pouze podklady (literaturu, projekty, SW atd.) uvedené v přiloženém seznamu.
+% I hereby admit that this work is original and all used resources have been cited in bibliography. 
+\proclamation{Some proclamation of originality}
+
+% use e.g.
+% Autor děkuje vedoucímu práce za cenné rady.
+% The author is grateful to the supervisor for valuable  
+\acknowledgement{
+  Some acknowledgement
+}
+
+% style of page layout
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
 
 \begin{document}
 
+% frontmatter changes page numbers to roman etc
 \frontmatter
 
-\thispagestyle{empty}
+\maketitle
 
-\begin{center}
-	{\LARGE
-		\skola\par
-		\fakulta
-	}
-    \vspace{10mm}
+\includeAssignment
 
-    \begin{tabular}{c}
-		\tb{\katedra} \\[3pt]   
-		\tb{Obor: \obor}\\
-    \end{tabular}
+\makeProclamation
 
-   \vspace{10mm} \logoCVUT \vspace{15mm} 
+\makeAcknowledgement
 
-   {\huge \tb{\nazevcz}\par}
-   \vspace{5mm}   
-   {\huge \tb{\nazeven}\par}
-   
-   \vspace{15mm}
-   {\Large \MakeUppercase{\druh}}
+\makeAbstract
 
-   \vfill
-   {\large
-    \begin{tabular}{ll}
-    Vypracoval: & \autor\\
-    Vedoucí práce: & \vedouci\\
-    Rok: & \rok
-    \end{tabular}
-   }
-\end{center}
+\makeTOC
 
-\clearpage{\pagestyle{empty}\cleardoublepage} % prázdná stránka za tou "titulní", bez čísla
-
-%%%%%%%%%%%% ZADÁNÍ PRÁCE %%%%%%%%%%%%
-% Zadání (podepsané děkanem!) musíte NASKENOVAT. Ideálně jako 2stránkové PDF (soubor "zadani_cele.pdf"). 
-% Před svázáním to v jednom výtisku VYMĚNÍTE ZA ORIGINÁLNÍ ZADÁNÍ (podepsané děkanem fakulty)!
-\newpage  % SEM NESAHEJTE!
-\thispagestyle{empty} % SEM NESAHEJTE!
-
-%% zde podle toho, jak jste zadání naskenovali, VYBERTE variantu A, B nebo C:
-%
-% --- varianta A: zadání naskenované jako 2stránkové PDF:
-\includepdf[pages={1}]{img/\skenZadaniPredni} % NAHRAĎTE správným souborem!
-\includepdf[pages={1}]{img/\skenZadaniZadni}
-%
-%% --- varianta B: zadání naskenované jako jednotlivé stránky:
-%\includepdf[pages={1}]{zadani1.pdf} % 1. strana zadání v PDF
-%\includepdf[pages={1}]{zadani2.pdf} % 2. strana zadání v PDF
-%
-%% --- varianta C: zadání naskenované jako 2 samostatné obrázky:
-%% 1. strana zadání
-%\begin{center}
-%     \includegraphics[width=1\textwidth]{zadani1.jpg}
-%\end{center}
-%% 2. strana zadání
-%\newpage  % SEM NESAHEJTE!
-%\thispagestyle{empty} % SEM NESAHEJTE!
-%\begin{center}
-%     \includegraphics[width=1\textwidth]{zadani2.jpg}
-%\end{center}
-
-
-%%%%%%%%%%%% Prohlášení -- SEM NESAHEJTE! Generuje se automaticky z výše nastavených maker \kde{} a \prohlaseni{}. %%%%%%%%%%%%
-\newpage % SEM NESAHEJTE!
-\thispagestyle{empty}  % SEM NESAHEJTE!
-
-% SEM NESAHEJTE!
-~
-\vfill % prázdné místo. SEM NESAHEJTE!
-
-\tb{Prohlášení} % SEM NESAHEJTE!
-
-\vspace{1em} % vertikální mezera. SEM NESAHEJTE!
-\prohlaseni
-
-\vspace{2em}  % SEM NESAHEJTE!
-\hspace{-0.5em}\begin{tabularx}{\textwidth}{X c}  % SEM NESAHEJTE!
-V \kde\ dne .................... &........................................ \\	% SEM NESAHEJTE!
-	& \autor
-\end{tabularx}	% SEM NESAHEJTE!
-
-
-%%%%%%%%%%%% Poděkování  %%%%%%%%%%%%
-\newpage
-\thispagestyle{empty}
-
-~
-\vfill % prázdné místo
-
-
-% -- následující kus kódu (do "%%%%%%%%%%%% ABSTRAKT") můžete odstranit, pokud nechcete psát poděkování:
-\tb{Poděkování}
-
-\vspace{1em} % vertikální mezera
-\podekovani
-\begin{flushright}
-\autor
-\end{flushright}  % <------- tady končí stránka s poděkováním
-
-
-%%%%%%%%%%%% ABSTRAKT atp. Je generován AUTOMATICKY podle maker nastavených na začátku souboru) %%%%%%%%%%%% 
-\newpage   % SEM NESAHEJTE!
-\thispagestyle{empty}   % SEM NESAHEJTE!
-
-% příprava:    (na následujících 8 řádků NESAHEJTE!)
-\newbox\odstavecbox
-\newlength\vyskaodstavce
-\newcommand\odstavec[2]{%
-    \setbox\odstavecbox=\hbox{%
-         \parbox[t]{#1}{#2\vrule width 0pt depth 4pt}}%
-    \global\vyskaodstavce=\dp\odstavecbox
-    \box\odstavecbox}
-\newcommand{\delka}{120mm} % šířka textů ve 2. sloupci tabulky
-
-% použití přípravy:    % dovnitř "tabular" vůbec NESAHEJTE!
-\begin{tabular}{ll}
-  {\em Název práce:} & ~ \\
-  \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazevcz}} \\[1em]
-  {\em Autor:} & \autor \\[1em]
-  {\em Studijní program:} & \program \\
-  {\em Obor:} & \obor \\
-  {\em Druh práce:} & \druh \\[1em]
-  {\em Vedoucí práce:} & \odstavec{\delka}{\vedouci\\ \pracovisteVed} \\
-  {\em Konzultant:} & \odstavec{\delka}{\konzultant \\ \pracovisteKonz}  % VYMAŽTE text "-- %" v případě, že jste neměli konzultanta
- \\[1em]
-  & \odstavec{\delka}{\konzultantt \\ \pracovisteKonzt} \\[1em]
-  \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstrakt:} ~ \abstrCZ  }} \\[1em]
-  {\em Klíčová slova:} & \odstavec{\delka}{\klicova} \\[2em]
-
-  {\em Title:} & ~\\
-  \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \nazeven}}\\[1em]
-  {\em Author:} & \autor \\[1em]
-  \multicolumn{2}{l}{\odstavec{\textwidth}{{\em Abstract:} ~ \abstrEN  }} \\[1em]
-  {\em Key words:} & \odstavec{\delka}{\keyword}
-\end{tabular}
-
-
-
-%%%%%%%%%%%% Obsah práce ... je generován AUTOMATICKY %%%%%%%%%%%%
-
-\newpage  % SEM NESAHEJTE!
-\parskip=0pt
-\begin{small}
-\tableofcontents % SEM NESAHEJTE!
-\end{small}
-\parskip=7pt
-\newpage % SEM NESAHEJTE!
-
-
-%--------------------------------------------------------
-%|         Zde začíná SAMOTNÁ PRÁCE (text)              |
-%--------------------------------------------------------
-
+% the text itself begins here
 \include{addons/acronyms}
+
 \listoffigures
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% normal numbering by arabic numbers
 \mainmatter
 
 \stdindent
 \stdskip
 
-\include{kapitoly/uvod}
-\include{kapitoly/neco}
-\include{kapitoly/zaver}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{chapters/uvod}
+\include{chapters/neco}
+\include{chapters/zaver}
 
-
-
-%%%%%%%%%%%% SEZNAM POUŽITÝCH ZDROJŮ (LITERATURA) %%%%%%%%%%%%
 \printbibliography[heading=bibintoc]
 
-%%%%%%%%%%%% PŘÍLOHY PRÁCE %%%%%%%%%%%%
-\newpage % SEM NESAHEJTE!
-\appendix % SEM NESAHEJTE!
+\newpage
+\appendix
 
 \include{addons/appendix}
 
-\end{document} % SEM NESAHEJTE! Konec.
+\end{document}

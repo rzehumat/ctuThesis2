@@ -1,0 +1,108 @@
+\DeclareOption{czech}{
+  % translations
+  \newcommand{\AbstractWord}{Abstrakt}
+  \newcommand{\AcronymsWord}{Seznam použitých zkratek}
+  \newcommand{\AppendicesWord}{Přílohy}
+  \newcommand{\AreaWord}{Obor}
+  \newcommand{\AuthorWord}{Vypracoval}
+  \newcommand{\ConsultantWord}{Konzultant}
+  \newcommand{\DeclarationWord}{Prohlášení}
+  \newcommand{\KeywordsWord}{Klíčová slova}
+  \newcommand{\SupervisorWord}{Vedoucí práce}
+  \newcommand{\ThanksWord}{Poděkování}
+  \newcommand{\ThesisTypeWord}{Druh práce}
+  \newcommand{\TitleWord}{Název práce}
+  \newcommand{\YearWord}{Rok}
+
+  % english translations (for second table)
+  \newcommand{\AbstractEN}{~}
+  \newcommand{\abstractEN}[1]{
+    \renewcommand{\AbstractEN}{#1}
+  }
+
+  \newcommand{\KeywordsEN}{~}
+  \newcommand{\keywordsEN}[1]{
+    \renewcommand{\KeywordsEN}{#1}
+  }
+
+  \newcommand{\TitleEN}{~}
+  \newcommand{\titleEN}[1]{
+    \renewcommand{\TitleEN}{#1}
+  }
+
+  % page with table of basic information
+  \newcommand{\makeAbstract}{
+    \newpage
+    \thispagestyle{empty}
+
+    \begin{tabular}{ll}
+      {\em \TitleWord:}      & ~                                      \\
+      \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \@title}}      \\[1em]
+      {\em \AuthorWord:}     & \@author                               \\[1em]
+      {\em \AreaWord:}       & \obor                                  \\
+      {\em \ThesisTypeWord:}     & \druh                                  \\[1em]
+      {\em \SupervisorWord:} & \odstavec{\delka}{\vedouci             \\ \pracovisteVed} \\
+      {\em \ConsultantWord:} & \odstavec{\delka}{\konzultant          \\ \pracovisteKonz}
+      \\[1em]
+                             & \odstavec{\delka}{\secondKonzultant    \\ \pracovisteSecKonz}
+      \\[1em]
+      {\em \AbstractWord:}   & \odstavec{\delka}{\abstrCZ}            \\[2em]
+      {\em \KeywordsWord:}   & \odstavec{\delka}{\keyword}            \\[2em]
+
+      {\em Title:}           & ~                                      \\
+      \multicolumn{2}{l}{\odstavec{\textwidth}{\textbf \TitleEN}} \\[1em]
+      {\em Author:}          & \@author                               \\[1em]
+      {\em Abstract:}        & \odstavec{\delka}{\AbstractEN}     \\
+      {\em Keywords:}        & \odstavec{\delka}{\KeywordsEN}
+    \end{tabular}
+  }
+
+  % Mathematics "Defintion-Theorem-Proof"
+  \theoremstyle{definition}
+  \newtheorem{define}{Definice}[section]
+  \newtheorem{theorem}[define]{Věta}
+  \newtheorem{lemma}[define]{Lemma}
+  \newtheorem{comment}{Poznámka}
+  \newtheorem{example}{Příklad}
+
+  % miscallanous
+  \newcommand{\abstract}[1]{
+    \renewcommand{\abstrCZ}{#1}
+  }
+
+  \newcommand{\declafault}{foo}
+
+  \newcommand{\inCityDay}{V Městě dne Datum}
+  \newcommand{\city}[1]{\renewcommand{\inCityDay}{V #1 dne }}
+
+  % \newcommand{\titleCZ}[1]{\renewcommand{\TitleCZ}{#1}}
+  % \newcommand{\titleEN}[1]{\renewcommand{\TitleEN}{#1}}
+  \newcommand{\Title}{
+    {\huge \tb{\TitleCZ}\par}
+    \vspace{5mm}
+    {\huge \tb{\TitleEN}\par}
+  }
+
+  \newcommand{\BP}{Bakalářská práce}
+  \newcommand{\VU}{Výzkumný úkol}
+  \newcommand{\DP}{Diplomová práce}
+
+  % CTU faculties
+  \newcommand{\cvut}{České vysoké učení technické v Praze}
+  \newcommand{\fjfi}{Fakulta jaderná a fyzikálně inženýrská}
+  \newcommand{\fel}{Fakulta elektrotechnická}
+  \newcommand{\fit}{Fakulta informačních technologií}
+
+  % FNSPE 
+  \newcommand{\km}{Katedra matematiky}
+  \newcommand{\kf}{Katedra fyziky}
+  \newcommand{\kvhj}{Katedra humanitních věd a jazyků}
+  \newcommand{\kipl}{Katedra inženýrství pevných látek}
+  \newcommand{\kfe}{Katedra fyzikální elektroniky}
+  \newcommand{\kmat}{Katedra materiálů}
+  \newcommand{\kjch}{Katedra jaderné chemie}
+  \newcommand{\kdaiz}{Katedra dozimetrie a aplikace ionizujícího záření}
+  \newcommand{\kjr}{Katedra jaderných reaktorů}
+  \newcommand{\ksi}{Katedra softwarového inženýrství}
+  \newcommand{\di}{Dopplerův institut}
+}
