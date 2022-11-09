@@ -55,7 +55,7 @@ rm -rf .git
 # Compilation
 - Overleaf -- just use the `Recompile` button
 - Linux 
-    - `latexmk` is always the best option; to avoid errors with graphics, use `latexmk --latex=pdflatex main`
+    - `latexmk` is always the best option; to avoid errors with graphics, use `latexmk -pdf main`
     - `pdflatex` for the document and `biber` for bibliography are recommended, use:
 ```
 pdflatex main
